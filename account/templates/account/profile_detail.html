@@ -1,0 +1,12 @@
+{% extends 'account/dashboard.html' %}
+{% block title %}
+Perfil de {{ profile.username }}
+{% endblock %}
+
+{% block content-left %}
+<p>Nombre de usuario: {{ profile.username }}</p>
+<p>Nombre: {{ profile.first_name }}</p>
+<p>Apellidos: {{ profile.last_name }}</p>
+    <a href="{% url 'account:update_user' profile.pk %}" class="btn">Editar</a>
+    <a href="{% url 'account:delete_user' profile.pk %}" class="btn red">Eliminar</a>
+{% endblock %}

@@ -44,8 +44,8 @@
                 <a href="#"><span class="white-text email">{{ profile.email }}</span></a>
             </div>
         </li>
-        <li><a href="#"><i class="material-icons">mode_edit</i>Editar perfil</a></li>
-        <li><a href="#"><i class="material-icons">account_circle</i>Ver perfil</a></li>
+        <li><a href="{% url 'account:update_user' profile.pk %}"><i class="material-icons">mode_edit</i>Editar perfil</a></li>
+        <li><a href="{% url 'account:detail_user' profile.pk %}"><i class="material-icons">account_circle</i>Ver perfil</a></li>
         <li>
             <div class="divider"></div>
         </li>

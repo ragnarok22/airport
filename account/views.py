@@ -7,21 +7,20 @@ from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.utils import timezone
 from django.views import View
-from django.views.generic import FormView, RedirectView, TemplateView
+from django.views.generic import FormView, RedirectView, TemplateView, UpdateView, CreateView, ListView, DeleteView, \
+    DetailView
 
 from account.models import Profile
 from event.models import Event
 
 
 class LoginRequiredMixin(View):
-
     @method_decorator(login_required(login_url=reverse_lazy('account:login')))
     def dispatch(self, request, *args, **kwargs):
         return super(LoginRequiredMixin, self).dispatch(request, *args, **kwargs)
 
 
 class AnonymousRequiredMixin(View):
-
     def get_success_url(self):
         return self.request.GET.get('next', reverse_lazy('dashboard'))
 
@@ -57,6 +56,50 @@ class DashboardView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(DashboardView, self).get_context_data(**kwargs)
-        context['event_list'] = Event.objects.filter(Q(date__day=timezone.now().day) & Q(date__month=timezone.now().month))
+        context['event_list'] = Event.objects.filter(
+            Q(date__day=timezone.now().day) & Q(date__month=timezone.now().month)
+        )
         context['profile'] = Profile.objects.get(username=self.request.user.username)
         return context
+
+
+class ProfileUpdateView(UpdateView):
+    model = Profile
+    fields = '__all__'
+
+    def get_success_url(self):
+        return reverse_lazy('account:detail_user', kwargs={'pk': self.object.pk})
+
+
+class ProfileCreateView(CreateView):
+    model = Profile
+    fields = '__all__'
+    success_url = reverse_lazy('account:list_user')
+
+    def get_context_data(self, **kwargs):
+        context = super(ProfileCreateView, self).get_context_data(**kwargs)
+        context['event_list'] = Event.objects.filter(
+            Q(date__day=timezone.now().day) & Q(date__month=timezone.now().month)
+        )
+        context['profile'] = Profile.objects.get(username=self.request.user.username)
+        return context
+
+
+class ProfileListView(ListView):
+    model = Profile
+
+    def get_context_data(self, **kwargs):
+        context = super(ProfileListView, self).get_context_data(**kwargs)
+        context['event_list'] = Event.objects.filter(
+            Q(date__day=timezone.now().day) & Q(date__month=timezone.now().month)
+        )
+        context['profile'] = Profile.objects.get(username=self.request.user.username)
+        return context
+
+
+class ProfileDetailView(DetailView):
+    model = Profile
+
+
+class ProfileDeleteView(DeleteView):
+    model = Profile
