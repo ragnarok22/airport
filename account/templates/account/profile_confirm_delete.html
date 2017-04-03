@@ -1,0 +1,11 @@
+{% extends 'account/dashboard.html' %}
+
+{% block content-down %}
+    <h2>Estás seguro que desea borrar el usuario {{ profile.username }}</h2>
+    <h3>Nombre completo: {{ profile.get_full_name }}</h3>
+    <form method="post">
+        {% csrf_token %}
+        <input type="submit" class="btn red" value="Aceptar">
+        <a href="{% url 'account:detail_user' profile.pk %}" class="btn">Cancelar</a>
+    </form>
+{% endblock %}

@@ -1,0 +1,8 @@
+{% extends 'account/dashboard.html' %}
+
+{% block content-left %}
+    {% for profile in profile_list %}
+        <p><a href="{% url 'account:detail_user' profile.pk %}">{{ profile.username }}</a></p>
+    {% endfor %}
+
+{% endblock %}

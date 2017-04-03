@@ -1,0 +1,10 @@
+<h2>Estás seguro de querer borrar el modelo {{ model.area }}</h2>
+<h3>Area: {{ model.area }}</h3>
+<h3>Año: {{ model.year }}</h3>
+<h3>Aspectos Ambientales: {{ model.environmental_aspects }}</h3>
+<h3>Registrado por: {{ model.register_by }}</h3>
+<h3>Fecha de publicación: {{ model.pub_date }}</h3>
+<form method="post">
+    {% csrf_token %}
+    <input type="submit" value="Aceptar">
+</form>

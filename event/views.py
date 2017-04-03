@@ -7,6 +7,13 @@ from account.views import LoginRequiredMixin
 from event.models import Event
 
 
+class EventTodayListMixin(ListView):
+    def get_context_data(self, **kwargs):
+        context = super(EventTodayListMixin, self).get_context_data(**kwargs)
+        context['event_list'] = Event.objects.filter(Q(date__day=timezone.now().day)
+                                                          & Q(date__month=timezone.now().month))
+        return context
+
 class EventCreateView(LoginRequiredMixin, CreateView):
     model = Event
     fields = '__all__'
