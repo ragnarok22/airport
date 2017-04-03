@@ -1,0 +1,28 @@
+{% extends 'navbar.html' %}
+{% load staticfiles %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+
+    <main class="row">
+        <section class="col l8">
+            {% block content-left %}
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A ab asperiores aspernatur assumenda
+                    consequatur distinctio doloribus dolorum ex excepturi inventore, labore molestias non pariatur
+                    recusandae tempora ullam unde vel, velit!</p>
+            {% endblock %}
+        </section>
+
+        <section class="col l4">
+            {% block content-right %}
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus aliquid, cum dolore dolores earum
+                    eius expedita id iste libero minima officia quidem quod recusandae rem repellat totam ut. Aliquam,
+                    porro.</p>
+            {% endblock %}
+        </section>
+    </main>
+{% endblock %}
+{% block script %}
+    <script src="{% static 'account/js/dashboard.js' %}"></script>
+{% endblock %}
