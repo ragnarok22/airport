@@ -8,4 +8,6 @@ Efeméride {{ event.date }}
     <h1>{{ event.title }}</h1>
     <p>{{ event.date }}</p>
     <p>{{ event.description }}</p>
+    <a href="#" class="btn green">editar</a>
+    <a href="{% url 'event:delete_event' event.pk %}" class="btn red">eliminar</a>
 {% endblock %}
