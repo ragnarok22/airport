@@ -1,10 +1,14 @@
-<h2>Estás seguro de querer borrar el modelo {{ model.area }}</h2>
-<h3>Area: {{ model.area }}</h3>
-<h3>Año: {{ model.year }}</h3>
-<h3>Aspectos Ambientales: {{ model.environmental_aspects }}</h3>
-<h3>Registrado por: {{ model.register_by }}</h3>
-<h3>Fecha de publicación: {{ model.pub_date }}</h3>
-<form method="post">
-    {% csrf_token %}
-    <input type="submit" value="Aceptar">
-</form>
+{% extends 'account/dashboard.html' %}
+
+{% block content-down %}
+    <h2>¿Estás seguro de querer borrar el modelo?</h2>
+    <h4>Area: {{ model.area }}</h4>
+    <h4>Año: {{ model.year }}</h4>
+    <h4>Aspectos Ambientales: {{ model.environmental_aspects }}</h4>
+    <h4>Registrado por: {{ model.register_by }}</h4>
+    <h4>Fecha de publicación: {{ model.pub_date }}</h4>
+    <form method="post">
+        {% csrf_token %}
+        <input type="submit" value="Aceptar" class="btn red">
+    </form>
+{% endblock %}

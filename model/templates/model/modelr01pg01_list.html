@@ -1,5 +1,10 @@
-{% for model in model_list %}
-    <p>{{ model.area }}</p>
-    <p>{{ model.year }}</p>
-    <p>---------------------</p>
-{% endfor %}
+{% extends 'account/dashboard.html' %}
+
+{% block content-left %}
+    {% for model in model_list %}
+        <p>{{ model.area }}</p>
+        <p>{{ model.year }}</p>
+        <p>---------------------</p>
+    {% endfor %}
+    <a href="{% url 'model:create_modelr01pg01' %}" class="btn">Añadir</a>
+{% endblock %}
