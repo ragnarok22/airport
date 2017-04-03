@@ -1,0 +1,7 @@
+<h1>Estás seguro que desea borrar la efeméride {{ event.title }}</h1>
+<h2>{{ event.date }}</h2>
+<h3>{{ event.description }}</h3>
+<form method="post">
+    {% csrf_token %}
+    <input type="submit" value="aceptar">
+</form>

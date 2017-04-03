@@ -1,0 +1,5 @@
+{% for event in object_list %}
+<p>{{ event.date }} -> {{ event.title }}</p>
+    {% empty %}
+    <p>No hay efemérides</p>
+{% endfor %}
