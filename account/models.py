@@ -1,3 +1,27 @@
+from django.contrib.auth.models import User
 from django.db import models
+from django.utils import timezone
 
-# Create your models here.
+SEX_CHOICES = (
+    ('M', 'Masculino'),
+    ('W', 'Femenino'),
+    ('U', 'Sin definir'),
+)
+
+
+class Profile(User):
+    picture = models.ImageField('Imagen')
+    born_date = models.DateField()
+    sex = models.CharField(max_length=1, choices=SEX_CHOICES, default='U')
+
+    class Meta:
+        verbose_name = 'Perfil'
+        verbose_name_plural = 'Perfiles'
+
+    def age(self):
+        actual = timezone.now().year
+        born_year = self.born_date.year
+        return actual - born_year
+
+    def __str__(self):
+        return self.get_username()
