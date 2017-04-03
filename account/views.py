@@ -1,11 +1,15 @@
 from django.contrib.auth import logout, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
+from django.db.models import Q
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
+from django.utils import timezone
 from django.views import View
 from django.views.generic import FormView, RedirectView, TemplateView
+
+from event.models import Event
 
 
 class LoginRequiredMixin(View):
@@ -49,3 +53,8 @@ class LogoutView(RedirectView):
 
 class DashboardView(LoginRequiredMixin, TemplateView):
     template_name = 'account/dashboard.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(DashboardView, self).get_context_data(**kwargs)
+        context['event_list'] = Event.objects.filter(Q(date__day=timezone.now().day) & Q(date__month=timezone.now().month))
+        return context

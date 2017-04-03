@@ -14,10 +14,12 @@ class EventCreateView(LoginRequiredMixin, CreateView):
 
 class EventListView(LoginRequiredMixin, ListView):
     model = Event
+    context_object_name = 'event_list'
 
 
 class EventTodayListView(LoginRequiredMixin, ListView):
     model = Event
+    context_object_name = 'event_list'
 
     def get_queryset(self):
         return self.model.objects.filter(Q(date__day=timezone.now().day) & Q(date__month=timezone.now().month))
