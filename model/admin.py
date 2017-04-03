@@ -1,3 +1,6 @@
 from django.contrib import admin
 
-# Register your models here.
+from model.models import Area, ModelR01PG01
+
+admin.site.register(Area)
+admin.site.register(ModelR01PG01)
