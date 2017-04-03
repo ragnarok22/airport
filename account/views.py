@@ -9,6 +9,7 @@ from django.utils import timezone
 from django.views import View
 from django.views.generic import FormView, RedirectView, TemplateView
 
+from account.models import Profile
 from event.models import Event
 
 
@@ -22,12 +23,12 @@ class LoginRequiredMixin(View):
 class AnonymousRequiredMixin(View):
 
     def get_success_url(self):
-        return self.request.GET.get('next', reverse_lazy('account:dashboard'))
+        return self.request.GET.get('next', reverse_lazy('dashboard'))
 
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_anonymous:
             return super(AnonymousRequiredMixin, self).dispatch(request, *args, **kwargs)
-        return redirect(reverse_lazy('account:dashboard'))
+        return redirect(reverse_lazy('dashboard'))
 
 
 class LoginView(AnonymousRequiredMixin, FormView):
@@ -39,7 +40,7 @@ class LoginView(AnonymousRequiredMixin, FormView):
         return super(LoginView, self).form_valid(form)
 
     def get_success_url(self):
-        return self.request.GET.get('next', reverse_lazy('account:dashboard'))
+        return self.request.GET.get('next', reverse_lazy('dashboard'))
 
 
 class LogoutView(RedirectView):
@@ -57,4 +58,5 @@ class DashboardView(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super(DashboardView, self).get_context_data(**kwargs)
         context['event_list'] = Event.objects.filter(Q(date__day=timezone.now().day) & Q(date__month=timezone.now().month))
+        context['profile'] = Profile.objects.get(username=self.request.user.username)
         return context

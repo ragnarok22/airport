@@ -1,32 +1,64 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
 {% block content %}
     <ul id="bibliografic" class="dropdown-content">
-        <li><a href="{% url 'event:list_event' %}"><div class="blue-text">Efemérides</div></a></li>
-        <li><a href="#"><div class="blue-text">Normas</div></a></li>
-        <li><a href="#"><div class="blue-text">Decretos</div></a></li>
+        <li><a href="{% url 'event:list_event' %}">
+            <div class="blue-text">Efemérides</div>
+        </a></li>
+        <li><a href="#">
+            <div class="blue-text">Normas</div>
+        </a></li>
+        <li><a href="#">
+            <div class="blue-text">Decretos</div>
+        </a></li>
     </ul>
-    <ul id="user-menu" class="side-nav">
-        <li><a href="#">ver perfil</a></li>
-        <li><a href="#">editar perfil</a></li>
-        <li><a href="{% url 'account:logout' %}">cerrar sesion</a></li>
-    </ul>
+
     <nav class="nav-wrapper blue" role="navigation">
         <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
         <a href="#" data-activates="user-menu" class="button-collapse"><i class="material-icons">account_circle</i></a>
         <ul class="hide-on-med-and-down">
             <li><a href="{% url 'dashboard' %}">Inicio</a></li>
             <li><a href="#" class="dropdown-button" data-activates="bibliografic">Bibliografía</a></li>
+            <li class="right">
+                <a href="#" id="test">
+                    <i class="material-icons right">account_circle</i>
+                    Bienvenid@ {{ user.username }}
+                </a>
+            </li>
         </ul>
-        <div class="right">
-            <ul>
-                <li><a href="#" data-activates="user-menu" class="navbar-collapse">{{ user.username }}</a></li>
-                <li><a href="#"><i class="material-icons">account_circle</i></a></li>
-            </ul>
-        </div>
+
         <ul class="side-nav" id="mobile-demo">
             <li><a href="{% url 'dashboard' %}">Inicio</a></li>
             <li><a href="#">Bibliografía</a></li>
         </ul>
     </nav>
+
+    <ul id="slide-out" class="side-nav">
+        <li>
+            <div class="userView">
+                <div class="background">
+                    <img src="{% static 'account/images/office.jpg' %}">
+                </div>
+                <a href="#"><img class="circle" src="{% static 'account/images/ragnarok.jpg' %}"></a>
+                <a href="#"><span class="white-text name">{{ profile.get_full_name }}</span></a>
+                <a href="#"><span class="white-text email">{{ profile.email }}</span></a>
+            </div>
+        </li>
+        <li><a href="#"><i class="material-icons">mode_edit</i>Editar perfil</a></li>
+        <li><a href="#"><i class="material-icons">account_circle</i>Ver perfil</a></li>
+        <li>
+            <div class="divider"></div>
+        </li>
+        <li><a href="{% url 'account:logout' %}"><i class="material-icons">input</i>Salir</a></li>
+    </ul>
+
+    <a href="#" data-activates="slide-out" class="button-collapse hide" id="clicking"><i class="material-icons">menu</i></a>
     {% block content-down %}{% endblock %}
+{% endblock %}
+{% block script %}
+    <script>
+        $('#test').click(function () {
+            $('#clicking').click();
+        });
+    </script>
 {% endblock %}

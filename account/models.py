@@ -10,8 +10,8 @@ SEX_CHOICES = (
 
 
 class Profile(User):
-    picture = models.ImageField('Imagen')
-    born_date = models.DateField()
+    picture = models.ImageField('Imagen', blank=True, null=True)
+    born_date = models.DateField('fecha de nacimiento', blank=True, null=True)
     sex = models.CharField(max_length=1, choices=SEX_CHOICES, default='U')
 
     class Meta:
