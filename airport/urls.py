@@ -22,5 +22,6 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^auth/', include('account.urls', namespace='account')),
     url(r'^event/', include('event.urls', namespace='event')),
+    url(r'^model/', include('model.urls', namespace='model')),
     url(r'^$', DashboardView.as_view(), name='dashboard'),
 ]

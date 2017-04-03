@@ -5,6 +5,8 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils import timezone
 
+from account.models import Profile
+
 
 def validate_year(value):
     if value > timezone.now().year or value < Date(1900, 1, 1).year:
@@ -25,7 +27,7 @@ class ModelR01PG01(models.Model):
     area = models.ForeignKey(Area)
     year = models.IntegerField('año', validators=[validate_year])
     environmental_aspects = models.TextField('Aspectos Ambientales')
-    register_by = User
+    register_by = Profile
     pub_date = models.DateField('fecha de publicación', auto_now=True)
 
     class Meta:
