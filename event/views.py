@@ -30,7 +30,8 @@ class EventDetailView(LoginRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(EventDetailView, self).get_context_data(**kwargs)
-        context['event_list'] = self.model.objects.filter(Q(date__day=timezone.now().day) & Q(date__month=timezone.now().month))
+        context['event_list'] = self.model.objects.filter(Q(date__day=timezone.now().day) &
+                                                          Q(date__month=timezone.now().month))
         return context
 
 
