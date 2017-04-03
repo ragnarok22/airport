@@ -16,9 +16,11 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 
+from account.views import DashboardView
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^auth/', include('account.urls', namespace='account')),
     url(r'^event/', include('event.urls', namespace='event')),
-    # url(r'', MainPageView.as_view(), name='main-page'),
+    url(r'^$', DashboardView.as_view(), name='dashboard'),
 ]
