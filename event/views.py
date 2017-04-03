@@ -1,3 +1,9 @@
-from django.shortcuts import render
+from django.views.generic import CreateView
 
-# Create your views here.
+from account.views import LoginRequiredMixin
+from event.models import Event
+
+
+class EventCreateView(LoginRequiredMixin, CreateView):
+    model = Event
+    fields = '__all__'
