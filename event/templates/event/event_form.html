@@ -1,6 +1,6 @@
-{% extends 'base.html' %}
+{% extends 'account/dashboard.html' %}
 
-{% block content %}
+{% block content-left %}
     <form method="post" class="container">
         {% csrf_token %}
         {{ form.as_p }}

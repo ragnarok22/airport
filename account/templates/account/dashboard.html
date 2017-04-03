@@ -3,22 +3,28 @@
 
 {% block title %}Dashboard{% endblock %}
 
-{% block content %}
+{% block content-down %}
 
     <main class="row">
         <section class="col l8">
             {% block content-left %}
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A ab asperiores aspernatur assumenda
-                    consequatur distinctio doloribus dolorum ex excepturi inventore, labore molestias non pariatur
-                    recusandae tempora ullam unde vel, velit!</p>
+                <h1>Modelos</h1>
+                <p><a href="#">R-01 PG.190-01</a></p>
+                <p><a href="#">R-01 PG.190-02</a></p>
+                <p><a href="#">R-01 PG.190-03</a></p>
+                <p><a href="#">R-01 PG.190-04</a></p>
+                <p><a href="#">R-01 PG.190-05</a></p>
+                <p><a href="#">R-01 PG.190-06</a></p>
+                <p><a href="#">R-01 PG.190-07</a></p>
+                <p><a href="#">R-01 PG.190-08</a></p>
+                <p><a href="#">R-01 PG.190-09</a></p>
             {% endblock %}
         </section>
 
         <section class="col l4">
             {% block content-right %}
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus aliquid, cum dolore dolores earum
-                    eius expedita id iste libero minima officia quidem quod recusandae rem repellat totam ut. Aliquam,
-                    porro.</p>
+                {% include 'event/event_list.html' %}
+
             {% endblock %}
         </section>
     </main>

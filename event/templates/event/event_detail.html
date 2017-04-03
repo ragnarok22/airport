@@ -1,3 +1,11 @@
-<h1>{{ event.title }}</h1>
-<p>{{ event.date }}</p>
-<p>{{ event.description }}</p>
+{% extends 'account/dashboard.html' %}
+
+{% block title %}
+Efeméride {{ event.date }}
+{% endblock %}
+
+{% block content-left %}
+    <h1>{{ event.title }}</h1>
+    <p>{{ event.date }}</p>
+    <p>{{ event.description }}</p>
+{% endblock %}
