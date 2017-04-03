@@ -1,16 +1,16 @@
 {% extends 'base.html' %}
 {% block content %}
     <ul id="bibliografic" class="dropdown-content">
-        <li><a href="{% url 'event:list_event' %}">Efemérides</a></li>
-        <li><a href="#">Normas</a></li>
-        <li><a href="#">Decretos</a></li>
+        <li><a href="{% url 'event:list_event' %}"><div class="blue-text">Efemérides</div></a></li>
+        <li><a href="#"><div class="blue-text">Normas</div></a></li>
+        <li><a href="#"><div class="blue-text">Decretos</div></a></li>
     </ul>
     <ul id="user-menu" class="side-nav">
         <li><a href="#">ver perfil</a></li>
         <li><a href="#">editar perfil</a></li>
         <li><a href="{% url 'account:logout' %}">cerrar sesion</a></li>
     </ul>
-    <nav class="nav-wrapper teal" role="navigation">
+    <nav class="nav-wrapper blue" role="navigation">
         <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
         <a href="#" data-activates="user-menu" class="button-collapse"><i class="material-icons">account_circle</i></a>
         <ul class="hide-on-med-and-down">

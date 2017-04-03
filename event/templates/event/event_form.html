@@ -5,5 +5,6 @@
         {% csrf_token %}
         {{ form.as_p }}
         <input type="submit" value="Aceptar" class="btn">
+        <a href="{% url 'event:list_event' %}" class="btn red">Cancelar</a>
     </form>
 {% endblock %}
