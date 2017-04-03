@@ -1,7 +1,7 @@
 from django.db.models import Q
 from django.urls import reverse_lazy
 from django.utils import timezone
-from django.views.generic import CreateView, ListView, DetailView, DeleteView
+from django.views.generic import CreateView, ListView, DetailView, DeleteView, UpdateView
 
 from account.views import LoginRequiredMixin
 from event.models import Event
@@ -32,6 +32,14 @@ class EventDetailView(LoginRequiredMixin, DetailView):
         context = super(EventDetailView, self).get_context_data(**kwargs)
         context['event_list'] = self.model.objects.filter(Q(date__day=timezone.now().day) & Q(date__month=timezone.now().month))
         return context
+
+
+class EventUpdateView(LoginRequiredMixin, UpdateView):
+    model = Event
+    fields = '__all__'
+
+    def get_success_url(self):
+        return reverse_lazy('event:detail_event', kwargs={'pk': self.object.pk})
 
 
 class EventDeleteView(LoginRequiredMixin, DeleteView):
