@@ -14,7 +14,13 @@ class EventCreateView(LoginRequiredMixin, CreateView):
 
 class EventListView(LoginRequiredMixin, ListView):
     model = Event
-    context_object_name = 'event_list'
+    context_object_name = 'events_list'
+
+    def get_context_data(self, **kwargs):
+        context = super(EventListView, self).get_context_data(**kwargs)
+        context['event_list'] = self.model.objects.filter(Q(date__day=timezone.now().day)
+                                                                 & Q(date__month=timezone.now().month))
+        return context
 
 
 class EventTodayListView(LoginRequiredMixin, ListView):

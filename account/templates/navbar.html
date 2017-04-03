@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
     <ul id="bibliografic" class="dropdown-content">
-        <li>Efemérides</li>
-        <li>Normas</li>
-        <li>Decretos</li>
+        <li><a href="{% url 'event:list_event' %}">Efemérides</a></li>
+        <li><a href="#">Normas</a></li>
+        <li><a href="#">Decretos</a></li>
     </ul>
     <ul id="user-menu" class="side-nav">
         <li><a href="#">ver perfil</a></li>
