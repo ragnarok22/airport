@@ -1,8 +1,25 @@
 {% extends 'account/dashboard.html' %}
 
 {% block content-left %}
-    {% for profile in profile_list %}
-        <p><a href="{% url 'account:detail_user' profile.pk %}">{{ profile.username }}</a></p>
-    {% endfor %}
-
+    <table>
+        <tr>
+            <th>No</th>
+            <th>Nombre de Usuario</th>
+            <th>Nombre</th>
+            <th>Apellidos</th>
+            <th>Correo</th>
+            <th>Opciones</th>
+        </tr>
+        {% for profile in profile_list %}
+            <tr>
+                <td><a href="{% url 'account:detail_user' profile.pk %}">{{ forloop.counter }}</a></td>
+                <td>{{ profile.username }}</td>
+                <td>{{ profile.first_name }}</td>
+                <td>{{ profile.last_name }}</td>
+                <td>{{ profile.email }}</td>
+                <td><a href="{% url 'account:update_user' profile.pk %}" class="btn blue right small">editar</a></td>
+                <td><a href="{% url 'account:delete_user' profile.pk %}" class="btn red right small">eliminar</a></td>
+            </tr>
+        {% endfor %}
+    </table>
 {% endblock %}
