@@ -30,8 +30,15 @@ class AnonymousRequiredMixin(View):
         return redirect(reverse_lazy('dashboard'))
 
 
-class ProfileMixin(object):
+class SuperUserRequiredMixin(View):
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_superuser:
+            return super(SuperUserRequiredMixin, self).dispatch(request, *args, **kwargs)
+        else:
+            return reverse_lazy('dashboard')
 
+
+class ProfileMixin(object):
     def get_context_data(self, **kwargs):
         context = super(ProfileMixin, self).get_context_data(**kwargs)
         context['profile'] = Profile.objects.get(username=self.request.user.username)
@@ -72,14 +79,14 @@ class DashboardView(LoginRequiredMixin, ProfileMixin, TemplateView):
 
 class ProfileUpdateView(UpdateView):
     model = Profile
-    fields = ['username', 'password', 'first_name', 'last_name', 'email', 'picture', 'born_date','sex']
+    fields = ['username', 'password', 'first_name', 'last_name', 'email', 'picture', 'born_date', 'sex']
     template_name = 'account/profile_update_form.html'
 
     def get_success_url(self):
         return reverse_lazy('account:detail_user', kwargs={'pk': self.object.pk})
 
 
-class ProfileCreateView(CreateView):
+class ProfileCreateView(LoginRequiredMixin, CreateView):
     model = Profile
     fields = '__all__'
     success_url = reverse_lazy('account:list_user')
@@ -113,7 +120,6 @@ class ProfileDetailView(DetailView):
         context['event_today_list'] = Event.objects.filter(Q(date__day=timezone.now().day) and
                                                            Q(date__month=timezone.now().month)
                                                            )
-
         return context
 
 
