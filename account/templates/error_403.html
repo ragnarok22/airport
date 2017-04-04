@@ -1,10 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'account/dashboard.html' %}
 
-</body>
-</html>
+{% block title %}
+    No tiene permisos
+{% endblock %}
+
+{% block content-down %}
+    <div class="container">
+        <h2 class="blue-grey-text">Usted no tiene permisos para ingresar a esta página :(</h2>
+        <a href="{{ preview }}" class="center">volver</a>
+    </div>
+{% endblock %}

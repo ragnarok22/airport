@@ -31,19 +31,20 @@ class AnonymousRequiredMixin(View):
         return redirect(reverse_lazy('dashboard'))
 
 
-class SuperUserRequiredMixin(View):
-    def dispatch(self, request, *args, **kwargs):
-        if request.user.is_superuser:
-            return super(SuperUserRequiredMixin, self).dispatch(request, *args, **kwargs)
-        else:
-            return redirect(reverse_lazy('dashboard'))
-
-
 class ProfileMixin(ContextMixin):
     def get_context_data(self, **kwargs):
         context = super(ProfileMixin, self).get_context_data(**kwargs)
         context['profile'] = Profile.objects.get(username=self.request.user.username)
         return context
+
+
+class SuperUserRequiredMixin(ProfileMixin, View):
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_superuser:
+            return super(SuperUserRequiredMixin, self).dispatch(request, *args, **kwargs)
+        else:
+            return redirect(reverse_lazy('account:error_403') + '?preview={}'.format(
+                self.request.get_host() + self.request.get_full_path()))
 
 
 class LoginView(AnonymousRequiredMixin, FormView):
@@ -124,3 +125,12 @@ class ProfileDetailView(DetailView):
 class ProfileDeleteView(DeleteView):
     model = Profile
     success_url = reverse_lazy('account:list_user')
+
+
+class ErrorForbidden403View(ProfileMixin, TemplateView):
+    template_name = 'error_403.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(ErrorForbidden403View, self).get_context_data(**kwargs)
+        context['preview'] = self.request.GET.get('preview', reverse_lazy('dashboard'))
+        return context

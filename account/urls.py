@@ -1,7 +1,7 @@
 from django.conf.urls import url
 
 from account.views import LoginView, LogoutView, ProfileCreateView, ProfileDeleteView, ProfileListView, \
-    ProfileUpdateView, ProfileDetailView
+    ProfileUpdateView, ProfileDetailView, ErrorForbidden403View
 
 urlpatterns = [
     url(r'^login/$', LoginView.as_view(), name='login'),
@@ -12,4 +12,5 @@ urlpatterns = [
     url(r'^detail/(?P<pk>[0-9]+)/$', ProfileDetailView.as_view(), name='detail_user'),
     url(r'^delete/(?P<pk>[0-9]+)/$', ProfileDeleteView.as_view(), name='delete_user'),
 
+    url(r'^error/403/$', ErrorForbidden403View.as_view(), name='error_403'),
 ]
