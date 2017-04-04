@@ -65,7 +65,7 @@ class DashboardView(LoginRequiredMixin, TemplateView):
 
 class ProfileUpdateView(UpdateView):
     model = Profile
-    fields = '__all__'
+    fields = ['username', 'password', 'first_name', 'last_name', 'email', 'picture', 'born_date','sex']
 
     def get_success_url(self):
         return reverse_lazy('account:detail_user', kwargs={'pk': self.object.pk})

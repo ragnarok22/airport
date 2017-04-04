@@ -8,6 +8,9 @@
     <p>Nombre de usuario: {{ profile.username }}</p>
     <p>Nombre: {{ profile.first_name }}</p>
     <p>Apellidos: {{ profile.last_name }}</p>
+    <p>Email: {{ profile.email }}</p>
+    <p>Fecha de nacimiento: {{ profile.born_date }}</p>
+    <p>Sexo: {{ profile.sex }}</p>
     <a href="{% url 'account:update_user' profile.pk %}" class="btn">Editar</a>
     <a href="{% url 'account:delete_user' profile.pk %}" class="btn red">Eliminar</a>
 {% endblock %}
