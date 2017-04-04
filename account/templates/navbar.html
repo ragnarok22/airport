@@ -39,13 +39,19 @@
                 <div class="background">
                     <img src="{% static 'account/images/office.jpg' %}">
                 </div>
-                <a href="#"><img class="circle" src="{% static 'account/images/ragnarok.jpg' %}"></a>
+                {% if profile.picture %}
+                    <a href="#"><img class="circle" src="{{ profile.picture.url }}"></a>
+                {% else %}
+                    <a href="#"><img class="circle" src="{% static 'account/images/user.png' %}"></a>
+                {% endif %}
                 <a href="#"><span class="white-text name">{{ profile.get_full_name }}</span></a>
                 <a href="#"><span class="white-text email">{{ profile.email }}</span></a>
             </div>
         </li>
-        <li><a href="{% url 'account:update_user' profile.pk %}"><i class="material-icons">mode_edit</i>Editar perfil</a></li>
-        <li><a href="{% url 'account:detail_user' profile.pk %}"><i class="material-icons">account_circle</i>Ver perfil</a></li>
+        <li><a href="{% url 'account:update_user' profile.pk %}"><i class="material-icons">mode_edit</i>Editar
+            perfil</a></li>
+        <li><a href="{% url 'account:detail_user' profile.pk %}"><i class="material-icons">account_circle</i>Ver perfil</a>
+        </li>
         <li>
             <div class="divider"></div>
         </li>
