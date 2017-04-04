@@ -59,6 +59,10 @@
             <li><a class="subheader">Herramientas</a></li>
             <li><a href="{% url 'account:list_user' %}">listado de usuarios</a></li>
             <li><a href="{% url 'account:create_user' %}">crear usuario</a></li>
+            <li class="divider"></li>
+            <li><a href="{% url 'model:list_area' %}">Listado de Areas</a></li>
+            <li><a href="{% url 'model:create_area' %}">Crear un Area</a></li>
+            <li class="divider"></li>
         {% endif %}
         <li><a href="{% url 'account:logout' %}"><i class="material-icons">input</i>Salir</a></li>
     </ul>

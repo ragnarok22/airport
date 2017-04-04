@@ -3,11 +3,11 @@ from django.views.generic import CreateView, UpdateView, DetailView, DeleteView,
 
 from account.models import Profile
 from account.views import LoginRequiredMixin, ProfileMixin
-from event.views import EventTodayMixin
-from model.models import ModelR01PG01
+from event.views import EventTodayProfileMixin
+from model.models import ModelR01PG01, Area
 
 
-class ModelR01PG01CreateView(LoginRequiredMixin, EventTodayMixin, ProfileMixin, CreateView):
+class ModelR01PG01CreateView(LoginRequiredMixin, EventTodayProfileMixin, CreateView):
     model = ModelR01PG01
     fields = ['area', 'year', 'environmental_aspects']
 
@@ -20,7 +20,7 @@ class ModelR01PG01CreateView(LoginRequiredMixin, EventTodayMixin, ProfileMixin, 
         return super(ModelR01PG01CreateView, self).form_valid(form)
 
 
-class ModelR01PG01UpdateView(LoginRequiredMixin, EventTodayMixin, ProfileMixin, UpdateView):
+class ModelR01PG01UpdateView(LoginRequiredMixin, EventTodayProfileMixin, UpdateView):
     model = ModelR01PG01
     fields = '__all__'
     context_object_name = 'model'
@@ -29,7 +29,7 @@ class ModelR01PG01UpdateView(LoginRequiredMixin, EventTodayMixin, ProfileMixin, 
         return reverse_lazy('model:detail_modelr01pg01', kwargs={'pk': self.object.pk})
 
 
-class ModelR01PG01DetailView(LoginRequiredMixin, EventTodayMixin, ProfileMixin, DetailView):
+class ModelR01PG01DetailView(LoginRequiredMixin, EventTodayProfileMixin, DetailView):
     model = ModelR01PG01
     context_object_name = 'model'
 
@@ -38,7 +38,7 @@ class ModelR01PG01DetailView(LoginRequiredMixin, EventTodayMixin, ProfileMixin, 
         return context
 
 
-class ModelR01PG01ListView(LoginRequiredMixin, EventTodayMixin, ProfileMixin, ListView):
+class ModelR01PG01ListView(LoginRequiredMixin, EventTodayProfileMixin, ListView):
     model = ModelR01PG01
     context_object_name = 'model_list'
 
@@ -47,3 +47,27 @@ class ModelR01PG01DeleteView(LoginRequiredMixin, ProfileMixin, DeleteView):
     model = ModelR01PG01
     context_object_name = 'model'
     success_url = reverse_lazy('model:list_modelr01pg01')
+
+
+class AreaCreateView(EventTodayProfileMixin, CreateView):
+    model = Area
+    fields = '__all__'
+    success_url = reverse_lazy('model:list_area')
+
+
+class AreaUpdateView(EventTodayProfileMixin, UpdateView):
+    model = Area
+    fields = '__all__'
+
+
+class AreaDetailView(EventTodayProfileMixin, DetailView):
+    model = Area
+
+
+class AreaListView(EventTodayProfileMixin, ListView):
+    model = Area
+
+
+class AreaDeleteView(ProfileMixin, DeleteView):
+    model = Area
+    success_url = reverse_lazy('model:list_area')

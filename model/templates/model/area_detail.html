@@ -1,0 +1,7 @@
+{% extends 'account/dashboard.html' %}
+
+{% block content-left %}
+    <p>{{ area.name }}</p>
+    <a href="{% url 'model:delete_area' area.pk %}" class="btn red">Eliminar</a>
+    <a href="{% url 'model:update_area' area.pk %}" class="btn">Editar</a>
+{% endblock %}
