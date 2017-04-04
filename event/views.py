@@ -16,9 +16,10 @@ class EventTodayMixin(object):
         return context
 
 
-class EventCreateView(LoginRequiredMixin, CreateView):
+class EventCreateView(LoginRequiredMixin, ProfileMixin, CreateView):
     model = Event
     fields = '__all__'
+    success_url = reverse_lazy('event:list_event')
 
 
 class EventListView(EventTodayMixin, ProfileMixin, ListView):
