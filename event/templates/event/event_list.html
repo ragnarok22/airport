@@ -7,4 +7,5 @@
     {% empty %}
         <p>No hay efemérides</p>
     {% endfor %}
+    <a href="{% url 'event:create_event' %}" class="btn blue">Añadir</a>
 {% endblock %}
