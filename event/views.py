@@ -16,13 +16,17 @@ class EventTodayMixin(object):
         return context
 
 
+class EventTodayProfileMixin(EventTodayMixin, ProfileMixin):
+    pass
+
+
 class EventCreateView(LoginRequiredMixin, ProfileMixin, CreateView):
     model = Event
     fields = '__all__'
     success_url = reverse_lazy('event:list_event')
 
 
-class EventListView(EventTodayMixin, ProfileMixin, ListView):
+class EventListView(EventTodayProfileMixin, ListView):
     model = Event
     context_object_name = 'events_list'
 
@@ -36,7 +40,7 @@ class EventTodayListView(ProfileMixin, ListView):
         return self.model.objects.filter(Q(date__day=timezone.now().day) and Q(date__month=timezone.now().month))[:5]
 
 
-class EventDetailView(EventTodayMixin, ProfileMixin, DetailView):
+class EventDetailView(EventTodayProfileMixin, DetailView):
     model = Event
 
     def get_context_data(self, **kwargs):
@@ -46,7 +50,7 @@ class EventDetailView(EventTodayMixin, ProfileMixin, DetailView):
         return context
 
 
-class EventUpdateView(LoginRequiredMixin, EventTodayMixin, ProfileMixin, UpdateView):
+class EventUpdateView(LoginRequiredMixin, EventTodayProfileMixin, UpdateView):
     model = Event
     fields = '__all__'
 
