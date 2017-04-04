@@ -3,6 +3,7 @@ from django.urls import reverse_lazy
 from django.utils import timezone
 from django.views.generic import CreateView, ListView, DetailView, DeleteView, UpdateView
 
+from account.models import Profile
 from account.views import LoginRequiredMixin
 from event.models import Event
 
@@ -27,12 +28,18 @@ class EventListView(LoginRequiredMixin, ListView):
         context = super(EventListView, self).get_context_data(**kwargs)
         context['event_list'] = self.model.objects.filter(Q(date__day=timezone.now().day)
                                                                  & Q(date__month=timezone.now().month))
+        context['profile'] = Profile.objects.get(username=self.request.user.username)
         return context
 
 
 class EventTodayListView(LoginRequiredMixin, ListView):
     model = Event
     context_object_name = 'event_list'
+
+    def get_context_data(self, **kwargs):
+        context = super(EventTodayListView, self).get_context_data(**kwargs)
+        context['profile'] = Profile.objects.get(username=self.request.user.username)
+        return context
 
     def get_queryset(self):
         return self.model.objects.filter(Q(date__day=timezone.now().day) & Q(date__month=timezone.now().month))
