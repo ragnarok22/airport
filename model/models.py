@@ -27,7 +27,7 @@ class ModelR01PG01(models.Model):
     area = models.ForeignKey(Area)
     year = models.IntegerField('año', validators=[validate_year])
     environmental_aspects = models.TextField('Aspectos Ambientales')
-    register_by = Profile
+    register_by = models.ForeignKey(Profile)
     pub_date = models.DateField('fecha de publicación', auto_now=True)
 
     class Meta:
