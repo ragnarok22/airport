@@ -28,6 +28,7 @@
                 {% empty %}
                     <p>No hay efemérides</p>
                 {% endfor %}
+                <a href="{% url 'event:list_event_today' %}" class="small btn blue-grey">Ver todas</a>
             {% endblock %}
         </section>
     </main>

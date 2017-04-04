@@ -32,7 +32,7 @@ class EventTodayListView(ProfileMixin, ListView):
     template_name = 'event/event_list_today.html'
 
     def get_queryset(self):
-        return self.model.objects.filter(Q(date__day=timezone.now().day) and Q(date__month=timezone.now().month))
+        return self.model.objects.filter(Q(date__day=timezone.now().day) and Q(date__month=timezone.now().month))[:5]
 
 
 class EventDetailView(EventTodayMixin, ProfileMixin, DetailView):
