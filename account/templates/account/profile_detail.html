@@ -1,4 +1,5 @@
 {% extends 'account/dashboard.html' %}
+{% load staticfiles %}
 {% block title %}
     Perfil de {{ profile.username }}
 {% endblock %}
@@ -6,6 +7,8 @@
 {% block content-left %}
     {% if profile.picture %}
         <img src="{{ profile.picture.url }}" class="circle" width="200" height="200">
+    {% else %}
+        <img src="{% static 'account/images/user.png' %}" width="200" height="200" class="circle">
     {% endif %}
     <p>Nombre de usuario: {{ profile.username }}</p>
     <p>Nombre: {{ profile.first_name }}</p>
