@@ -9,19 +9,21 @@ from model.models import ModelR01PG01
 
 class ModelR01PG01CreateView(LoginRequiredMixin, EventTodayMixin, ProfileMixin, CreateView):
     model = ModelR01PG01
-    fields = ['area', 'year', 'environmental_aspects', 'register_by']
+    fields = ['area', 'year', 'environmental_aspects']
 
     def get_success_url(self):
         return reverse_lazy('model:detail_modelr01pg01', kwargs={'pk': self.object.pk})
+
+    def form_valid(self, form):
+        form.instance.register_by = Profile.objects.get(username=self.request.user.username)
+        form.instance.save()
+        return super(ModelR01PG01CreateView, self).form_valid(form)
 
 
 class ModelR01PG01UpdateView(LoginRequiredMixin, EventTodayMixin, ProfileMixin, UpdateView):
     model = ModelR01PG01
     fields = '__all__'
     context_object_name = 'model'
-
-    def form_valid(self, form):
-        pass
 
     def get_success_url(self):
         return reverse_lazy('model:detail_modelr01pg01', kwargs={'pk': self.object.pk})
