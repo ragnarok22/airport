@@ -55,6 +55,11 @@
         <li>
             <div class="divider"></div>
         </li>
+        {% if user.is_superuser %}
+            <li><a class="subheader">Herramientas</a></li>
+            <li><a href="{% url 'account:list_user' %}">listado de usuarios</a></li>
+            <li><a href="{% url 'account:create_user' %}">crear usuario</a></li>
+        {% endif %}
         <li><a href="{% url 'account:logout' %}"><i class="material-icons">input</i>Salir</a></li>
     </ul>
 
