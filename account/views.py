@@ -108,6 +108,14 @@ class ProfileListView(ListView):
 class ProfileDetailView(DetailView):
     model = Profile
 
+    def get_context_data(self, **kwargs):
+        context = super(ProfileDetailView, self).get_context_data(**kwargs)
+        context['event_today_list'] = Event.objects.filter(Q(date__day=timezone.now().day) and
+                                                           Q(date__month=timezone.now().month)
+                                                           )
+
+        return context
+
 
 class ProfileDeleteView(DeleteView):
     model = Profile
