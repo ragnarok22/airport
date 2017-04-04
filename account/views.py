@@ -1,6 +1,7 @@
 from django.contrib.auth import logout, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
+from django.core.exceptions import PermissionDenied
 from django.db.models import Q
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
@@ -43,7 +44,7 @@ class SuperUserRequiredMixin(ProfileMixin, View):
         if request.user.is_superuser:
             return super(SuperUserRequiredMixin, self).dispatch(request, *args, **kwargs)
         else:
-            return redirect(reverse_lazy('account:error_403'))
+            raise PermissionDenied
 
 
 class LoginView(AnonymousRequiredMixin, FormView):
@@ -124,7 +125,3 @@ class ProfileDetailView(DetailView):
 class ProfileDeleteView(DeleteView):
     model = Profile
     success_url = reverse_lazy('account:list_user')
-
-
-class ErrorForbidden403View(ProfileMixin, TemplateView):
-    template_name = 'error_403.html'

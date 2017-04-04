@@ -1,12 +1,12 @@
-{% extends 'account/dashboard.html' %}
+{% extends 'base.html' %}
 
 {% block title %}
     No tiene permisos
 {% endblock %}
 
-{% block content-down %}
+{% block content %}
     <div class="container">
         <h2 class="blue-grey-text">Usted no tiene permisos para ingresar a esta página :(</h2>
-        <a href="{{ preview }}" class="center">volver</a>
+        <a href="{% url 'dashboard' %}" class="center">volver</a>
     </div>
 {% endblock %}
