@@ -43,8 +43,7 @@ class SuperUserRequiredMixin(ProfileMixin, View):
         if request.user.is_superuser:
             return super(SuperUserRequiredMixin, self).dispatch(request, *args, **kwargs)
         else:
-            return redirect(reverse_lazy('account:error_403') + '?preview={}'.format(
-                self.request.get_host() + self.request.get_full_path()))
+            return redirect(reverse_lazy('account:error_403'))
 
 
 class LoginView(AnonymousRequiredMixin, FormView):
@@ -129,8 +128,3 @@ class ProfileDeleteView(DeleteView):
 
 class ErrorForbidden403View(ProfileMixin, TemplateView):
     template_name = 'error_403.html'
-
-    def get_context_data(self, **kwargs):
-        context = super(ErrorForbidden403View, self).get_context_data(**kwargs)
-        context['preview'] = self.request.GET.get('preview', reverse_lazy('dashboard'))
-        return context
