@@ -11,11 +11,11 @@
         </tr>
         {% for model in model_list %}
             <tr>
-                <th><a href="{% url 'model:detail_modelr01pg01' model.pk %}">{{ forloop.counter }}</a></th>
-                <th>{{ model.area }}</th>
-                <th>{{ model.year }}</th>
-                <th>{{ model.register_by }}</th>
-                <th>{{ model.pub_date }}</th>
+                <td><a href="{% url 'model:detail_modelr01pg01' model.pk %}">{{ forloop.counter }}</a></td>
+                <td>{{ model.area }}</td>
+                <td>{{ model.year }}</td>
+                <td>{{ model.register_by }}</td>
+                <td>{{ model.pub_date }}</td>
             </tr>
         {% endfor %}
     </table>
