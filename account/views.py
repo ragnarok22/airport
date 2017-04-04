@@ -9,6 +9,7 @@ from django.utils import timezone
 from django.views import View
 from django.views.generic import FormView, RedirectView, TemplateView, UpdateView, CreateView, ListView, DeleteView, \
     DetailView
+from django.views.generic.base import ContextMixin
 
 from account.models import Profile
 from event.models import Event
@@ -35,10 +36,10 @@ class SuperUserRequiredMixin(View):
         if request.user.is_superuser:
             return super(SuperUserRequiredMixin, self).dispatch(request, *args, **kwargs)
         else:
-            return reverse_lazy('dashboard')
+            return redirect(reverse_lazy('dashboard'))
 
 
-class ProfileMixin(object):
+class ProfileMixin(ContextMixin):
     def get_context_data(self, **kwargs):
         context = super(ProfileMixin, self).get_context_data(**kwargs)
         context['profile'] = Profile.objects.get(username=self.request.user.username)
@@ -72,7 +73,7 @@ class DashboardView(LoginRequiredMixin, ProfileMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super(DashboardView, self).get_context_data(**kwargs)
         context['event_today_list'] = Event.objects.filter(
-            Q(date__day=timezone.now().day) and Q(date__month=timezone.now().month)
+            Q(date__day=timezone.now().day) & Q(date__month=timezone.now().month)
         )
         return context
 
@@ -86,29 +87,27 @@ class ProfileUpdateView(UpdateView):
         return reverse_lazy('account:detail_user', kwargs={'pk': self.object.pk})
 
 
-class ProfileCreateView(LoginRequiredMixin, CreateView):
+class ProfileCreateView(LoginRequiredMixin, ProfileMixin, CreateView):
     model = Profile
     fields = '__all__'
     success_url = reverse_lazy('account:list_user')
 
     def get_context_data(self, **kwargs):
         context = super(ProfileCreateView, self).get_context_data(**kwargs)
-        context['event_list'] = Event.objects.filter(
+        context['event_today_list'] = Event.objects.filter(
             Q(date__day=timezone.now().day) & Q(date__month=timezone.now().month)
         )
-        context['profile'] = Profile.objects.get(username=self.request.user.username)
         return context
 
 
-class ProfileListView(ListView):
+class ProfileListView(SuperUserRequiredMixin, ProfileMixin, ListView):
     model = Profile
 
     def get_context_data(self, **kwargs):
         context = super(ProfileListView, self).get_context_data(**kwargs)
-        context['event_list'] = Event.objects.filter(
+        context['event_today_list'] = Event.objects.filter(
             Q(date__day=timezone.now().day) & Q(date__month=timezone.now().month)
         )
-        context['profile'] = Profile.objects.get(username=self.request.user.username)
         return context
 
 
@@ -117,9 +116,8 @@ class ProfileDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(ProfileDetailView, self).get_context_data(**kwargs)
-        context['event_today_list'] = Event.objects.filter(Q(date__day=timezone.now().day) and
-                                                           Q(date__month=timezone.now().month)
-                                                           )
+        context['event_today_list'] = Event.objects.filter(
+            Q(date__day=timezone.now().day) & Q(date__month=timezone.now().month))
         return context
 
 
