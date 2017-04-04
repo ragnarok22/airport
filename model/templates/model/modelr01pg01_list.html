@@ -3,6 +3,7 @@
 {% block content-left %}
     <table>
         <tr>
+            <th>No</th>
             <th>Area</th>
             <th>año</th>
             <th>registrado por</th>
@@ -10,6 +11,7 @@
         </tr>
         {% for model in model_list %}
             <tr>
+                <th><a href="{% url 'model:detail_modelr01pg01' model.pk %}">{{ forloop.counter }}</a></th>
                 <th>{{ model.area }}</th>
                 <th>{{ model.year }}</th>
                 <th>{{ model.register_by }}</th>
