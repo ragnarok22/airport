@@ -1,10 +1,21 @@
 {% extends 'account/dashboard.html' %}
 
 {% block content-left %}
-    {% for model in model_list %}
-        <p>{{ model.area }}</p>
-        <p>{{ model.year }}</p>
-        <p>---------------------</p>
-    {% endfor %}
+    <table>
+        <tr>
+            <th>Area</th>
+            <th>año</th>
+            <th>registrado por</th>
+            <th>fecha publicación</th>
+        </tr>
+        {% for model in model_list %}
+            <tr>
+                <th>{{ model.area }}</th>
+                <th>{{ model.year }}</th>
+                <th>{{ model.register_by }}</th>
+                <th>{{ model.pub_date }}</th>
+            </tr>
+        {% endfor %}
+    </table>
     <a href="{% url 'model:create_modelr01pg01' %}" class="btn">Añadir</a>
 {% endblock %}
