@@ -30,6 +30,14 @@ class AnonymousRequiredMixin(View):
         return redirect(reverse_lazy('dashboard'))
 
 
+class ProfileMixin(object):
+
+    def get_context_data(self, **kwargs):
+        context = super(ProfileMixin, self).get_context_data(**kwargs)
+        context['profile'] = Profile.objects.get(username=self.request.user.username)
+        return context
+
+
 class LoginView(AnonymousRequiredMixin, FormView):
     form_class = AuthenticationForm
     template_name = 'account/login.html'
@@ -51,15 +59,14 @@ class LogoutView(RedirectView):
         return super(LogoutView, self).get(request, *args, **kwargs)
 
 
-class DashboardView(LoginRequiredMixin, TemplateView):
+class DashboardView(LoginRequiredMixin, ProfileMixin, TemplateView):
     template_name = 'account/dashboard.html'
 
     def get_context_data(self, **kwargs):
         context = super(DashboardView, self).get_context_data(**kwargs)
-        context['event_list'] = Event.objects.filter(
-            Q(date__day=timezone.now().day) & Q(date__month=timezone.now().month)
+        context['event_today_list'] = Event.objects.filter(
+            Q(date__day=timezone.now().day) and Q(date__month=timezone.now().month)
         )
-        context['profile'] = Profile.objects.get(username=self.request.user.username)
         return context
 
 

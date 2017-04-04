@@ -22,7 +22,8 @@
 
         <section class="col l4">
             {% block content-right %}
-                {% for event in event_list %}
+                <h3>Efemérides de hoy</h3>
+                {% for event in event_today_list %}
                     <p><a href="{% url 'event:detail_event' event.pk %}">{{ event.date }} -> {{ event.title }}</a></p>
                 {% empty %}
                     <p>No hay efemérides</p>

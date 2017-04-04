@@ -3,49 +3,39 @@ from django.urls import reverse_lazy
 from django.utils import timezone
 from django.views.generic import CreateView, ListView, DetailView, DeleteView, UpdateView
 
-from account.models import Profile
-from account.views import LoginRequiredMixin
+from account.views import LoginRequiredMixin, ProfileMixin
 from event.models import Event
 
 
-class EventTodayListMixin(ListView):
+class EventTodayMixin(object):
     def get_context_data(self, **kwargs):
-        context = super(EventTodayListMixin, self).get_context_data(**kwargs)
-        context['event_list'] = Event.objects.filter(Q(date__day=timezone.now().day)
-                                                          & Q(date__month=timezone.now().month))
+        context = super(EventTodayMixin, self).get_context_data(**kwargs)
+        context['event_today_list'] = Event.objects.filter(Q(date__day=timezone.now().day) and
+                                                     Q(date__month=timezone.now().month)
+                                                     )
         return context
+
 
 class EventCreateView(LoginRequiredMixin, CreateView):
     model = Event
     fields = '__all__'
 
 
-class EventListView(LoginRequiredMixin, ListView):
+class EventListView(EventTodayMixin, ProfileMixin, ListView):
     model = Event
     context_object_name = 'events_list'
 
-    def get_context_data(self, **kwargs):
-        context = super(EventListView, self).get_context_data(**kwargs)
-        context['event_list'] = self.model.objects.filter(Q(date__day=timezone.now().day)
-                                                                 & Q(date__month=timezone.now().month))
-        context['profile'] = Profile.objects.get(username=self.request.user.username)
-        return context
 
-
-class EventTodayListView(LoginRequiredMixin, ListView):
+class EventTodayListView(ProfileMixin, ListView):
     model = Event
-    context_object_name = 'event_list'
-
-    def get_context_data(self, **kwargs):
-        context = super(EventTodayListView, self).get_context_data(**kwargs)
-        context['profile'] = Profile.objects.get(username=self.request.user.username)
-        return context
+    context_object_name = 'event_today_list'
+    template_name = 'event/event_list_today.html'
 
     def get_queryset(self):
-        return self.model.objects.filter(Q(date__day=timezone.now().day) & Q(date__month=timezone.now().month))
+        return self.model.objects.filter(Q(date__day=timezone.now().day) and Q(date__month=timezone.now().month))
 
 
-class EventDetailView(LoginRequiredMixin, DetailView):
+class EventDetailView(EventTodayMixin, ProfileMixin, DetailView):
     model = Event
 
     def get_context_data(self, **kwargs):
@@ -55,7 +45,7 @@ class EventDetailView(LoginRequiredMixin, DetailView):
         return context
 
 
-class EventUpdateView(LoginRequiredMixin, UpdateView):
+class EventUpdateView(LoginRequiredMixin, EventTodayMixin, ProfileMixin, UpdateView):
     model = Event
     fields = '__all__'
 
@@ -63,6 +53,6 @@ class EventUpdateView(LoginRequiredMixin, UpdateView):
         return reverse_lazy('event:detail_event', kwargs={'pk': self.object.pk})
 
 
-class EventDeleteView(LoginRequiredMixin, DeleteView):
+class EventDeleteView(LoginRequiredMixin, ProfileMixin, DeleteView):
     model = Event
     success_url = reverse_lazy('event:list_event')
