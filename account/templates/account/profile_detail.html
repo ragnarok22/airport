@@ -4,7 +4,9 @@
 {% endblock %}
 
 {% block content-left %}
-    <img src="{{ profile.picture.url }}" class="circle" width="200" height="200">
+    {% if profile.picture %}
+        <img src="{{ profile.picture.url }}" class="circle" width="200" height="200">
+    {% endif %}
     <p>Nombre de usuario: {{ profile.username }}</p>
     <p>Nombre: {{ profile.first_name }}</p>
     <p>Apellidos: {{ profile.last_name }}</p>

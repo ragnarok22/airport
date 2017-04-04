@@ -73,6 +73,7 @@ class DashboardView(LoginRequiredMixin, ProfileMixin, TemplateView):
 class ProfileUpdateView(UpdateView):
     model = Profile
     fields = ['username', 'password', 'first_name', 'last_name', 'email', 'picture', 'born_date','sex']
+    template_name = 'account/profile_update_form.html'
 
     def get_success_url(self):
         return reverse_lazy('account:detail_user', kwargs={'pk': self.object.pk})
@@ -110,3 +111,4 @@ class ProfileDetailView(DetailView):
 
 class ProfileDeleteView(DeleteView):
     model = Profile
+    success_url = reverse_lazy('account:list_user')
