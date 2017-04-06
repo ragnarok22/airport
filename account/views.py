@@ -35,7 +35,8 @@ class AnonymousRequiredMixin(View):
 class ProfileMixin(ContextMixin):
     def get_context_data(self, **kwargs):
         context = super(ProfileMixin, self).get_context_data(**kwargs)
-        context['profile'] = Profile.objects.get(username=self.request.user.username)
+        profile = Profile.objects.get(username=self.request.user.username)
+        context['profile'] = profile
         return context
 
 
@@ -45,6 +46,32 @@ class SuperUserRequiredMixin(ProfileMixin, View):
             return super(SuperUserRequiredMixin, self).dispatch(request, *args, **kwargs)
         else:
             raise PermissionDenied
+
+
+class SameUserPermissionMixin(ContextMixin, View):
+
+    def dispatch(self, request, *args, **kwargs):
+        if int(kwargs['pk']) == request.user.pk or self.request.user.is_superuser:
+            self.can_edit = True
+        else:
+            self.can_edit = False
+        return super(SameUserPermissionMixin, self).dispatch(request, *args, **kwargs)
+
+
+class SameUserPermissionViewMixin(SameUserPermissionMixin, ProfileMixin, View):
+    def dispatch(self, request, *args, **kwargs):
+        temp = super(SameUserPermissionViewMixin, self).dispatch(request, *args, **kwargs)
+        if self.can_edit:
+            return temp
+        else:
+            raise PermissionDenied
+
+
+class AsPermissionEditView(SameUserPermissionMixin):
+    def get_context_data(self, **kwargs):
+        context = super(SameUserPermissionMixin, self).get_context_data(**kwargs)
+        context['can_edit'] = self.can_edit
+        return context
 
 
 class LoginView(AnonymousRequiredMixin, FormView):
@@ -79,7 +106,7 @@ class DashboardView(LoginRequiredMixin, ProfileMixin, TemplateView):
         return context
 
 
-class ProfileUpdateView(UpdateView):
+class ProfileUpdateView(SameUserPermissionViewMixin, UpdateView):
     model = Profile
     fields = ['username', 'password', 'first_name', 'last_name', 'email', 'picture', 'born_date', 'sex']
     template_name = 'account/profile_update_form.html'
@@ -113,7 +140,7 @@ class ProfileListView(SuperUserRequiredMixin, ProfileMixin, ListView):
         return context
 
 
-class ProfileDetailView(DetailView):
+class ProfileDetailView(AsPermissionEditView, DetailView):
     model = Profile
 
     def get_context_data(self, **kwargs):

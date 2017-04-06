@@ -16,6 +16,10 @@
     <p>Email: {{ profile.email }}</p>
     <p>Fecha de nacimiento: {{ profile.born_date }}</p>
     <p>Sexo: {{ profile.sex }}</p>
-    <a href="{% url 'account:update_user' profile.pk %}" class="btn">Editar</a>
-    <a href="{% url 'account:delete_user' profile.pk %}" class="btn red">Eliminar</a>
+    {% if can_edit %}
+        <a href="{% url 'account:update_user' profile.pk %}" class="btn">Editar</a>
+    {% endif %}
+    {% if user.is_superuser %}
+        <a href="{% url 'account:delete_user' profile.pk %}" class="btn red">Eliminar</a>
+    {% endif %}
 {% endblock %}
