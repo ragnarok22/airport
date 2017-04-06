@@ -88,7 +88,7 @@ class ProfileUpdateView(UpdateView):
         return reverse_lazy('account:detail_user', kwargs={'pk': self.object.pk})
 
 
-class ProfileCreateView(LoginRequiredMixin, ProfileMixin, CreateView):
+class ProfileCreateView(LoginRequiredMixin, SuperUserRequiredMixin, ProfileMixin, CreateView):
     model = Profile
     fields = ['username', 'password', 'is_superuser', 'first_name', 'last_name', 'email', 'is_staff', 'picture',
               'born_date', 'sex']
@@ -123,6 +123,6 @@ class ProfileDetailView(DetailView):
         return context
 
 
-class ProfileDeleteView(DeleteView):
+class ProfileDeleteView(SuperUserRequiredMixin, DeleteView):
     model = Profile
     success_url = reverse_lazy('account:list_user')
