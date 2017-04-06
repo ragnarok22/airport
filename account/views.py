@@ -32,7 +32,7 @@ class AnonymousRequiredMixin(View):
         return redirect(reverse_lazy('dashboard'))
 
 
-class ProfileMixin(ContextMixin):
+class ProfileMixin(LoginRequiredMixin):
     def get_context_data(self, **kwargs):
         context = super(ProfileMixin, self).get_context_data(**kwargs)
         profile = Profile.objects.get(username=self.request.user.username)
@@ -95,7 +95,7 @@ class LogoutView(RedirectView):
         return super(LogoutView, self).get(request, *args, **kwargs)
 
 
-class DashboardView(LoginRequiredMixin, ProfileMixin, TemplateView):
+class DashboardView(ProfileMixin, TemplateView):
     template_name = 'account/dashboard.html'
 
     def get_context_data(self, **kwargs):
@@ -115,7 +115,7 @@ class ProfileUpdateView(SameUserPermissionViewMixin, UpdateView):
         return reverse_lazy('account:detail_user', kwargs={'pk': self.object.pk})
 
 
-class ProfileCreateView(LoginRequiredMixin, SuperUserRequiredMixin, ProfileMixin, CreateView):
+class ProfileCreateView(SuperUserRequiredMixin, ProfileMixin, CreateView):
     model = Profile
     fields = ['username', 'password', 'is_superuser', 'first_name', 'last_name', 'email', 'is_staff', 'picture',
               'born_date', 'sex']

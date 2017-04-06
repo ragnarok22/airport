@@ -3,7 +3,7 @@ from django.urls import reverse_lazy
 from django.utils import timezone
 from django.views.generic import CreateView, ListView, DetailView, DeleteView, UpdateView
 
-from account.views import LoginRequiredMixin, ProfileMixin
+from account.views import ProfileMixin
 from event.models import Event
 
 
@@ -19,7 +19,7 @@ class EventTodayProfileMixin(EventTodayMixin, ProfileMixin):
     pass
 
 
-class EventCreateView(LoginRequiredMixin, EventTodayProfileMixin, CreateView):
+class EventCreateView(EventTodayProfileMixin, CreateView):
     model = Event
     fields = '__all__'
     success_url = reverse_lazy('event:list_event')
@@ -42,7 +42,7 @@ class EventDetailView(EventTodayProfileMixin, DetailView):
     model = Event
 
 
-class EventUpdateView(LoginRequiredMixin, EventTodayProfileMixin, UpdateView):
+class EventUpdateView(EventTodayProfileMixin, UpdateView):
     model = Event
     fields = '__all__'
 
@@ -50,6 +50,6 @@ class EventUpdateView(LoginRequiredMixin, EventTodayProfileMixin, UpdateView):
         return reverse_lazy('event:detail_event', kwargs={'pk': self.object.pk})
 
 
-class EventDeleteView(LoginRequiredMixin, ProfileMixin, DeleteView):
+class EventDeleteView(ProfileMixin, DeleteView):
     model = Event
     success_url = reverse_lazy('event:list_event')

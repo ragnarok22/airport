@@ -7,7 +7,7 @@ from event.views import EventTodayProfileMixin
 from model.models import ModelR01PG01, Area
 
 
-class ModelR01PG01CreateView(LoginRequiredMixin, EventTodayProfileMixin, CreateView):
+class ModelR01PG01CreateView(EventTodayProfileMixin, CreateView):
     model = ModelR01PG01
     fields = ['area', 'year', 'environmental_aspects']
 
@@ -20,7 +20,7 @@ class ModelR01PG01CreateView(LoginRequiredMixin, EventTodayProfileMixin, CreateV
         return super(ModelR01PG01CreateView, self).form_valid(form)
 
 
-class ModelR01PG01UpdateView(LoginRequiredMixin, EventTodayProfileMixin, UpdateView):
+class ModelR01PG01UpdateView(EventTodayProfileMixin, UpdateView):
     model = ModelR01PG01
     fields = '__all__'
     context_object_name = 'model'
@@ -29,7 +29,7 @@ class ModelR01PG01UpdateView(LoginRequiredMixin, EventTodayProfileMixin, UpdateV
         return reverse_lazy('model:detail_modelr01pg01', kwargs={'pk': self.object.pk})
 
 
-class ModelR01PG01DetailView(LoginRequiredMixin, EventTodayProfileMixin, DetailView):
+class ModelR01PG01DetailView(EventTodayProfileMixin, DetailView):
     model = ModelR01PG01
     context_object_name = 'model'
 
@@ -38,12 +38,12 @@ class ModelR01PG01DetailView(LoginRequiredMixin, EventTodayProfileMixin, DetailV
         return context
 
 
-class ModelR01PG01ListView(LoginRequiredMixin, EventTodayProfileMixin, ListView):
+class ModelR01PG01ListView(EventTodayProfileMixin, ListView):
     model = ModelR01PG01
     context_object_name = 'model_list'
 
 
-class ModelR01PG01DeleteView(LoginRequiredMixin, ProfileMixin, DeleteView):
+class ModelR01PG01DeleteView(ProfileMixin, DeleteView):
     model = ModelR01PG01
     context_object_name = 'model'
     success_url = reverse_lazy('model:list_modelr01pg01')
