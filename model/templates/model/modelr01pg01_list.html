@@ -14,7 +14,7 @@
                 <td><a href="{% url 'model:detail_modelr01pg01' model.pk %}">{{ forloop.counter }}</a></td>
                 <td>{{ model.area }}</td>
                 <td>{{ model.year }}</td>
-                <td>{{ model.register_by }}</td>
+                <td><a href="{% url 'account:detail_user' model.register_by.pk %}">{{ model.register_by }}</a></td>
                 <td>{{ model.pub_date }}</td>
             </tr>
         {% endfor %}
