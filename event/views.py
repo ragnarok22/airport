@@ -32,8 +32,10 @@ class EventListView(EventTodayProfileMixin, ListView):
 
 class EventTodayListView(EventTodayProfileMixin, ListView):
     model = Event
-    context_object_name = 'event_today_list'
+    context_object_name = 'event_list'
     template_name = 'event/event_list_today.html'
+    queryset = Event.objects.filter(
+        Q(date__day=timezone.now().day) & Q(date__month=timezone.now().month))
 
 
 class EventDetailView(EventTodayProfileMixin, DetailView):
