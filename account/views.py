@@ -90,7 +90,8 @@ class ProfileUpdateView(UpdateView):
 
 class ProfileCreateView(LoginRequiredMixin, ProfileMixin, CreateView):
     model = Profile
-    fields = '__all__'
+    fields = ['username', 'password', 'is_superuser', 'first_name', 'last_name', 'email', 'is_staff', 'picture',
+              'born_date', 'sex']
     success_url = reverse_lazy('account:list_user')
 
     def get_context_data(self, **kwargs):
