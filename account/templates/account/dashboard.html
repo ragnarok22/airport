@@ -1,0 +1,39 @@
+{% extends 'navbar.html' %}
+{% load staticfiles %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content-down %}
+    <main class="row">
+        <section class="col l8">
+            {% block content-left %}
+                <h1>Modelos</h1>
+                <p><a href="{% url 'model:list_modelr01pg01' %}">R-01 PG.190-01</a></p>
+                <p><a href="#">R-01 PG.190-02</a></p>
+                <p><a href="#">R-01 PG.190-03</a></p>
+                <p><a href="#">R-01 PG.190-04</a></p>
+                <p><a href="#">R-01 PG.190-05</a></p>
+                <p><a href="#">R-01 PG.190-06</a></p>
+                <p><a href="#">R-01 PG.190-07</a></p>
+                <p><a href="#">R-01 PG.190-08</a></p>
+                <p><a href="#">R-01 PG.190-09</a></p>
+            {% endblock %}
+        </section>
+
+        <section class="col l4">
+            {% block content-right %}
+                <h3>Efemérides de hoy</h3>
+                {% for event in event_today_list %}
+                    <p><a href="{% url 'event:detail_event' event.pk %}">{{ event.date }} -> {{ event.title }}</a></p>
+                {% empty %}
+                    <p>No hay efemérides</p>
+                {% endfor %}
+                <a href="{% url 'event:list_event_today' %}" class="small btn blue-grey">Ver todas</a>
+            {% endblock %}
+        </section>
+    </main>
+{% endblock %}
+{% block script %}
+    {{ block.super }}
+    <script src="{% static 'account/js/dashboard.js' %}"></script>
+{% endblock %}

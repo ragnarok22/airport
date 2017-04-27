@@ -1,0 +1,12 @@
+{% extends 'account/dashboard.html' %}
+
+{% block content-down %}
+    <h2>Estás seguro que desea borrar la efeméride {{ event.title }}</h2>
+    <h3>{{ event.date }}</h3>
+    <h4>{{ event.description }}</h4>
+    <form method="post">
+        {% csrf_token %}
+        <a href="{% url 'event:detail_event' event.pk %}" class="btn green">Cancelar</a>
+        <input class="btn red" type="submit" value="Aceptar">
+    </form>
+{% endblock %}

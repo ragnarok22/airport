@@ -1,0 +1,9 @@
+{% extends 'account/dashboard.html' %}
+
+{% block content-left %}
+    <h3>Estas seguro de que desea eliminar el area "{{ area.name }}"</h3>
+    <form method="post">
+        {% csrf_token %}
+        <input type="submit" value="Eliminar" class="btn red">
+    </form>
+{% endblock %}
