@@ -1,0 +1,13 @@
+{% extends 'account/dashboard.html' %}
+
+{% block title %}
+    {{ event.date }}
+{% endblock %}
+
+{% block content-left %}
+    <h1>{{ event.title }}</h1>
+    <p>{{ event.date }}</p>
+    <p>{{ event.description }}</p>
+    <a href="{% url 'event:update_event' event.pk %}" class="btn green">Editar</a>
+    <a href="{% url 'event:delete_event' event.pk %}" class="btn red">Eliminar</a>
+{% endblock %}

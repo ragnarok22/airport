@@ -1,0 +1,11 @@
+{% extends 'account/dashboard.html' %}
+
+{% block content-left %}
+    <h2 class="center">Efemérides</h2>
+    {% for event in events_list %}
+        <p><a href="{% url 'event:detail_event' event.pk %}">{{ event.date }} -> {{ event.title }}</a></p>
+    {% empty %}
+        <p>No hay efemérides</p>
+    {% endfor %}
+    <a href="{% url 'event:create_event' %}" class="btn blue">Añadir</a>
+{% endblock %}
