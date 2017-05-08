@@ -5,14 +5,16 @@
         <form method="post">
             {% csrf_token %}
             {% if form.username.help_text %}
-        <p class="help">{{ form.username.help_text|safe }}</p>
-        {% endif %}
+                <p class="help">{{ form.username.help_text|safe }}</p>
+            {% endif %}
             {{ form.username.errors }}
             {{ form.username.label_tag }}
             {{ form.username }}
-            {{ form.password.errors }}
-            {{ form.password.label_tag }}
-            {{ form.password }}
+            <label>
+                {{ form.password.errors }}
+                {{ form.password.label_tag }}
+                <input type="password" name="password">
+            </label>
             <label>
                 Repetir contraseña:
                 <input type="password">

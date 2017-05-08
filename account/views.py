@@ -128,6 +128,15 @@ class ProfileCreateView(SuperUserRequiredMixin, ProfileMixin, CreateView):
         )
         return context
 
+    def post(self, request, *args, **kwargs):
+        post = super(ProfileCreateView, self).post(request, *args, **kwargs)
+        password = request.POST.get("password", "")
+        user = self.object
+        if password:
+            user.set_password(password)
+            user.save()
+        return post
+
 
 class ProfileListView(SuperUserRequiredMixin, ProfileMixin, ListView):
     model = Profile
