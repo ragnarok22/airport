@@ -162,3 +162,8 @@ class ProfileDetailView(AsPermissionEditView, DetailView):
 class ProfileDeleteView(SuperUserRequiredMixin, DeleteView):
     model = Profile
     success_url = reverse_lazy('account:list_user')
+
+    def get_context_data(self, **kwargs):
+        context = super(ProfileDeleteView, self).get_context_data(**kwargs)
+        context["userdel"] = self.object
+        return context
