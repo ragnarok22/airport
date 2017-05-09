@@ -11,3 +11,4 @@ def url(self, filename):
 class Image(models.Model):
     image = models.ImageField(upload_to=url)
     up_by = models.ForeignKey(Profile)
+    description = models.CharField(max_length=100, blank=True)

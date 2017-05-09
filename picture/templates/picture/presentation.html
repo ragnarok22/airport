@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+    Presentacion
+{% endblock %}
+
+{% block content %}
+
+    <div class="slider fullscreen">
+        <ul class="slides">
+            {% for picture in picture_list %}
+                <li>
+                    <img src="{{ picture.image.url }}">
+                    <div class="caption center-align">
+                        {% if picture.description %}
+                            <h3>{{ picture.description }}</h3>
+                        {% endif %}
+                        <h5 class="light grey-text text-lighten-3">subido por {{ picture.up_by.get_full_name }}</h5>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+{% endblock %}

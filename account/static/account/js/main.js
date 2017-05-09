@@ -4,6 +4,7 @@ $(document).ready(function () {
     $('.button-collapse').sideNav();
     $('.parallax').parallax();
     $('.modal-trigger').leanModal();
+    $('.slider').slider();
 
     $('#terms').click(function () {
         $('#spinner-terms').show(500);

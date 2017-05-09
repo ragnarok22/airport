@@ -2,6 +2,9 @@
 
 {% block content-left %}
     <div class="container-fluid">
+        <div class="center" id="presentation">
+            <a href="{% url 'picture:presentation' %}" class="btn" target="_blank">Presentaci&oacute;n</a>
+        </div>
         {% for image in image_list %}
             <img src="{{ image.image.url }}" alt="subido por {{ image.up_by }}" class="materialboxed" width="200"
                  height="200" data-caption="subido por {{ image.up_by.get_full_name }}">
