@@ -1,0 +1,10 @@
+{% extends 'account/dashboard.html' %}
+
+{% block content-left %}
+    <h5>¿Estas seguro de que desea eliminar esta foto subida por {{ image.up_by }}?</h5>
+    <form method="post">
+        {% csrf_token %}
+        <input type="submit" value="Eliminar" class="btn red">
+        <a href="{% url 'picture:list_picture' %}" class="btn">Cancelar</a>
+    </form>
+{% endblock %}
