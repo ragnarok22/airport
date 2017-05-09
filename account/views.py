@@ -13,7 +13,7 @@ from django.views.generic import FormView, RedirectView, TemplateView, UpdateVie
     DetailView
 from django.views.generic.base import ContextMixin
 
-from account.forms import ProfileUpdateForm, ProfileUpdatePasswordForm
+from account.forms import ProfileUpdateForm, ProfileUpdatePasswordForm, ProfileCreateForm
 from account.models import Profile
 from event.models import Event
 
@@ -142,8 +142,7 @@ class ProfileUpdatePasswordView(SameUserPermissionViewMixin, UpdateView):
 
 class ProfileCreateView(SuperUserRequiredMixin, ProfileMixin, CreateView):
     model = Profile
-    fields = ['username', 'password', 'is_superuser', 'first_name', 'last_name', 'email', 'is_staff', 'picture',
-              'born_date', 'sex']
+    form_class = ProfileCreateForm
     success_url = reverse_lazy('account:list_user')
 
     def get_context_data(self, **kwargs):

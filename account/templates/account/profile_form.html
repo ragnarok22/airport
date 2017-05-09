@@ -1,44 +1,54 @@
 {% extends 'account/dashboard.html' %}
+{% load staticfiles %}
 
 {% block content-down %}
     <div class="container">
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            {% if form.username.help_text %}
-                <p class="help">{{ form.username.help_text|safe }}</p>
-            {% endif %}
-            {{ form.username.errors }}
-            {{ form.username.label_tag }}
-            {{ form.username }}
-            <label>
-                {{ form.password.errors }}
-                {{ form.password.label_tag }}
-                <input type="password" name="password">
-            </label>
-            <label>
-                Repetir contraseña:
-                <input type="password">
-            </label>
-            {{ form.first_name.errors }}
-            {{ form.first_name.label_tag }}
-            {{ form.first_name }}
-            {{ form.last_name.errors }}
-            {{ form.last_name.label_tag }}
-            {{ form.last_name }}
-            {{ form.email.errors }}
-            {{ form.email.label_tag }}
-            {{ form.email }}
-            {{ form.picture.errors }}
-            {{ form.picture.label_tag }}
-            {{ form.picture }}<br>
-            {{ form.born_date.errors }}
-            {{ form.born_date.label_tag }}
-            {{ form.born_date }}
-            {{ form.sex.errors }}
-            {{ form.sex.label_tag }}
-            {{ form.sex }}
-            <input type="submit" value="Aceptar" class="btn">
-            <a href="{% url 'account:list_user' %}" class="btn red">Cancelar</a>
+            <div class="row">
+                <div class="errorlist">
+                    {{ form.first_name.errors }}
+                    {{ form.username.errors }}
+                    {{ form.born_date.errors }}
+                    {{ form.last_name.errors }}
+                    {{ form.email.errors }}
+                    {{ form.sex.errors }}
+                </div>
+                <div class="col l4">
+                    <img src="{% static 'account/images/user.png' %}" width="200" height="200" class="circle">
+                    {{ form.picture }}
+                </div>
+                <div class="col l8">
+                    <div class="col l4">
+                        {{ form.first_name.label_tag }}
+                        {{ form.first_name }}
+                        {{ form.username.label_tag }}
+                        {{ form.username }}
+                        {{ form.password.label_tag }}
+                        {{ form.password }}
+                        {{ form.born_date.label_tag }}
+                        {{ form.born_date }}
+                    </div>
+                    <div class="col l8">
+                        {{ form.last_name.label_tag }}
+                        {{ form.last_name }}
+                        {{ form.email.label_tag }}
+                        {{ form.email }}
+                        <label for="repeat">Repita la contraseña</label>
+                        <input type="password" id="repeat">
+                        {{ form.sex.label_tag }}
+                        {{ form.sex }}
+                    </div>
+                    <input type="submit" value="Aceptar" class="btn">
+                    <a href="{% url 'account:list_user' %}" class="btn red">Cancelar</a>
+                </div>
+            </div>
         </form>
     </div>
+{% endblock %}
+
+{% block script %}
+    {{ block.super }}
+    {% load staticfiles %}
+    <script src="{% static 'account/js/update_password.js' %}"></script>
 {% endblock %}

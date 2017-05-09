@@ -6,14 +6,14 @@
 
 {% block content-left %}
     <div class="container-fluid">
-        <div class="col 4">
+        <div class="col l4">
             {% if profile.picture %}
                 <img src="{{ profile.picture.url }}" class="circle" width="200" height="200">
             {% else %}
                 <img src="{% static 'account/images/user.png' %}" width="200" height="200" class="circle">
             {% endif %}
         </div>
-        <div class="col 8">
+        <div class="col l8">
             <h3>Perfil de {{ profile.username }}</h3>
             <p>Nombre de usuario: {{ profile.username }}</p>
             <p>Nombre: {{ profile.first_name }}</p>
