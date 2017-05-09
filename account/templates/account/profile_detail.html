@@ -18,6 +18,7 @@
     <p>Sexo: {{ profile.sex }}</p>
     {% if can_edit %}
         <a href="{% url 'account:update_user' profile.pk %}" class="btn">Editar</a>
+        <a href="{% url 'account:update_password_user' profile.pk %}" class="btn">Cambiar contraseña</a>
     {% endif %}
     {% if user.is_superuser %}
         <a href="{% url 'account:delete_user' profile.pk %}" class="btn red">Eliminar</a>

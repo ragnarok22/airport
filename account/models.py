@@ -29,8 +29,7 @@ class Profile(User):
         return actual - born_year
 
     def set_picture(self, picture):
-        url_file = url(self, picture)
-        self.picture = url_file
+        self.picture = picture
 
     def __str__(self):
         return self.get_username()

@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.core.exceptions import PermissionDenied
 from django.db.models import Q
+from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
@@ -12,6 +13,7 @@ from django.views.generic import FormView, RedirectView, TemplateView, UpdateVie
     DetailView
 from django.views.generic.base import ContextMixin
 
+from account.forms import ProfileUpdateForm, ProfileUpdatePasswordForm
 from account.models import Profile
 from event.models import Event
 
@@ -49,7 +51,6 @@ class SuperUserRequiredMixin(ProfileMixin, View):
 
 
 class SameUserPermissionMixin(ContextMixin, View):
-
     def dispatch(self, request, *args, **kwargs):
         if int(kwargs['pk']) == request.user.pk or self.request.user.is_superuser:
             self.can_edit = True
@@ -108,14 +109,30 @@ class DashboardView(ProfileMixin, TemplateView):
 
 class ProfileUpdateView(SameUserPermissionViewMixin, UpdateView):
     model = Profile
-    fields = ['username', 'password', 'first_name', 'last_name', 'email', 'picture', 'born_date', 'sex']
     template_name = 'account/profile_update_form.html'
+    form_class = ProfileUpdateForm
+
+    def get_success_url(self):
+        return reverse_lazy('account:detail_user', kwargs={'pk': self.object.pk})
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.picture = form.cleaned_data['picture']
+        print(form.cleaned_data['picture'])
+        self.object.save()
+        return super(ProfileUpdateView, self).form_valid(form)
+
+
+class ProfileUpdatePasswordView(SameUserPermissionViewMixin, UpdateView):
+    model = Profile
+    template_name = 'account/profile_update_password_form.html'
+    form_class = ProfileUpdatePasswordForm
 
     def get_success_url(self):
         return reverse_lazy('account:detail_user', kwargs={'pk': self.object.pk})
 
     def post(self, request, *args, **kwargs):
-        post = super(ProfileUpdateView, self).post(request, *args, **kwargs)
+        post = super(ProfileUpdatePasswordView, self).post(request, *args, **kwargs)
         user = self.object
         password = request.POST.get("password", "")
         if password:
