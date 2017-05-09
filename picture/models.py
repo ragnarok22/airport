@@ -9,8 +9,8 @@ def url(self, filename):
 
 
 class Image(models.Model):
-    image = models.ImageField('imagen', upload_to=url)
-    up_by = models.ForeignKey('subido por', Profile)
+    image = models.ImageField('imagen', upload_to=url, )
+    up_by = models.ForeignKey(Profile, verbose_name='Subido por')
     description = models.CharField('descripcion', max_length=100, blank=True)
 
     def __str__(self):
