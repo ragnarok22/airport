@@ -1,8 +1,8 @@
 from django.urls import reverse_lazy
-from django.views.generic import ListView, UpdateView, DeleteView, CreateView, DetailView
+from django.views.generic import ListView, DeleteView, CreateView
 
 from account.models import Profile
-from account.views import ProfileMixin, LoginRequiredMixin
+from account.views import ProfileMixin
 from picture.models import Image
 
 

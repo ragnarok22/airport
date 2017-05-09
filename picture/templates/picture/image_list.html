@@ -3,8 +3,8 @@
 {% block content-left %}
     <div class="container-fluid">
         {% for image in image_list %}
-            <img src="{{ image.image.url }}" alt="subido por {{ image.up_by }}" class="materialboxed" width="200" height="200">
-            <p>{{ image.up_by }}</p>
+            <img src="{{ image.image.url }}" alt="subido por {{ image.up_by }}" class="materialboxed" width="200"
+                 height="200" data-caption="subido por {{ image.up_by.get_full_name }}">
         {% empty %}
             <h3 class="red-text center">No hay fotos subidas</h3>
         {% endfor %}

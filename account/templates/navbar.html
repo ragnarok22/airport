@@ -65,6 +65,10 @@
             <li><a href="{% url 'model:create_area' %}">Crear un Area</a></li>
             <li class="divider"></li>
         {% endif %}
+        <li class="subheader">Im&aacute;genes</li>
+        <li><a href="{% url 'picture:list_picture' %}">Todas las im&aacute;genes</a></li>
+        <li><a href="{% url 'picture:create_picture' %}">subir una imagen</a></li>
+        <li class="divider"></li>
         <li><a href="{% url 'account:logout' %}"><i class="material-icons">input</i>Salir</a></li>
     </ul>
 

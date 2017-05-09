@@ -1,4 +1,6 @@
-image {
-    padding: 0;
+img {
+    padding: 10px;
     margin: 0;
+    float: left;
+    clear: none;
 }
