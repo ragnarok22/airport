@@ -12,8 +12,8 @@
         </tr>
         {% for profile in profile_list %}
             <tr>
-                <td><a href="{% url 'account:detail_user' profile.pk %}">{{ forloop.counter }}</a></td>
-                <td>{{ profile.username }}</td>
+                <td>{{ forloop.counter }}</td>
+                <td><a href="{% url 'account:detail_user' profile.pk %}">{{ profile.username }}</a></td>
                 <td>{{ profile.first_name }}</td>
                 <td>{{ profile.last_name }}</td>
                 <td>{{ profile.email }}</td>
