@@ -6,31 +6,19 @@ $(document).ready(function () {
     $('.modal-trigger').leanModal();
     $('.slider').slider();
 
-    $('#terms').click(function () {
-        $('#spinner-terms').show(500);
-        $('#terms-content').load('/terms', function (response, status, xhr) {
-            if(status == 'error'){
-                $('#terms-content').append('<h3><i class="material-icons">error</i> Se ha producido un error ' + xhr.status + '</h3>');
-            }
-            $('#spinner-terms').hide(500);
-        });
+    // Show or hide the sticky footer button
+    $(window).scroll(function() {
+        if ($(this).scrollTop() > 200) {
+            $('.go-top').fadeIn(200);
+        } else {
+            $('.go-top').fadeOut(200);
+        }
     });
-    $('#about').click(function () {
-        $('#spinner-about').show(500);
-        $('#about-content').load('/about', function (response, status, xhr) {
-            if(status == 'error'){
-                $('#about-content').append('<h3><i class="material-icons">error</i> Se ha producido un error ' + xhr.status + '</h3>');
-            }
-            $('#spinner-about').hide(500);
-        });
-    });
-    $('#privacy').click(function () {
-        $('#spinner-privacy').show(500);
-        $('#privacy-content').load('/privacy', function (response, status, xhr) {
-            if(status == 'error'){
-                $('#privacy-content').append('<h3><i class="material-icons">error</i> Se ha producido un error ' + xhr.status + '</h3>');
-            }
-            $('#spinner-privacy').hide(500);
-        });
-    });
+
+    // Animate the scroll to top
+    $('.go-top').click(function(event) {
+        event.preventDefault();
+
+        $('html, body').animate({scrollTop: 0}, 300);
+    })
 });
