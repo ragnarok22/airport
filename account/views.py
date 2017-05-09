@@ -50,7 +50,7 @@ class SuperUserRequiredMixin(ProfileMixin, View):
             raise PermissionDenied
 
 
-class SameUserPermissionMixin(ContextMixin, View):
+class SameUserPermissionMixin(LoginRequiredMixin):
     def dispatch(self, request, *args, **kwargs):
         if int(kwargs['pk']) == request.user.pk or self.request.user.is_superuser:
             self.can_edit = True
@@ -115,12 +115,11 @@ class ProfileUpdateView(SameUserPermissionViewMixin, UpdateView):
     def get_success_url(self):
         return reverse_lazy('account:detail_user', kwargs={'pk': self.object.pk})
 
-    def form_valid(self, form):
-        self.object = form.save(commit=False)
-        self.object.picture = form.cleaned_data['picture']
-        print(form.cleaned_data['picture'])
-        self.object.save()
-        return super(ProfileUpdateView, self).form_valid(form)
+    def post(self, request, *args, **kwargs):
+        form = ProfileUpdateForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+        return super(ProfileUpdateView, self).post(request, *args, **kwargs)
 
 
 class ProfileUpdatePasswordView(SameUserPermissionViewMixin, UpdateView):
@@ -175,7 +174,7 @@ class ProfileListView(SuperUserRequiredMixin, ProfileMixin, ListView):
         return context
 
 
-class ProfileDetailView(LoginRequiredMixin, AsPermissionEditView, DetailView):
+class ProfileDetailView(AsPermissionEditView, DetailView):
     model = Profile
 
     def get_context_data(self, **kwargs):

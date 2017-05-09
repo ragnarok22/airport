@@ -2,7 +2,7 @@
 
 {% block content-down %}
     <div class="container">
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {% if form.username.help_text %}
                 <p class="help">{{ form.username.help_text|safe }}</p>
