@@ -9,6 +9,13 @@ def url(self, filename):
 
 
 class Image(models.Model):
-    image = models.ImageField(upload_to=url)
-    up_by = models.ForeignKey(Profile)
-    description = models.CharField(max_length=100, blank=True)
+    image = models.ImageField('imagen', upload_to=url)
+    up_by = models.ForeignKey('subido por', Profile)
+    description = models.CharField('descripcion', max_length=100, blank=True)
+
+    def __str__(self):
+        return '{} --> {}'.format(self.description, self.up_by)
+
+    class Meta:
+        verbose_name = 'Imagen'
+        verbose_name_plural = 'Imagenes'

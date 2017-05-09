@@ -3,8 +3,8 @@ from django.db import models
 
 class Event(models.Model):
     date = models.DateField('Fecha')
-    title = models.CharField('titulo', max_length=100)
-    description = models.TextField('descripcion', blank=True, null=True)
+    title = models.CharField('Título', max_length=100)
+    description = models.TextField('Descripción', blank=True, null=True)
 
     class Meta:
         verbose_name = 'Efeméride'
