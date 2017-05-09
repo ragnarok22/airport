@@ -114,6 +114,15 @@ class ProfileUpdateView(SameUserPermissionViewMixin, UpdateView):
     def get_success_url(self):
         return reverse_lazy('account:detail_user', kwargs={'pk': self.object.pk})
 
+    def post(self, request, *args, **kwargs):
+        post = super(ProfileUpdateView, self).post(request, *args, **kwargs)
+        user = self.object
+        password = request.POST.get("password", "")
+        if password:
+            user.set_password(password)
+            user.save()
+        return post
+
 
 class ProfileCreateView(SuperUserRequiredMixin, ProfileMixin, CreateView):
     model = Profile
@@ -149,7 +158,7 @@ class ProfileListView(SuperUserRequiredMixin, ProfileMixin, ListView):
         return context
 
 
-class ProfileDetailView(AsPermissionEditView, DetailView):
+class ProfileDetailView(LoginRequiredMixin, AsPermissionEditView, DetailView):
     model = Profile
 
     def get_context_data(self, **kwargs):
