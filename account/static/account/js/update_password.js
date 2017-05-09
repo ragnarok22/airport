@@ -5,7 +5,7 @@ $(document).ready(function () {
     submit.click(function (event) {
         if(password.val() != repeat.val()){
             event.preventDefault();
-            alert("Error: son diferentes");
+            Materialize.toast('Las contraseñas deben coincidir', 2000, 'red');
         }
     });
 });
