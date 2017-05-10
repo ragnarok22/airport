@@ -179,7 +179,6 @@ class ProfileDetailView(AsPermissionEditView, ProfileMixin, DetailView):
         context = super(ProfileDetailView, self).get_context_data(**kwargs)
         context['event_today_list'] = Event.objects.filter(
             Q(date__day=timezone.now().day) & Q(date__month=timezone.now().month))
-        print(context)
         return context
 
 

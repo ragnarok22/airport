@@ -20,7 +20,7 @@
             <p>Apellidos: {{ prof.last_name }}</p>
             <p>Email: {{ prof.email }}</p>
             <p>Fecha de nacimiento: {{ prof.born_date }}</p>
-            <p>Sexo: {{ prof.sex }}</p>
+            <p>Sexo: {{ prof.get_sex_display }}</p>
             {% if can_edit %}
                 <a href="{% url 'account:update_user' prof.pk %}" class="btn">Editar</a>
                 <a href="{% url 'account:update_password_user' prof.pk %}" class="btn">Cambiar contraseña</a>
