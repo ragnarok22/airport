@@ -63,6 +63,11 @@ class AreaUpdateView(EventTodayProfileMixin, UpdateView):
 class AreaDetailView(EventTodayProfileMixin, DetailView):
     model = Area
 
+    def get_context_data(self, **kwargs):
+        context = super(AreaDetailView, self).get_context_data(**kwargs)
+        context['models'] = ModelR01PG01.objects.filter(area__name=self.object.name)
+        return context
+
 
 class AreaListView(EventTodayProfileMixin, ListView):
     model = Area

@@ -1,7 +1,11 @@
 {% extends 'account/dashboard.html' %}
 
 {% block content-left %}
-    <p>{{ area.name }}</p>
+    <h2>{{ area.name }}</h2>
+    {% for model in models %}
+        <p>{{ forloop.counter }} {{ model }}</p>
+    {% endfor %}
+
     <a href="{% url 'model:delete_area' area.pk %}" class="btn red">Eliminar</a>
     <a href="{% url 'model:update_area' area.pk %}" class="btn">Editar</a>
 {% endblock %}
