@@ -9,6 +9,7 @@ from picture.models import Image
 
 class PictureListView(ProfileMixin, ListView):
     model = Image
+    queryset = Image.objects.all().order_by('-date')
 
 
 class PictureCreateView(ProfileMixin, CreateView):
@@ -32,5 +33,5 @@ class PresentationView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(PresentationView, self).get_context_data(**kwargs)
-        context['picture_list'] = Image.objects.all()
+        context['picture_list'] = Image.objects.all().order_by('-date')
         return context

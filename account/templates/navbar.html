@@ -6,11 +6,40 @@
             <div class="blue-text">Efemérides</div>
         </a></li>
         <li><a href="#">
-            <div class="blue-text">Normas</div>
+            <div class="blue-text">Normas, Decretos y Leyes</div>
+        </a></li>
+    </ul>
+
+    <ul id="models" class="dropdown-content">
+        <li><a href="{% url 'model:list_modelr01pg01' %}">
+            <div class="blue-text">R-01 PG.190-01</div>
+        </a>
+        </li>
+        <li><a href="#">
+            <div class="blue-text">R-01 PG.190-02</div>
         </a></li>
         <li><a href="#">
-            <div class="blue-text">Decretos</div>
+            <div class="blue-text">R-01 PG.190-03</div>
         </a></li>
+        <li><a href="#">
+            <div class="blue-text">R-01 PG.190-04</div>
+        </a></li>
+        <li><a href="#">
+            <div class="blue-text">R-01 PG.190-05</div>
+        </a></li>
+        <li><a href="#">
+            <div class="blue-text">R-01 PG.190-06</div>
+        </a></li>
+        <li><a href="#">
+            <div class="blue-text">R-01 PG.190-07</div>
+        </a></li>
+        <li><a href="#">
+            <div class="blue-text">R-01 PG.190-08</div>
+        </a></li>
+        <li><a href="#">
+            <div class="blue-text">R-01 PG.190-09</div>
+        </a>
+        </li>
     </ul>
 
     <nav class="nav-wrapper blue" role="navigation">
@@ -18,11 +47,12 @@
         <a href="#" data-activates="user-menu" class="button-collapse"><i class="material-icons">account_circle</i></a>
         <ul class="hide-on-med-and-down">
             <li><a href="{% url 'dashboard' %}">Inicio</a></li>
+            <li><a href="#" class="dropdown-button" data-activates="models">Modelos</a></li>
             <li><a href="#" class="dropdown-button" data-activates="bibliografic">Bibliografía</a></li>
             <li><a href="{% url 'picture:list_picture' %}">Im&aacute;genes</a></li>
             <li class="right">
                 <a href="#" id="test">
-{#                    <i class="material-icons right">account_circle</i>#}
+                    {#                    <i class="material-icons right">account_circle</i>#}
                     <img src="{{ profile.picture.url }}" class="circle right" width="50" height="50">
                     Bienvenid@ {{ user.username }}
                 </a>
