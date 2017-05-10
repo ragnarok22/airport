@@ -1,14 +1,31 @@
 {% extends 'account/dashboard.html' %}
 
 {% block title %}
-Area {{ area.name }}
+    Area {{ area.name }}
 {% endblock %}
 
 {% block content-left %}
-    <h2>{{ area.name }}</h2>
-    {% for model in models %}
-        <p>{{ forloop.counter }} {{ model }}</p>
-    {% endfor %}
+    <h4 class="center">Identificación de aspectos ambientales</h4>
+    <h5 class="center">Relación de aspectos ambientales</h5>
+    <h6 class="left">Area: {{ area.name }}</h6>
+    <table>
+        <tr>
+            <th>No</th>
+            <th>Aspectos ambientales</th>
+            <th>Registrado por</th>
+            <th>Año</th>
+            <th>Fecha de publicación</th>
+        </tr>
+        {% for model in models %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ model }}</td>
+                <td><a href="{% url 'account:detail_user' model.register_by.pk %}">{{ model.register_by }}</a></td>
+                <td>{{ model.year }}</td>
+                <td>{{ model.pub_date }}</td>
+            </tr>
+        {% endfor %}
+    </table>
 
     <a href="{% url 'model:delete_area' area.pk %}" class="btn red">Eliminar</a>
     <a href="{% url 'model:update_area' area.pk %}" class="btn">Editar</a>

@@ -9,13 +9,14 @@ from model.models import ModelR01PG01, Area
 
 class ModelR01PG01CreateView(EventTodayProfileMixin, CreateView):
     model = ModelR01PG01
-    fields = ['area', 'year', 'environmental_aspects']
+    fields = ['year', 'environmental_aspects']
 
     def get_success_url(self):
         return reverse_lazy('model:detail_modelr01pg01', kwargs={'pk': self.object.pk})
 
     def form_valid(self, form):
         form.instance.register_by = Profile.objects.get(username=self.request.user.username)
+        form.instance.area = Profile.objects.get(username=self.request.user.username).area
         form.instance.save()
         return super(ModelR01PG01CreateView, self).form_valid(form)
 
@@ -47,6 +48,7 @@ class ModelR01PG01DetailView(EventTodayProfileMixin, DetailView):
 class ModelR01PG01ListView(EventTodayProfileMixin, ListView):
     model = ModelR01PG01
     context_object_name = 'model_list'
+    queryset = ModelR01PG01.objects.all().order_by('year').order_by('area__name')
 
 
 class ModelR01PG01DeleteView(ProfileMixin, DeleteView):

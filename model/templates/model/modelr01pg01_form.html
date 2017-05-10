@@ -4,10 +4,6 @@
     <form method="post">
         {% csrf_token %}
         {{ form.area.errors }}
-        {% if user.is_superuser %}
-            {{ form.area.label_tag }}
-            {{ form.area }}
-        {% endif %}
         {{ form.year.errors }}
         {{ form.year.label_tag }}
         {{ form.year }}
