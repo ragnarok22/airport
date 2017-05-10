@@ -3,7 +3,17 @@
 {% block content-left %}
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
+        {{ form.area.errors }}
+        {% if user.is_superuser %}
+            {{ form.area.label_tag }}
+            {{ form.area }}
+        {% endif %}
+        {{ form.year.errors }}
+        {{ form.year.label_tag }}
+        {{ form.year }}
+        {{ form.environmental_aspects.errors }}
+        {{ form.environmental_aspects.label_tag }}
+        {{ form.environmental_aspects }}
         <input type="submit" value="Aceptar" class="btn">
         <a href="{% url 'model:list_modelr01pg01' %}" class="btn blue">Listado del modelo R01/PG.190-01</a>
     </form>

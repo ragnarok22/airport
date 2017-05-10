@@ -2,7 +2,7 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, DetailView, DeleteView, ListView
 
 from account.models import Profile
-from account.views import LoginRequiredMixin, ProfileMixin
+from account.views import ProfileMixin
 from event.views import EventTodayProfileMixin
 from model.models import ModelR01PG01, Area
 
@@ -22,11 +22,17 @@ class ModelR01PG01CreateView(EventTodayProfileMixin, CreateView):
 
 class ModelR01PG01UpdateView(EventTodayProfileMixin, UpdateView):
     model = ModelR01PG01
-    fields = '__all__'
+    fields = ['year', 'environmental_aspects']
     context_object_name = 'model'
 
     def get_success_url(self):
         return reverse_lazy('model:detail_modelr01pg01', kwargs={'pk': self.object.pk})
+
+    def form_valid(self, form):
+        form.instance.register_by = Profile.objects.get(username=self.request.user.username)
+        form.instance.area = Profile.objects.get(username=self.request.user.username).area
+        form.instance.save()
+        return super(ModelR01PG01UpdateView, self).form_valid(form)
 
 
 class ModelR01PG01DetailView(EventTodayProfileMixin, DetailView):

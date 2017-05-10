@@ -18,6 +18,7 @@ class Profile(User):
     picture = models.ImageField('Imagen', blank=True, null=True, upload_to=url)
     born_date = models.DateField('Fecha de nacimiento', blank=True, null=True)
     sex = models.CharField(max_length=1, choices=SEX_CHOICES, default='U')
+    area = models.ForeignKey('model.Area')
 
     class Meta:
         verbose_name = 'Perfil'
