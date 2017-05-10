@@ -1,10 +1,10 @@
-img {
+#presentation {
+    margin-top: 10px;
+}
+
+.view {
     padding: 10px;
     margin: 0;
     float: left;
     clear: none;
-}
-
-#presentation {
-    margin-top: 10px;
 }
