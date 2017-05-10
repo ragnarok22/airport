@@ -2,7 +2,7 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, DetailView, DeleteView, ListView
 
 from account.models import Profile
-from account.views import ProfileMixin
+from account.views import ProfileMixin, SuperUserRequiredMixin
 from event.views import EventTodayProfileMixin
 from model.models import ModelR01PG01, Area
 
@@ -46,24 +46,23 @@ class ModelR01PG01DetailView(EventTodayProfileMixin, DetailView):
 
 
 class ModelR01PG01ListView(EventTodayProfileMixin, ListView):
-    model = ModelR01PG01
     context_object_name = 'model_list'
     queryset = ModelR01PG01.objects.all().order_by('year').order_by('area__name')
 
 
-class ModelR01PG01DeleteView(ProfileMixin, DeleteView):
+class ModelR01PG01DeleteView(SuperUserRequiredMixin, DeleteView):
     model = ModelR01PG01
     context_object_name = 'model'
     success_url = reverse_lazy('model:list_modelr01pg01')
 
 
-class AreaCreateView(EventTodayProfileMixin, CreateView):
+class AreaCreateView(EventTodayProfileMixin, SuperUserRequiredMixin, CreateView):
     model = Area
     fields = '__all__'
     success_url = reverse_lazy('model:list_area')
 
 
-class AreaUpdateView(EventTodayProfileMixin, UpdateView):
+class AreaUpdateView(EventTodayProfileMixin, SuperUserRequiredMixin, UpdateView):
     model = Area
     fields = '__all__'
 
@@ -81,6 +80,6 @@ class AreaListView(EventTodayProfileMixin, ListView):
     model = Area
 
 
-class AreaDeleteView(ProfileMixin, DeleteView):
+class AreaDeleteView(SuperUserRequiredMixin, DeleteView):
     model = Area
     success_url = reverse_lazy('model:list_area')

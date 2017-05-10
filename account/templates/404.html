@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load staticfiles %}
+<head>
+    <meta charset="utf-8">
+    <title>Página no encontrada :(</title>
+    <link rel="stylesheet" href="{% static 'account/css/404.css' %}">
+</head>
+<body>
+<div class="container">
+    <h1>Página no encontrada <span>:(</span></h1>
+    <p>Lo siento, pero la página que estás tratando de ver no existe.</p>
+    <p>Esto parece causado por uno de los resultados siguientes:</p>
+    <ul>
+        <li>Una dirección perdida</li>
+        <li>Un link antiguo</li>
+    </ul>
+    <a href="#">Regresar</a>
+    <script>
+        var GOOG_FIXURL_LANG = (navigator.language || '').slice(0,2),GOOG_FIXURL_SITE = location.host;
+    </script>
+    <script src="{% static 'account/js/fixurl.js' %}"></script>
+</div>
+</body>
+</html>
