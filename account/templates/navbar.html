@@ -22,7 +22,8 @@
             <li><a href="{% url 'picture:list_picture' %}">Im&aacute;genes</a></li>
             <li class="right">
                 <a href="#" id="test">
-                    <i class="material-icons right">account_circle</i>
+{#                    <i class="material-icons right">account_circle</i>#}
+                    <img src="{{ profile.picture.url }}" class="circle right" width="50" height="50">
                     Bienvenid@ {{ user.username }}
                 </a>
             </li>

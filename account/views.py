@@ -3,7 +3,6 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.core.exceptions import PermissionDenied
 from django.db.models import Q
-from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
@@ -11,7 +10,6 @@ from django.utils import timezone
 from django.views import View
 from django.views.generic import FormView, RedirectView, TemplateView, UpdateView, CreateView, ListView, DeleteView, \
     DetailView
-from django.views.generic.base import ContextMixin
 
 from account.forms import ProfileUpdateForm, ProfileUpdatePasswordForm, ProfileCreateForm
 from account.models import Profile
@@ -173,13 +171,15 @@ class ProfileListView(SuperUserRequiredMixin, ProfileMixin, ListView):
         return context
 
 
-class ProfileDetailView(AsPermissionEditView, DetailView):
+class ProfileDetailView(AsPermissionEditView, ProfileMixin, DetailView):
     model = Profile
+    context_object_name = 'prof'
 
     def get_context_data(self, **kwargs):
         context = super(ProfileDetailView, self).get_context_data(**kwargs)
         context['event_today_list'] = Event.objects.filter(
             Q(date__day=timezone.now().day) & Q(date__month=timezone.now().month))
+        print(context)
         return context
 
 

@@ -1,32 +1,32 @@
 {% extends 'account/dashboard.html' %}
 {% load staticfiles %}
 {% block title %}
-    Perfil de {{ profile.username }}
+    Perfil de {{ prof.username }}
 {% endblock %}
 
 {% block content-left %}
     <div class="container-fluid">
-        <div class="col l4">
-            {% if profile.picture %}
-                <img src="{{ profile.picture.url }}" class="circle" width="200" height="200">
+        <div class="col 4">
+            {% if prof.picture %}
+                <img src="{{ prof.picture.url }}" class="circle" width="200" height="200">
             {% else %}
                 <img src="{% static 'account/images/user.png' %}" width="200" height="200" class="circle">
             {% endif %}
         </div>
-        <div class="col l8">
-            <h3>Perfil de {{ profile.username }}</h3>
-            <p>Nombre de usuario: {{ profile.username }}</p>
-            <p>Nombre: {{ profile.first_name }}</p>
-            <p>Apellidos: {{ profile.last_name }}</p>
-            <p>Email: {{ profile.email }}</p>
-            <p>Fecha de nacimiento: {{ profile.born_date }}</p>
-            <p>Sexo: {{ profile.sex }}</p>
+        <div class="col 8">
+            <h3>Perfil de {{ prof.username }}</h3>
+            <p>Nombre de usuario: {{ prof.username }}</p>
+            <p>Nombre: {{ prof.first_name }}</p>
+            <p>Apellidos: {{ prof.last_name }}</p>
+            <p>Email: {{ prof.email }}</p>
+            <p>Fecha de nacimiento: {{ prof.born_date }}</p>
+            <p>Sexo: {{ prof.sex }}</p>
             {% if can_edit %}
-                <a href="{% url 'account:update_user' profile.pk %}" class="btn">Editar</a>
-                <a href="{% url 'account:update_password_user' profile.pk %}" class="btn">Cambiar contraseña</a>
+                <a href="{% url 'account:update_user' prof.pk %}" class="btn">Editar</a>
+                <a href="{% url 'account:update_password_user' prof.pk %}" class="btn">Cambiar contraseña</a>
             {% endif %}
             {% if user.is_superuser %}
-                <a href="{% url 'account:delete_user' profile.pk %}" class="btn red">Eliminar</a>
+                <a href="{% url 'account:delete_user' prof.pk %}" class="btn red">Eliminar</a>
             {% endif %}
         </div>
     </div>
