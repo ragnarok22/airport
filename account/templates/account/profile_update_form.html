@@ -1,6 +1,10 @@
 {% extends 'account/dashboard.html' %}
 {% load staticfiles %}
 
+{% block title %}
+Editar perfil de {{ form.instance.username }}
+{% endblock %}
+
 {% block content-down %}
     <div class="container">
         <form method="post" enctype="multipart/form-data">

@@ -4,6 +4,7 @@ from django.utils import timezone
 from django.views.generic import CreateView, ListView, DetailView, DeleteView, UpdateView
 
 from account.views import ProfileMixin
+from event.forms import EventCreateForm
 from event.models import Event
 
 
@@ -21,7 +22,7 @@ class EventTodayProfileMixin(EventTodayMixin, ProfileMixin):
 
 class EventCreateView(EventTodayProfileMixin, CreateView):
     model = Event
-    fields = '__all__'
+    form_class = EventCreateForm
     success_url = reverse_lazy('event:list_event')
 
 

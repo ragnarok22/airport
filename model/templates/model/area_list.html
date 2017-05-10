@@ -1,5 +1,9 @@
 {% extends 'account/dashboard.html' %}
 
+{% block title %}
+Listado de Areas
+{% endblock %}
+
 {% block content-left %}
     {% for area in area_list %}
         <p><a href="{% url 'model:detail_area' area.pk %}">{{ area.name }}</a></p>

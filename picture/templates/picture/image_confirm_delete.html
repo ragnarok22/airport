@@ -1,5 +1,9 @@
 {% extends 'account/dashboard.html' %}
 
+{% block title %}
+Eliminar imagen
+{% endblock %}
+
 {% block content-left %}
     <h5>¿Estas seguro de que desea eliminar esta foto subida por {{ image.up_by }}?</h5>
     <form method="post">

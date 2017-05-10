@@ -1,5 +1,9 @@
 {% extends 'account/dashboard.html' %}
 
+{% block title %}
+Efeméride
+{% endblock %}
+
 {% block content-left %}
     <form method="post" class="container">
         {% csrf_token %}

@@ -1,5 +1,9 @@
 {% extends 'account/dashboard.html' %}
 
+{% block title %}
+Eliminar Usuario {{ userdel.username }}
+{% endblock %}
+
 {% block content-down %}
     <h2>Estás seguro que desea borrar el usuario {{ userdel.username }}</h2>
     <h3>Nombre completo: {{ userdel.get_full_name }}</h3>

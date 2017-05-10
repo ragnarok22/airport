@@ -1,5 +1,9 @@
 {% extends 'account/dashboard.html' %}
 
+{% block title %}
+Subir una imagen
+{% endblock %}
+
 {% block content-left %}
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}

@@ -1,5 +1,9 @@
 {% extends 'account/dashboard.html' %}
 
+{% block title %}
+Area {{ area.name }}
+{% endblock %}
+
 {% block content-left %}
     <h2>{{ area.name }}</h2>
     {% for model in models %}

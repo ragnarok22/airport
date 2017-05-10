@@ -1,5 +1,9 @@
 {% extends 'account/dashboard.html' %}
 
+{% block title %}
+Efemérides del día
+{% endblock %}
+
 {% block content-left %}
     <h2 class="center">Efemérides de hoy</h2>
     {% for event in event_list %}
