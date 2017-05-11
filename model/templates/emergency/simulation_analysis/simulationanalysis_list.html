@@ -1,0 +1,52 @@
+{% extends 'account/dashboard.html' %}
+
+{% block title %}
+    Listado de analisis de simulacros
+{% endblock %}
+
+{% block content-left %}
+    {% for simulationanalysis in simulationanalysis_list %}
+        <table>
+            <tr>
+                <th>Resumen de los resultados del ejercicio designado por “Plan de reducción de desastres” </th>
+                <td>{{ simulationanalysis.summary }}</td>
+            </tr>
+            <tr>
+                <th>Evaluación de la eficacia</th>
+                <td>{{ simulationanalysis.evaluation }}</td>
+            </tr>
+            <tr>
+                <th>¿Es necesario revisar algún procedimiento  o el Plan de reducción de desastres?</th>
+                {% if simulationanalysis.is_necessary_check %}
+                    <td>Si</td>
+                {% else %}
+                    <td>No</td>
+                {% endif %}
+            </tr>
+            <tr>
+                {% if simulationanalysis.specify %}
+                    <th>Especificaciones</th>
+                    <td>{{ simulationanalysis.specify }}</td>
+                {% endif %}
+            </tr>
+            <tr>
+                {% if simulationanalysis.participants %}
+                    <th>Documento</th>
+                    <td>
+                        <a href="{{ simulationanalysis.participants.url }}" data-position="right" data-delay="50" data-tooltip="Descargar documento" class="tooltipped">
+                            <i class="material-icons">system_update_alt</i>
+                        </a>
+                    </td>
+                {% endif %}
+            </tr>
+            <tr>
+                <th>Acciones</th>
+                <td colspan="3">
+                    <a href="{% url 'model:detail_simulation_analysis' simulationanalysis.pk %}"><i class="material-icons">description</i></a>
+                    <a href="{% url 'model:delete_simulation_analysis' simulationanalysis.pk %}"><i class="material-icons">delete</i></a>
+                    <a href="{% url 'model:update_simulation_analysis' simulationanalysis.pk %}"><i class="material-icons">edit_mode</i></a>
+                </td>
+            </tr>
+        </table>
+    {% endfor %}
+{% endblock %}

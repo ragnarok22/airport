@@ -5,7 +5,9 @@ from model.views import ModelR01PG01CreateView, ModelR01PG01UpdateView, ModelR01
     LawRequirementCreateView, LawRequirementDeleteView, LawRequirementDetailView, LawRequirementListView, \
     LawRequirementUpdateView, EmergencyReportCreateView, EmergencyReportDeleteView, EmergencyReportDetailView, \
     EmergencyReportListView, EmergencyReportUpdateView, RealAnalysisCreateView, RealAnalysisDeleteView, \
-    RealAnalysisDetailView, RealAnalysisListView, RealAnalysisUpdateView
+    RealAnalysisDetailView, RealAnalysisListView, RealAnalysisUpdateView, SimulationAnalysisCreateView, \
+    SimulationAnalysisDeleteView, SimulationAnalysisDetailView, SimulationAnalysisListView, SimulationAnalysisUpdateView
+
 
 urlpatterns = [
     url(r'^create/r01pg01/$', ModelR01PG01CreateView.as_view(), name='create_modelr01pg01'),
@@ -37,5 +39,11 @@ urlpatterns = [
     url(r'^detail/real/analysis/(?P<pk>[0-9]+)/$', RealAnalysisDetailView.as_view(), name='detail_real_analysis'),
     url(r'^list/real/analysis/$', RealAnalysisListView.as_view(), name='list_real_analysis'),
     url(r'^delete/real/analysis/(?P<pk>[0-9]+)/$', RealAnalysisDeleteView.as_view(), name='delete_real_analysis'),
+
+    url(r'^create/simulation/analysis/$', SimulationAnalysisCreateView.as_view(), name='create_simulation_analysis'),
+    url(r'^update/simulation/analysis/(?P<pk>[0-9]+)/$', SimulationAnalysisUpdateView.as_view(), name='update_simulation_analysis'),
+    url(r'^detail/simulation/analysis/(?P<pk>[0-9]+)/$', SimulationAnalysisDetailView.as_view(), name='detail_simulation_analysis'),
+    url(r'^list/simulation/analysis/$', SimulationAnalysisListView.as_view(), name='list_simulation_analysis'),
+    url(r'^delete/simulation/analysis/(?P<pk>[0-9]+)/$', SimulationAnalysisDeleteView.as_view(), name='delete_simulation_analysis'),
 
 ]

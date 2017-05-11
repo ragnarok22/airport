@@ -5,7 +5,7 @@ from account.models import Profile
 from account.views import SuperUserRequiredMixin, ProfileMixin
 from event.views import EventTodayProfileMixin
 from model.forms import EmergencyReportCreateForm
-from model.models import ModelR01PG01, Area, LawRequirement, EmergencyReport, RealAnalysis, Analysis
+from model.models import ModelR01PG01, Area, LawRequirement, EmergencyReport, RealAnalysis, SimulationAnalysis
 
 
 class ModelR01PG01CreateView(EventTodayProfileMixin, CreateView):
@@ -163,6 +163,7 @@ class EmergencyReportDetailView(SuperUserRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super(EmergencyReportDetailView, self).get_context_data(**kwargs)
         context['real_analysiss'] = RealAnalysis.objects.filter(emergency_id=self.object.id)
+        context['simulation_analysiss'] = SimulationAnalysis.objects.filter(emergency_id=self.object.id)
         return context
 
 
@@ -204,3 +205,45 @@ class RealAnalysisDetailView(SuperUserRequiredMixin, DetailView):
     model = RealAnalysis
     template_name = 'emergency/real_analysis/realanalysis_detail.html'
     context_object_name = 'real_analysis'
+
+
+class SimulationAnalysisCreateView(SuperUserRequiredMixin, CreateView):
+    model = SimulationAnalysis
+    fields = ['summary', 'evaluation', 'is_necessary_check', 'specify', 'emergency', 'participants']
+    template_name = 'emergency/simulation_analysis/simulationanalysis_form.html'
+
+    def get_success_url(self):
+        return reverse_lazy('model:detail_simulation_analysis', kwargs={'pk': self.object.pk})
+
+    def form_valid(self, form):
+        form.instance.make_by = Profile.objects.get(username=self.request.user.username)
+        form.instance.save()
+        return super(SimulationAnalysisCreateView, self).form_valid(form)
+
+
+class SimulationAnalysisUpdateView(SuperUserRequiredMixin, UpdateView):
+    model = SimulationAnalysis
+    template_name = 'emergency/simulation_analysis/simulationanalysis_form.html'
+    fields = ['summary', 'evaluation', 'is_necessary_check', 'specify', 'emergency', 'participants']
+
+    def get_success_url(self):
+        return reverse_lazy('model:detail_simulation_analysis', kwargs={'pk': self.object.pk})
+
+
+class SimulationAnalysisDetailView(SuperUserRequiredMixin, DetailView):
+    model = SimulationAnalysis
+    template_name = 'emergency/simulation_analysis/simulationanalysis_detail.html'
+
+
+class SimulationAnalysisListView(SuperUserRequiredMixin, ListView):
+    model = SimulationAnalysis
+    template_name = 'emergency/simulation_analysis/simulationanalysis_list.html'
+
+
+class SimulationAnalysisDeleteView(SuperUserRequiredMixin, DeleteView):
+    model = SimulationAnalysis
+    template_name = 'emergency/simulation_analysis/simulationanalysis_confirm_delete.html'
+
+    def get_success_url(self):
+        return reverse_lazy('model:list_simulation_analysis')
+

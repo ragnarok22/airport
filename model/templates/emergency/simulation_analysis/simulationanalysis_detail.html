@@ -1,0 +1,56 @@
+{% extends 'account/dashboard.html' %}
+
+{% block title %}
+    Detalles del analisis de simulacro
+{% endblock %}
+
+{% block content-left %}
+    <table>
+        <tr>
+            <th>Resumen de los resultados del ejercicio designado por “Plan de reducción de desastres” </th>
+            <td>{{ simulationanalysis.summary }}</td>
+        </tr>
+        <tr>
+            <th>Evaluación de la eficacia</th>
+            <td>{{ simulationanalysis.evaluation }}</td>
+        </tr>
+        <tr>
+            <th>¿Es necesario revisar algún procedimiento  o el Plan de reducción de desastres?</th>
+            {% if simulationanalysis.is_necessary_check %}
+                <td>Si</td>
+            {% else %}
+                <td>No</td>
+            {% endif %}
+        </tr>
+        <tr>
+            {% if simulationanalysis.specify %}
+                <th>Especificaciones</th>
+                <td>{{ simulationanalysis.specify }}</td>
+            {% endif %}
+        </tr>
+        <tr>
+            <th>Subido por</th>
+            <td><a href="{% url 'account:detail_user' simulationanalysis.make_by.pk %}">{{ simulationanalysis.make_by }}</a></td>
+        </tr>
+        <tr>
+            <th>Fecha</th>
+            <td>{{ simulationanalysis.date }}</td>
+        </tr>
+        <tr>
+            <th>Emergencia</th>
+            <td>{{ simulationanalysis.emergency }}</td>
+        </tr>
+        <tr>
+            {% if simulationanalysis.participants %}
+                <th>Documento</th>
+                <td>
+                    <a href="{{ simulationanalysis.participants.url }}" data-position="right" data-delay="50" data-tooltip="Descargar documento" class="tooltipped">
+                        <i class="material-icons">system_update_alt</i>
+                    </a>
+                </td>
+            {% endif %}
+        </tr>
+    </table>
+    <a href="{% url 'model:update_simulation_analysis' simulationanalysis.pk %}" class="btn blue-grey">Editar</a>
+    <a href="{% url 'model:delete_simulation_analysis' simulationanalysis.pk %}" class="btn red">Eliminar</a>
+{% endblock %}

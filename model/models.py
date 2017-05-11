@@ -97,4 +97,4 @@ class RealAnalysis(Analysis):
 class SimulationAnalysis(Analysis):
     is_necessary_check = models.BooleanField(verbose_name='Es necesario revisar', default=False)
     specify = models.TextField(blank=True, verbose_name='Especificaciones')
-    participants = models.FileField(verbose_name='Participantes')
+    participants = models.FileField(verbose_name='Participantes', blank=True, upload_to=url_analysis)

@@ -13,7 +13,6 @@
     <p>Descripción: {{ emergency.description }}</p>
     <h5>Analisis de situaciones reales</h5>
     {% if emergency.report != 's' %}
-
         {% for real_analysis in real_analysiss %}
             <div class="row">
             <table class="table highlight">
@@ -59,6 +58,48 @@
             <a href="{% url 'model:delete_real_analysis' real_analysis.pk %}" class="btn red">Eliminar Analisis</a>
         {% empty %}
             <h6>No hay analisis de situaciones reales que mostrar</h6>
+        {% endfor %}
+    {% else %}
+        {% for simulationanalysis in simulation_analysiss %}
+            <table>
+                <tr>
+                    <th>Resumen de los resultados del ejercicio designado por “Plan de reducción de desastres” </th>
+                    <td>{{ simulationanalysis.summary }}</td>
+                </tr>
+                <tr>
+                    <th>Evaluación de la eficacia</th>
+                    <td>{{ simulationanalysis.evaluation }}</td>
+                </tr>
+                <tr>
+                    <th>¿Es necesario revisar algún procedimiento  o el Plan de reducción de desastres?</th>
+                    {% if simulationanalysis.is_necessary_check %}
+                        <td>Si</td>
+                    {% else %}
+                        <td>No</td>
+                    {% endif %}
+                </tr>
+                <tr>
+                    {% if simulationanalysis.specify %}
+                        <th>Especificaciones</th>
+                        <td>{{ simulationanalysis.specify }}</td>
+                    {% endif %}
+                </tr>
+                <tr>
+                    {% if simulationanalysis.participants %}
+                        <th>Documento</th>
+                        <td>
+                            <a href="{{ simulationanalysis.participants.url }}" data-position="right" data-delay="50" data-tooltip="Descargar documento" class="tooltipped">
+                                <i class="material-icons">system_update_alt</i>
+                            </a>
+                        </td>
+                    {% endif %}
+                </tr>
+            </table>
+            <a href="{% url 'model:detail_simulation_analysis' simulationanalysis.pk %}" class="btn blue">Detalles Analisis</a>
+            <a href="{% url 'model:update_simulation_analysis' simulationanalysis.pk %}" class="btn blue-grey">Editar Analisis</a>
+            <a href="{% url 'model:delete_simulation_analysis' simulationanalysis.pk %}" class="btn red">Eliminar Analisis</a>
+        {% empty %}
+            <h6>No hay analisis de situaciones simulacros que mostrar</h6>
         {% endfor %}
     {% endif %}
 <br>

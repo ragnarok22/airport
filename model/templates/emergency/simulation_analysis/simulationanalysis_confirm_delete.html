@@ -1,0 +1,13 @@
+{% extends 'account/dashboard.html' %}
+{% block title %}
+    Eliminar analisis de simulacro
+{% endblock %}
+
+{% block content-left %}
+    <h4>¿Estas seguro que deseas borrarlo?</h4>
+    <form method="post">
+        {% csrf_token %}
+        <input type="submit" value="Aceptar" class="btn red">
+        <a href="{% url 'model:detail_simulation_analysis' simulationanalysis.pk %}" class="btn blue">Cancelar</a>
+    </form>
+{% endblock %}

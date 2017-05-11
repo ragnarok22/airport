@@ -1,0 +1,64 @@
+{% extends 'account/dashboard.html' %}
+
+{% block title %}
+    Analisis de simulacro o ejercicio
+{% endblock %}
+
+{% block content-left %}
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <p>
+            {{ form.summary.errors }}
+            <label for="{{ form.summary.id_for_label }}">Resumen de los resultados del ejercicio designado por
+                “Plan de reducción de desastres”</label>
+            {{ form.summary }}
+        </p>
+        <p>
+            {{ form.evaluation.errors }}
+            <label for="{{ form.evaluation.id_for_label }}">Evaluación de la eficacia</label>
+            {{ form.evaluation }}
+        </p>
+        <p>
+            {{ form.is_necessary_check.errors }}
+            {{ form.is_necessary_check }}
+            <label for="{{ form.is_necessary_check.id_for_label }}">¿Es necesario revisar algún procedimiento  o el Plan de reducción de desastres?</label>
+        </p>
+        <p class="hide" id="specify_p">
+            {{ form.specify.errors }}
+            <label for="{{ form.specify.id_for_label }}">Especificar en caso positivo:</label>
+            {{ form.specify }}
+        </p>
+        <p>
+            {{ form.emergency.errors }}
+            {{ form.emergency.label_tag }}
+            {{ form.emergency }}
+        </p>
+        <p>
+            {{ form.participants.errors }}
+            {{ form.participants.label_tag }}
+            {{ form.participants }}
+        </p>
+        <input id="submit" type="submit" value="Aceptar" class="btn blue">
+    </form>
+{% endblock %}
+
+{% block script %}
+    {{ block.super }}
+    <script>
+        $(function () {
+            if($('#{{ form.is_necessary_check.id_for_label }}').is(':checked')){
+                $('#specify_p').removeClass('hide');
+            }else {
+                $('#specify_p').addClass('hide');
+            }
+
+            $('#{{ form.is_necessary_check.id_for_label }}').on('click', function (event) {
+                if($(this).is(':checked')){
+                    $('#specify_p').removeClass('hide');
+                }else {
+                    $('#specify_p').addClass('hide');
+                }
+            });
+        });
+    </script>
+{% endblock %}
