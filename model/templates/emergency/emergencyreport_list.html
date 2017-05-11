@@ -1,0 +1,24 @@
+{% extends 'account/dashboard.html' %}
+
+{% block title %}
+    Reportes de emergencia
+{% endblock %}
+
+{% block content-left %}
+    <h4 class="center">Preparación y respuesta ante emergencias</h4>
+    <h5 class="center">Informe de situación de emergencia</h5>
+    {% for emergency in emergency_list %}
+        <h5>Informe de {{ emergency.get_report_display }}</h5>
+        <p>Fecha y hora de ocurrencia: {{ emergency.datetime }}</p>
+        <p>Lugar de ocurrencia: {{ emergency.place }}</p>
+        <p>Descripción: {{ emergency.description }}</p>
+        <a href="{% url 'model:detail_emergency' emergency.pk %}" class="btn blue">Detalles</a>
+        <a href="{% url 'model:update_emergency' emergency.pk %}" class="btn blue-grey">Editar</a>
+        <a href="{% url 'model:delete_emergency' emergency.pk %}" class="btn red">Eliminar</a>
+        {% if emergency.report == 's' %}
+            <a href="#" class="btn blue">Añadir Analisis de simulacro o ejercicio</a>
+        {% else %}
+            <a href="{% url 'model:create_real_analysis' %}" class="btn blue">Añadir Analisis de situaciones reales</a>
+        {% endif %}
+    {% endfor %}
+{% endblock %}

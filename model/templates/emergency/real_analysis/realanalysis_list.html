@@ -1,0 +1,11 @@
+{% extends 'account/dashboard.html' %}
+
+{% block title %}
+    Analisis de situaciones reales
+{% endblock %}
+
+{% block content-left %}
+    {% for realanalysis in realanalysis_list %}
+        {{ realanalysis.affections }}
+    {% endfor %}
+{% endblock %}

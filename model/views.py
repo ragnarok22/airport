@@ -4,7 +4,8 @@ from django.views.generic import CreateView, UpdateView, DetailView, DeleteView,
 from account.models import Profile
 from account.views import SuperUserRequiredMixin, ProfileMixin
 from event.views import EventTodayProfileMixin
-from model.models import ModelR01PG01, Area, LawRequirement
+from model.forms import EmergencyReportCreateForm
+from model.models import ModelR01PG01, Area, LawRequirement, EmergencyReport, RealAnalysis, Analysis
 
 
 class ModelR01PG01CreateView(EventTodayProfileMixin, CreateView):
@@ -125,3 +126,81 @@ class LawRequirementUpdateView(SuperUserRequiredMixin, UpdateView):
 
     def get_success_url(self):
         return reverse_lazy('model:detail_law', kwargs={'pk': self.object.pk})
+
+
+class EmergencyReportCreateView(SuperUserRequiredMixin, CreateView):
+    form_class = EmergencyReportCreateForm
+    template_name = 'emergency/emergencyreport_form.html'
+
+
+class EmergencyReportUpdateView(SuperUserRequiredMixin, UpdateView):
+    model = EmergencyReport
+    fields = ['no', 'report', 'datetime', 'place', 'description']
+    template_name = 'law_requirements/lawrequirement_form.html'
+    context_object_name = 'emergency'
+
+    def get_success_url(self):
+        return reverse_lazy('model:detail_emergency', kwargs={'pk': self.object.pk})
+
+
+class EmergencyReportListView(SuperUserRequiredMixin, ListView):
+    model = EmergencyReport
+    context_object_name = 'emergency_list'
+    template_name = 'emergency/emergencyreport_list.html'
+
+
+class EmergencyReportDeleteView(SuperUserRequiredMixin, DeleteView):
+    model = EmergencyReport
+    context_object_name = 'emergency'
+    template_name = 'emergency/emergencyreport_confirm_delete.html'
+
+
+class EmergencyReportDetailView(SuperUserRequiredMixin, DetailView):
+    model = EmergencyReport
+    context_object_name = 'emergency'
+    template_name = 'emergency/emergencyreport_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(EmergencyReportDetailView, self).get_context_data(**kwargs)
+        context['real_analysiss'] = RealAnalysis.objects.filter(emergency_id=self.object.id)
+        return context
+
+
+class RealAnalysisCreateView(SuperUserRequiredMixin, CreateView):
+    model = RealAnalysis
+    template_name = 'emergency/real_analysis/realanalysis_form.html'
+    fields = ['affections', 'measures', 'first_time', 'cause', 'summary', 'evaluation', 'emergency']
+
+    def form_valid(self, form):
+        form.instance.make_by = Profile.objects.get(username=self.request.user.username)
+        form.instance.save()
+        return super(RealAnalysisCreateView, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('model:detail_real_analysis', kwargs={'pk': self.object.pk})
+
+
+class RealAnalysisUpdateView(SuperUserRequiredMixin, UpdateView):
+    model = RealAnalysis
+    fields = ['affections', 'measures', 'first_time', 'cause', 'summary', 'evaluation', 'emergency']
+    template_name = 'emergency/real_analysis/realanalysis_form.html'
+
+    def get_success_url(self):
+        return reverse_lazy('model:detail_real_analysis', kwargs={'pk': self.object.pk})
+
+
+class RealAnalysisListView(SuperUserRequiredMixin, ListView):
+    model = RealAnalysis
+    template_name = 'emergency/real_analysis/realanalysis_list.html'
+
+
+class RealAnalysisDeleteView(SuperUserRequiredMixin, DeleteView):
+    model = RealAnalysis
+    template_name = 'emergency/real_analysis/realanalysis_confirm_delete.html'
+    success_url = reverse_lazy('model:list_real_analysis')
+
+
+class RealAnalysisDetailView(SuperUserRequiredMixin, DetailView):
+    model = RealAnalysis
+    template_name = 'emergency/real_analysis/realanalysis_detail.html'
+    context_object_name = 'real_analysis'

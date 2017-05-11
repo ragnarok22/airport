@@ -1,0 +1,14 @@
+{% extends 'account/dashboard.html' %}
+
+{% block title %}
+    Eliminar Analisis de situacion real
+{% endblock %}
+
+{% block content-left %}
+    <h4>¿Desea eliminar este analisis de situacion real?</h4>
+    <form method="post">
+        {% csrf_token %}
+        <input type="submit" value="Aceptar" class="btn red">
+        <a href="{% url 'model:list_real_analysis' %}">Cancelar</a>
+    </form>
+{% endblock %}

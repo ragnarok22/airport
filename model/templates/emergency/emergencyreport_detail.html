@@ -1,0 +1,67 @@
+{% extends 'account/dashboard.html' %}
+
+{% block title %}
+    Reportes de emergencia
+{% endblock %}
+
+{% block content-left %}
+    <h4 class="center">Preparación y respuesta ante emergencias</h4>
+    <h5 class="center">Informe de situación de emergencia</h5>
+    <h5>Informe de {{ emergency.get_report_display }}</h5>
+    <p>Fecha y hora de ocurrencia: {{ emergency.datetime }}</p>
+    <p>Lugar de ocurrencia: {{ emergency.place }}</p>
+    <p>Descripción: {{ emergency.description }}</p>
+    <h5>Analisis de situaciones reales</h5>
+    {% if emergency.report != 's' %}
+
+        {% for real_analysis in real_analysiss %}
+            <div class="row">
+            <table class="table highlight">
+                <tr>
+                    <th>Afectaciones al medio ambiente:</th>
+                    <td>{{ real_analysis.affections }}</td>
+                </tr>
+                <tr>
+                    <th>Medidas inmediatas adoptadas:</th>
+                    <td>{{ real_analysis.measures }}</td>
+                </tr>
+                <tr>
+                    <th>¿Ocurre por primera vez?</th>
+                    {% if real_analysis.first_time %}
+                        <td>Si</td>
+                    {% else %}
+                        <td>No</td>
+                    {% endif %}
+                </tr>
+                <tr>
+                    <th>Causas:</th>
+                    <td>{{ real_analysis.cause }}</td>
+                </tr>
+                <tr>
+                    <th>Fecha</th>
+                    <td>{{ real_analysis.date }}</td>
+                </tr>
+                <tr>
+                    <th>Resumen de los resultados llevados a cabo según “Plan de reducción de desastres”</th>
+                    <td>{{ real_analysis.summary }}</td>
+                </tr>
+                <tr>
+                    <th>Evaluación de la eficacia</th>
+                    <td>{{ real_analysis.evaluation }}</td>
+                </tr>
+                <tr>
+                    <th>Realizado por</th>
+                    <td><a href="{% url 'account:detail_user' real_analysis.make_by.pk %}">{{ real_analysis.make_by }}</a></td>
+                </tr>
+            </table>
+            <a href="{% url 'model:detail_real_analysis' real_analysis.pk %}" class="btn blue">Detalles Analisis</a>
+            <a href="{% url 'model:update_real_analysis' real_analysis.pk %}" class="btn blue-grey">Editar Analisis</a>
+            <a href="{% url 'model:delete_real_analysis' real_analysis.pk %}" class="btn red">Eliminar Analisis</a>
+        {% empty %}
+            <h6>No hay analisis de situaciones reales que mostrar</h6>
+        {% endfor %}
+    {% endif %}
+<br>
+<a href="{% url 'model:update_emergency' emergency.pk %}" class="btn blue-grey">Editar Informe</a>
+<a href="{% url 'model:delete_emergency' emergency.pk %}" class="btn red">Eliminar Informe</a>
+{% endblock %}

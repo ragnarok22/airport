@@ -75,12 +75,16 @@ class EmergencyReport(models.Model):
     place = models.CharField(max_length=100, verbose_name='Lugar')
     description = models.TextField(verbose_name='Descripcion')
 
+    def __str__(self):
+        return '{} en {}'.format(self.get_report_display(), self.place)
+
 
 class Analysis(models.Model):
     make_by = models.ForeignKey(Profile, verbose_name='Elaborado por')
     date = models.DateField(auto_now=True, verbose_name='Fecha de elaboracion')
     summary = models.TextField('Sumario')
     evaluation = models.IntegerField('Evaluacion')
+    emergency = models.ForeignKey(EmergencyReport, verbose_name='Reporte de emergencia')
 
 
 class RealAnalysis(Analysis):

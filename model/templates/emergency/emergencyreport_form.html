@@ -1,0 +1,12 @@
+{% extends 'account/dashboard.html' %}
+{% block title %}
+    Emergencia
+{% endblock %}
+
+{% block content-left %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Aceptar" class="btn blue">
+    </form>
+{% endblock %}

@@ -1,0 +1,78 @@
+{% extends 'account/dashboard.html' %}
+
+{% block title %}
+    Analisis de situaciones reales
+{% endblock %}
+
+{% block content-left %}
+    <form method="post">
+        {% csrf_token %}
+        <p>
+            {{ form.affections.errors }}
+            <label for="{{ form.affections.id_for_label }}">Afectaciones al medio ambiente:</label>
+            {{ form.affections }}
+        </p>
+        <p>
+            {{ form.measures.errors }}
+            <label for="{{ form.measures.id_for_label }}">Medidas inmediatas adoptadas:</label>
+            {{ form.measures }}
+        </p>
+        <p>
+            {{ form.first_time.errors }}
+            {{ form.first_time }}
+            <label for="{{ form.first_time.id_for_label }}">¿Ocurre por primera vez?</label>
+        </p>
+        <p>
+            {{ form.cause.errors }}
+            <label for="{{ form.cause.id_for_label }}">Causas:</label>
+            {{ form.cause }}
+        </p>
+        <p>
+            {{ form.summary.errors }}
+            <label for="{{ form.summary.id_for_label }}">Resumen de los resultados llevados a cabo según “Plan de reducción de desastres” </label>
+            {{ form.summary }}
+        </p>
+        <p>
+            {{ form.evaluation.errors }}
+            <label for="{{ form.evaluation.id_for_label }}">Evaluación de la eficacia</label>
+            {{ form.evaluation }}
+        </p>
+        <p>
+        <div class="row">
+            <div class="col l10">
+                {{ form.emergency.errors }}
+                {{ form.emergency.label_tag }}
+                {{ form.emergency }}
+            </div>
+{#            <div class="col l2">#}
+{#                <a href="#emergency_info" class="btn-floating tooltipped modal-trigger" data-position="right" data-delay="50" data-tooltip="Informacion del reporte de emergencia"><i class="material-icons">info</i></a>#}
+{#            </div>#}
+        </div>
+        </p>
+        <input type="submit" value="Aceptar" class="btn blue">
+    </form>
+    {#    {% for choice in form.emergency.field.choices %}#}
+    {#        {{ choice }}#}
+    {#    {% endfor %}#}
+    <div id="emergency_info" class="modal modal-fixed-footer">
+        <div class="modal-content">
+            <h4>{{ form.emergency.field.code }} {{ form.emergency.field.report }}</h4>
+            <p>{{ form.emergency.field.no }}</p>
+            <p>{{ form.emergency.field.datetime }}</p>
+            <p>{{ form.emergency.field.description }}</p>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-action modal-close waves-effect blue btn-flat">Cerrar</a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block script %}
+    {{ block.super }}
+    <script>
+        $('#id_emergency').on('change', function (event) {
+            var selected = $(this).text();
+            console.log(selected);
+        });
+    </script>
+{% endblock %}

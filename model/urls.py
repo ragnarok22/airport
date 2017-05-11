@@ -1,8 +1,11 @@
 from django.conf.urls import url
 
 from model.views import ModelR01PG01CreateView, ModelR01PG01UpdateView, ModelR01PG01DetailView, ModelR01PG01ListView, \
-    ModelR01PG01DeleteView, AreaCreateView, AreaUpdateView, AreaDetailView, AreaListView, AreaDeleteView, LawRequirementCreateView, \
-    LawRequirementDeleteView, LawRequirementDetailView, LawRequirementListView, LawRequirementUpdateView
+    ModelR01PG01DeleteView, AreaCreateView, AreaUpdateView, AreaDetailView, AreaListView, AreaDeleteView, \
+    LawRequirementCreateView, LawRequirementDeleteView, LawRequirementDetailView, LawRequirementListView, \
+    LawRequirementUpdateView, EmergencyReportCreateView, EmergencyReportDeleteView, EmergencyReportDetailView, \
+    EmergencyReportListView, EmergencyReportUpdateView, RealAnalysisCreateView, RealAnalysisDeleteView, \
+    RealAnalysisDetailView, RealAnalysisListView, RealAnalysisUpdateView
 
 urlpatterns = [
     url(r'^create/r01pg01/$', ModelR01PG01CreateView.as_view(), name='create_modelr01pg01'),
@@ -22,5 +25,17 @@ urlpatterns = [
     url(r'^detail/law/(?P<pk>[0-9]+)/$', LawRequirementDetailView.as_view(), name='detail_law'),
     url(r'^list/law/$', LawRequirementListView.as_view(), name='list_law'),
     url(r'^delete/law/(?P<pk>[0-9]+)/$', LawRequirementDeleteView.as_view(), name='delete_law'),
+
+    url(r'^create/emergency/$', EmergencyReportCreateView.as_view(), name='create_emergency'),
+    url(r'^update/emergency/(?P<pk>[0-9]+)/$', EmergencyReportUpdateView.as_view(), name='update_emergency'),
+    url(r'^detail/emergency/(?P<pk>[0-9]+)/$', EmergencyReportDetailView.as_view(), name='detail_emergency'),
+    url(r'^list/emergency/$', EmergencyReportListView.as_view(), name='list_emergency'),
+    url(r'^delete/emergency/(?P<pk>[0-9]+)/$', EmergencyReportDeleteView.as_view(), name='delete_emergency'),
+
+    url(r'^create/real/analysis/$', RealAnalysisCreateView.as_view(), name='create_real_analysis'),
+    url(r'^update/real/analysis/(?P<pk>[0-9]+)/$', RealAnalysisUpdateView.as_view(), name='update_real_analysis'),
+    url(r'^detail/real/analysis/(?P<pk>[0-9]+)/$', RealAnalysisDetailView.as_view(), name='detail_real_analysis'),
+    url(r'^list/real/analysis/$', RealAnalysisListView.as_view(), name='list_real_analysis'),
+    url(r'^delete/real/analysis/(?P<pk>[0-9]+)/$', RealAnalysisDeleteView.as_view(), name='delete_real_analysis'),
 
 ]
