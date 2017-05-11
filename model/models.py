@@ -28,6 +28,11 @@ def url(self, filename):
     return route
 
 
+def url_analysis(self, filename):
+    route = 'analysis/{}/{}'.format(self.make_by, filename)
+    return route
+
+
 class ModelR01PG01(models.Model):
     area = models.ForeignKey(Area)
     year = models.IntegerField('Año', validators=[validate_year])
@@ -52,3 +57,40 @@ class LawRequirement(models.Model):
     file = models.FileField(upload_to=url, blank=True, verbose_name='Fichero')
     register_by = models.ForeignKey(Profile, verbose_name='Registrado por')
     pub_date = models.DateField('Fecha de publicación', auto_now=True)
+
+
+REPORT_CHOICES = (
+    ("e", "Situacion de emergencia"),
+    ("a", "Accidente"),
+    ("r", "Real"),
+    ("s", "Simulacro o Ejercicio"),
+)
+
+
+class EmergencyReport(models.Model):
+    code = "PG190-03"
+    no = models.IntegerField('Numero', unique=True)
+    report = models.CharField('Reporte', max_length=1, choices=REPORT_CHOICES, default="s")
+    datetime = models.DateTimeField(verbose_name='Fecha y hora')
+    place = models.CharField(max_length=100, verbose_name='Lugar')
+    description = models.TextField(verbose_name='Descripcion')
+
+
+class Analysis(models.Model):
+    make_by = models.ForeignKey(Profile, verbose_name='Elaborado por')
+    date = models.DateField(auto_now=True, verbose_name='Fecha de elaboracion')
+    summary = models.TextField('Sumario')
+    evaluation = models.IntegerField('Evaluacion')
+
+
+class RealAnalysis(Analysis):
+    affections = models.TextField('Afectaciones')
+    measures = models.TextField('Medidas')
+    first_time = models.BooleanField(verbose_name='Es la primera vez', default=False)
+    cause = models.TextField('Causa')
+
+
+class SimulationAnalysis(Analysis):
+    is_necessary_check = models.BooleanField(verbose_name='Es necesario revisar', default=False)
+    specify = models.TextField(blank=True, verbose_name='Especificaciones')
+    participants = models.FileField(verbose_name='Participantes')
