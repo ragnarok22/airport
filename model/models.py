@@ -23,6 +23,11 @@ class Area(models.Model):
         return self.name
 
 
+def url(self, filename):
+    route = 'law/{}/{}'.format(self.register_by, filename)
+    return route
+
+
 class ModelR01PG01(models.Model):
     area = models.ForeignKey(Area)
     year = models.IntegerField('Año', validators=[validate_year])
@@ -40,7 +45,10 @@ class ModelR01PG01(models.Model):
 
 class LawRequirements(models.Model):
     code = "PG190-02"
-    requirements = models.TextField()
-    law = models.CharField(max_length=50)
-    section = models.CharField(max_length=100)
-    environmental_aspects = models.TextField()
+    requirements = models.TextField(verbose_name='Requerimientos')
+    law = models.CharField('Ley', max_length=50)
+    section = models.CharField('Sección', max_length=100)
+    environmental_aspects = models.TextField('Aspectos ambientales')
+    file = models.FileField(upload_to=url, blank=True, verbose_name='Fichero')
+    register_by = models.ForeignKey(Profile, verbose_name='Registrado por')
+    pub_date = models.DateField('Fecha de publicación', auto_now=True)
