@@ -11,7 +11,7 @@
     </ul>
 
     <ul id="models" class="dropdown-content">
-        <li><a href="{% url 'model:list_modelr01pg01' %}">
+        <li><a href="{% url 'model:detail_area' profile.area.pk %}">
             <div class="blue-text">R-01 PG.190-01</div>
         </a>
         </li>
@@ -111,5 +111,10 @@
         $('#test').click(function () {
             $('#clicking').click();
         });
+        $('.datepicker').pickadate({
+        selectMonths: false, // Creates a dropdown to control month
+        selectYears: 50, // Creates a dropdown of 50 years to control year
+        format: "yyyy"
+    });
     </script>
 {% endblock %}

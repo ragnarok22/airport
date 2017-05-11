@@ -3,13 +3,18 @@
 {% block content-left %}
     <form method="post">
         {% csrf_token %}
-        {{ form.area.errors }}
-        {{ form.year.errors }}
-        {{ form.year.label_tag }}
-        {{ form.year }}
-        {{ form.environmental_aspects.errors }}
-        {{ form.environmental_aspects.label_tag }}
-        {{ form.environmental_aspects }}
+        <div class="container-fluid">
+            <div class="col l2">
+                {{ form.year.errors }}
+                {{ form.year.label_tag }}
+                {{ form.year }}
+            </div>
+            <div class="col l10">
+                {{ form.environmental_aspects.errors }}
+                {{ form.environmental_aspects.label_tag }}
+                {{ form.environmental_aspects }}
+            </div>
+        </div>
         <input type="submit" value="Aceptar" class="btn">
         <a href="{% url 'model:list_modelr01pg01' %}" class="btn blue">Listado del modelo R01/PG.190-01</a>
     </form>

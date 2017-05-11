@@ -4,13 +4,14 @@
 {% endblock %}
 
 {% block content-left %}
-    <h4 class="center">Modelos de todas las áreas</h4>
+    <h4 class="center">Todos los modelos</h4>
     <table>
         <tr>
             <th>No</th>
             <th>Area</th>
-            <th>Año</th>
-            {#            <th>Cantidad de modelos</th>#}
+            <th>año</th>
+            <th>registrado por</th>
+            <th>fecha publicación</th>
             <th colspan="3">Acciones</th>
         </tr>
 
@@ -19,7 +20,8 @@
                 <td>{{ forloop.counter }}</td>
                 <td><a href="{% url 'model:detail_area' model.area.pk %}">{{ model.area }}</a></td>
                 <td>{{ model.year }}</td>
-                {#                <td>{{ forloop.revcounter }}</td>#}
+                <td><a href="{% url 'account:detail_user' model.register_by.pk %}">{{ model.register_by }}</a></td>
+                <td>{{ model.pub_date }}</td>
                 <td colspan="3">
                     <a href="{% url 'model:detail_modelr01pg01' model.pk %}"><i
                             class="material-icons">description</i></a>
