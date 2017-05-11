@@ -1,0 +1,21 @@
+{% extends 'account/dashboard.html' %}
+{% block title %}
+    Detalles de la comunicacion
+{% endblock %}
+
+{% block content-left %}
+    <p>Nombre del areopuerto: {{ communication.airport_name }}</p>
+    <p>Area: {{ communication.area }}</p>
+    <p>Año: {{ communication.year }}</p>
+    <p>Fecha: {{ communication.date }}</p>
+    <p>Via de recepcion: {{ communication.reception_way }}</p>
+    <p>Tipo de comunicacon: {{ communication.get_type_communication_display }}</p>
+    <p>Datos del contacto: {{ communication.contact_data }}</p>
+    <p>Contenido de la informacion: {{ communication.info_content }}</p>
+    <p>Decision adoptada: {{ communication.adopted_decision }}</p>
+    <p>Fecha de distribucion: {{ communication.distribution_date }}</p>
+    <p>Via de emision: {{ communication.emission_path }}</p>
+    <p>Registrado por: {{ communication.register_by }}</p>
+    <a href="{% url 'model:update_communication' communication.pk %}" class="btn blue-grey">Editar</a>
+    <a href="{% url 'model:delete_communication' communication.pk %}" class="btn red">Eliminar</a>
+{% endblock %}

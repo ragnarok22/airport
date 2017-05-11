@@ -1,0 +1,14 @@
+{% extends 'account/dashboard.html' %}
+
+{% block title %}
+    Comunicacion
+{% endblock %}
+
+{% block content-left %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Aceptar" class="btn blue">
+        <a href="{% url 'model:list_communication' %}" class="btn red">Cancelar</a>
+    </form>
+{% endblock %}

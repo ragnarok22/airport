@@ -5,7 +5,8 @@ from account.models import Profile
 from account.views import SuperUserRequiredMixin, ProfileMixin
 from event.views import EventTodayProfileMixin
 from model.forms import EmergencyReportCreateForm
-from model.models import ModelR01PG01, Area, LawRequirement, EmergencyReport, RealAnalysis, SimulationAnalysis
+from model.models import ModelR01PG01, Area, LawRequirement, EmergencyReport, RealAnalysis, SimulationAnalysis, \
+    Communication
 
 
 class ModelR01PG01CreateView(EventTodayProfileMixin, CreateView):
@@ -128,12 +129,12 @@ class LawRequirementUpdateView(SuperUserRequiredMixin, UpdateView):
         return reverse_lazy('model:detail_law', kwargs={'pk': self.object.pk})
 
 
-class EmergencyReportCreateView(SuperUserRequiredMixin, CreateView):
+class EmergencyReportCreateView(EventTodayProfileMixin, CreateView):
     form_class = EmergencyReportCreateForm
     template_name = 'emergency/emergencyreport_form.html'
 
 
-class EmergencyReportUpdateView(SuperUserRequiredMixin, UpdateView):
+class EmergencyReportUpdateView(EventTodayProfileMixin, UpdateView):
     model = EmergencyReport
     fields = ['no', 'report', 'datetime', 'place', 'description']
     template_name = 'law_requirements/lawrequirement_form.html'
@@ -143,7 +144,7 @@ class EmergencyReportUpdateView(SuperUserRequiredMixin, UpdateView):
         return reverse_lazy('model:detail_emergency', kwargs={'pk': self.object.pk})
 
 
-class EmergencyReportListView(SuperUserRequiredMixin, ListView):
+class EmergencyReportListView(EventTodayProfileMixin, ListView):
     model = EmergencyReport
     context_object_name = 'emergency_list'
     template_name = 'emergency/emergencyreport_list.html'
@@ -155,7 +156,7 @@ class EmergencyReportDeleteView(SuperUserRequiredMixin, DeleteView):
     template_name = 'emergency/emergencyreport_confirm_delete.html'
 
 
-class EmergencyReportDetailView(SuperUserRequiredMixin, DetailView):
+class EmergencyReportDetailView(EventTodayProfileMixin, DetailView):
     model = EmergencyReport
     context_object_name = 'emergency'
     template_name = 'emergency/emergencyreport_detail.html'
@@ -167,7 +168,7 @@ class EmergencyReportDetailView(SuperUserRequiredMixin, DetailView):
         return context
 
 
-class RealAnalysisCreateView(SuperUserRequiredMixin, CreateView):
+class RealAnalysisCreateView(EventTodayProfileMixin, CreateView):
     model = RealAnalysis
     template_name = 'emergency/real_analysis/realanalysis_form.html'
     fields = ['affections', 'measures', 'first_time', 'cause', 'summary', 'evaluation', 'emergency']
@@ -181,7 +182,7 @@ class RealAnalysisCreateView(SuperUserRequiredMixin, CreateView):
         return reverse_lazy('model:detail_real_analysis', kwargs={'pk': self.object.pk})
 
 
-class RealAnalysisUpdateView(SuperUserRequiredMixin, UpdateView):
+class RealAnalysisUpdateView(EventTodayProfileMixin, UpdateView):
     model = RealAnalysis
     fields = ['affections', 'measures', 'first_time', 'cause', 'summary', 'evaluation', 'emergency']
     template_name = 'emergency/real_analysis/realanalysis_form.html'
@@ -190,7 +191,7 @@ class RealAnalysisUpdateView(SuperUserRequiredMixin, UpdateView):
         return reverse_lazy('model:detail_real_analysis', kwargs={'pk': self.object.pk})
 
 
-class RealAnalysisListView(SuperUserRequiredMixin, ListView):
+class RealAnalysisListView(EventTodayProfileMixin, ListView):
     model = RealAnalysis
     template_name = 'emergency/real_analysis/realanalysis_list.html'
 
@@ -201,13 +202,13 @@ class RealAnalysisDeleteView(SuperUserRequiredMixin, DeleteView):
     success_url = reverse_lazy('model:list_real_analysis')
 
 
-class RealAnalysisDetailView(SuperUserRequiredMixin, DetailView):
+class RealAnalysisDetailView(EventTodayProfileMixin, DetailView):
     model = RealAnalysis
     template_name = 'emergency/real_analysis/realanalysis_detail.html'
     context_object_name = 'real_analysis'
 
 
-class SimulationAnalysisCreateView(SuperUserRequiredMixin, CreateView):
+class SimulationAnalysisCreateView(EventTodayProfileMixin, CreateView):
     model = SimulationAnalysis
     fields = ['summary', 'evaluation', 'is_necessary_check', 'specify', 'emergency', 'participants']
     template_name = 'emergency/simulation_analysis/simulationanalysis_form.html'
@@ -221,7 +222,7 @@ class SimulationAnalysisCreateView(SuperUserRequiredMixin, CreateView):
         return super(SimulationAnalysisCreateView, self).form_valid(form)
 
 
-class SimulationAnalysisUpdateView(SuperUserRequiredMixin, UpdateView):
+class SimulationAnalysisUpdateView(EventTodayProfileMixin, UpdateView):
     model = SimulationAnalysis
     template_name = 'emergency/simulation_analysis/simulationanalysis_form.html'
     fields = ['summary', 'evaluation', 'is_necessary_check', 'specify', 'emergency', 'participants']
@@ -230,12 +231,12 @@ class SimulationAnalysisUpdateView(SuperUserRequiredMixin, UpdateView):
         return reverse_lazy('model:detail_simulation_analysis', kwargs={'pk': self.object.pk})
 
 
-class SimulationAnalysisDetailView(SuperUserRequiredMixin, DetailView):
+class SimulationAnalysisDetailView(EventTodayProfileMixin, DetailView):
     model = SimulationAnalysis
     template_name = 'emergency/simulation_analysis/simulationanalysis_detail.html'
 
 
-class SimulationAnalysisListView(SuperUserRequiredMixin, ListView):
+class SimulationAnalysisListView(EventTodayProfileMixin, ListView):
     model = SimulationAnalysis
     template_name = 'emergency/simulation_analysis/simulationanalysis_list.html'
 
@@ -247,3 +248,46 @@ class SimulationAnalysisDeleteView(SuperUserRequiredMixin, DeleteView):
     def get_success_url(self):
         return reverse_lazy('model:list_simulation_analysis')
 
+
+class CommunicationCreateView(EventTodayProfileMixin, CreateView):
+    model = Communication
+    fields = ['airport_name', 'year', 'reception_way', 'type_communication', 'contact_data', 'info_content',
+              'adopted_decision', 'distribution_date', 'emission_path']
+    template_name = 'communication/communication_form.html'
+
+    def get_success_url(self):
+        return reverse_lazy('model:detail_communication', kwargs={'pk': self.object.pk})
+
+    def form_valid(self, form):
+        form.instance.register_by = Profile.objects.get(username=self.request.user.username)
+        form.instance.area = Profile.objects.get(username=self.request.user.username).area
+        form.instance.save()
+        return super(CommunicationCreateView, self).form_valid(form)
+
+
+class CommunicationUpdateView(EventTodayProfileMixin, UpdateView):
+    model = Communication
+    fields = ['airport_name', 'year', 'reception_way', 'type_communication', 'contact_data', 'info_content',
+              'adopted_decision', 'distribution_date', 'emission_path']
+    template_name = 'communication/communication_form.html'
+
+    def get_success_url(self):
+        return reverse_lazy('model:detail_communication', kwargs={'pk': self.object.pk})
+
+
+class CommunicationDetailView(EventTodayProfileMixin, DetailView):
+    model = Communication
+    template_name = 'communication/communication_detail.html'
+
+
+class CommunicationListView(EventTodayProfileMixin, ListView):
+    model = Communication
+    template_name = 'communication/communication_list.html'
+
+
+class CommunicationDeleteView(SuperUserRequiredMixin, DeleteView):
+    model = Communication
+    template_name = 'communication/communication_confirm_delete.html'
+
+    def get_success_url(self):
+        return reverse_lazy('model:list_communication')

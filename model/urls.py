@@ -6,7 +6,8 @@ from model.views import ModelR01PG01CreateView, ModelR01PG01UpdateView, ModelR01
     LawRequirementUpdateView, EmergencyReportCreateView, EmergencyReportDeleteView, EmergencyReportDetailView, \
     EmergencyReportListView, EmergencyReportUpdateView, RealAnalysisCreateView, RealAnalysisDeleteView, \
     RealAnalysisDetailView, RealAnalysisListView, RealAnalysisUpdateView, SimulationAnalysisCreateView, \
-    SimulationAnalysisDeleteView, SimulationAnalysisDetailView, SimulationAnalysisListView, SimulationAnalysisUpdateView
+    SimulationAnalysisDeleteView, SimulationAnalysisDetailView, SimulationAnalysisListView, SimulationAnalysisUpdateView, \
+    CommunicationCreateView, CommunicationDeleteView, CommunicationDetailView, CommunicationListView, CommunicationUpdateView
 
 
 urlpatterns = [
@@ -45,5 +46,11 @@ urlpatterns = [
     url(r'^detail/simulation/analysis/(?P<pk>[0-9]+)/$', SimulationAnalysisDetailView.as_view(), name='detail_simulation_analysis'),
     url(r'^list/simulation/analysis/$', SimulationAnalysisListView.as_view(), name='list_simulation_analysis'),
     url(r'^delete/simulation/analysis/(?P<pk>[0-9]+)/$', SimulationAnalysisDeleteView.as_view(), name='delete_simulation_analysis'),
+
+    url(r'^create/communication/$', CommunicationCreateView.as_view(), name='create_communication'),
+    url(r'^update/communication/(?P<pk>[0-9]+)/$', CommunicationUpdateView.as_view(), name='update_communication'),
+    url(r'^detail/communication/(?P<pk>[0-9]+)/$', CommunicationDetailView.as_view(), name='detail_communication'),
+    url(r'^list/communication/$', CommunicationListView.as_view(), name='list_communication'),
+    url(r'^delete/communication/(?P<pk>[0-9]+)/$', CommunicationDeleteView.as_view(), name='delete_communication'),
 
 ]

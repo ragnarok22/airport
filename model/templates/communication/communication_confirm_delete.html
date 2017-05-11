@@ -1,0 +1,12 @@
+{% extends 'account/dashboard.html' %}
+{% block title %}
+    Eliminar Comunicacion
+{% endblock %}
+{% block content-left %}
+    <h5>¿Estas seguro de que deseas borrar esta comunicacion?</h5>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn red">Aceptar</button>
+        <a href="{% url 'model:detail_communication' communication.pk %}" class="btn blue-grey">Cancelar</a>
+    </form>
+{% endblock %}

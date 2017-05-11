@@ -1,0 +1,13 @@
+{% extends 'account/dashboard.html' %}
+{% block title %}
+    Listado de comunicacion interna y externa
+{% endblock %}
+
+{% block content-left %}
+    {% for communication in communication_list %}
+        {{ communication.airport_name }}
+        {% empty %}
+        <h5 class="center">No existen comunicaciones internas y externas</h5>
+    {% endfor %}
+
+{% endblock %}
