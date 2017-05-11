@@ -3,7 +3,7 @@ from django.views.generic import ListView, DeleteView, CreateView
 from django.views.generic import TemplateView
 
 from account.models import Profile
-from account.views import ProfileMixin
+from account.views import ProfileMixin, SuperUserRequiredMixin
 from picture.models import Image
 
 
@@ -12,7 +12,7 @@ class PictureListView(ProfileMixin, ListView):
     queryset = Image.objects.all().order_by('-date')
 
 
-class PictureCreateView(ProfileMixin, CreateView):
+class PictureCreateView(SuperUserRequiredMixin, CreateView):
     model = Image
     fields = ['image', 'description']
     success_url = reverse_lazy('picture:list_picture')

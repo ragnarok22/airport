@@ -10,6 +10,6 @@
     <form method="post">
         {% csrf_token %}
         <input type="submit" value="Aceptar" class="btn red">
-        <a href="{% url 'model:detail_modelr01pg01' model.pk %}" class="btn">Cancelar</a>
+        <a href="{% url 'model:detail_modelr01pg01' model.pk %}" class="btn blue">Cancelar</a>
     </form>
 {% endblock %}

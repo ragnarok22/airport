@@ -1,15 +1,28 @@
 {% extends 'account/dashboard.html' %}
 
 {% block title %}
-Efemérides
+    Efemérides
 {% endblock %}
 
 {% block content-left %}
     <h2 class="center">Efemérides</h2>
-    {% for event in events_list %}
-        <p><a href="{% url 'event:detail_event' event.pk %}">{{ event.date }} -> {{ event.title }}</a></p>
-    {% empty %}
-        <p>No hay efemérides</p>
-    {% endfor %}
+    <table>
+        <tr>
+            <th>No</th>
+            <th>Fecha</th>
+            <th>Titulo</th>
+            <th>Descripcion</th>
+        </tr>
+        {% for event in events_list %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td><a href="{% url 'event:detail_event' event.pk %}">{{ event.date }}</a></td>
+                <td>{{ event.title }}</td>
+                <td>{{ event.description }}</td>
+            </tr>
+        {% empty %}
+            <p class="center">No hay efemérides para mostrar</p>
+        {% endfor %}
+    </table>
     <a href="{% url 'event:create_event' %}" class="btn blue">Añadir</a>
 {% endblock %}

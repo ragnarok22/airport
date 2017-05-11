@@ -10,7 +10,7 @@ Eliminar Efeméride
     <h4>{{ event.description }}</h4>
     <form method="post">
         {% csrf_token %}
-        <a href="{% url 'event:detail_event' event.pk %}" class="btn green">Cancelar</a>
+        <a href="{% url 'event:detail_event' event.pk %}" class="btn blue-grey">Cancelar</a>
         <input class="btn red" type="submit" value="Aceptar">
     </form>
 {% endblock %}

@@ -22,8 +22,8 @@
             <p>Fecha de nacimiento: {{ prof.born_date }}</p>
             <p>Sexo: {{ prof.get_sex_display }}</p>
             {% if can_edit %}
-                <a href="{% url 'account:update_user' prof.pk %}" class="btn">Editar</a>
-                <a href="{% url 'account:update_password_user' prof.pk %}" class="btn">Cambiar contraseña</a>
+                <a href="{% url 'account:update_user' prof.pk %}" class="btn blue">Editar</a>
+                <a href="{% url 'account:update_password_user' prof.pk %}" class="btn blue-grey">Cambiar contraseña</a>
             {% endif %}
             {% if user.is_superuser %}
                 <a href="{% url 'account:delete_user' prof.pk %}" class="btn red">Eliminar</a>

@@ -98,7 +98,9 @@
         {% endif %}
         <li class="subheader">Im&aacute;genes</li>
         <li><a href="{% url 'picture:list_picture' %}">Todas las im&aacute;genes</a></li>
-        <li><a href="{% url 'picture:create_picture' %}">subir una imagen</a></li>
+        {% if user.is_superuser %}
+            <li><a href="{% url 'picture:create_picture' %}">subir una imagen</a></li>
+        {% endif %}
         <li class="divider"></li>
         <li><a href="{% url 'account:logout' %}"><i class="material-icons">input</i>Salir</a></li>
     </ul>
@@ -112,9 +114,9 @@
             $('#clicking').click();
         });
         $('.datepicker').pickadate({
-        selectMonths: false, // Creates a dropdown to control month
-        selectYears: 50, // Creates a dropdown of 50 years to control year
-        format: "yyyy"
-    });
+            selectMonths: false, // Creates a dropdown to control month
+            selectYears: 50, // Creates a dropdown of 50 years to control year
+            format: "yyyy"
+        });
     </script>
 {% endblock %}

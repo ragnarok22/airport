@@ -10,6 +10,6 @@ Eliminar Usuario {{ userdel.username }}
     <form method="post">
         {% csrf_token %}
         <input type="submit" class="btn red" value="Aceptar">
-        <a href="{% url 'account:detail_user' userdel.pk %}" class="btn">Cancelar</a>
+        <a href="{% url 'account:detail_user' userdel.pk %}" class="btn blue-grey">Cancelar</a>
     </form>
 {% endblock %}

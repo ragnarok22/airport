@@ -8,6 +8,7 @@ Eliminar area
     <h3>Estas seguro de que desea eliminar el area "{{ area.name }}"</h3>
     <form method="post">
         {% csrf_token %}
+        <a href="{% url 'model:detail_area' area.pk %}" class="btn blue">Cancelar</a>
         <input type="submit" value="Eliminar" class="btn red">
     </form>
 {% endblock %}

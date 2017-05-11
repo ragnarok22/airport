@@ -7,7 +7,7 @@
     <p>Registrado por: {{ model.register_by }}</p>
     <p>Fecha de publicación: {{ model.pub_date }}</p>
     <a href="{% url 'model:detail_area' model.area.pk %}" class="btn blue">Listado del modelo R01/PG.190-01</a>
-    <a href="{% url 'model:update_modelr01pg01' model.pk %}" class="btn">Editar</a>
+    <a href="{% url 'model:update_modelr01pg01' model.pk %}" class="btn blue-greye">Editar</a>
     {% if user.is_superuser %}
         <a href="{% url 'model:delete_modelr01pg01' model.pk %}" class="btn red">Eliminar</a>
     {% endif %}

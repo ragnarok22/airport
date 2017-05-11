@@ -36,8 +36,8 @@
     </table>
     {% if user.is_superuser %}
         <a href="{% url 'model:delete_area' area.pk %}" class="btn red">Eliminar Area</a>
-        <a href="{% url 'model:update_area' area.pk %}" class="btn">Editar Area</a>
+        <a href="{% url 'model:update_area' area.pk %}" class="btn blue-grey">Editar Area</a>
     {% endif %}
-    <a href="{% url 'model:create_modelr01pg01' %}" class="btn">Añadir modelo</a>
-    <a href="{% url 'model:list_modelr01pg01' %}" class="btn">Ver todos los modelos</a>
+    <a href="{% url 'model:create_modelr01pg01' %}" class="btn blue">Añadir modelo</a>
+    <a href="{% url 'model:list_modelr01pg01' %}" class="btn blue">Ver todos los modelos</a>
 {% endblock %}

@@ -9,6 +9,6 @@ Eliminar imagen
     <form method="post">
         {% csrf_token %}
         <input type="submit" value="Eliminar" class="btn red">
-        <a href="{% url 'picture:list_picture' %}" class="btn">Cancelar</a>
+        <a href="{% url 'picture:list_picture' %}" class="btn blue">Cancelar</a>
     </form>
 {% endblock %}
