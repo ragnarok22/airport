@@ -36,3 +36,11 @@ class ModelR01PG01(models.Model):
 
     def __str__(self):
         return "Modelo R01/PG.190-01 {}".format(self.environmental_aspects)
+
+
+class LawRequirements(models.Model):
+    code = "PG190-02"
+    requirements = models.TextField()
+    law = models.CharField(max_length=50)
+    section = models.CharField(max_length=100)
+    environmental_aspects = models.TextField()
