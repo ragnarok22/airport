@@ -1,0 +1,65 @@
+{% extends 'account/dashboard.html' %}
+
+{% block title %}
+    Todas las leyes
+{% endblock %}
+
+{% block content-left %}
+    <table class="table">
+        <thead>
+        <tr>
+            <th>No</th>
+            <th>Ley</th>
+            <th>Registrado por</th>
+            <th>Fecha de publicacion</th>
+            <th>Documento</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for law in laws %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td><a href="#law{{ forloop.counter }}" class="modal-trigger">{{ law.law }}</a></td>
+                <td><a href="{% url 'account:detail_user' law.register_by.pk %}">{{ law.register_by }}</a></td>
+                <td>{{ law.pub_date }}</td>
+                {% if law.file %}
+                    <td>
+                        <a href="{{ law.file.url }}" class="btn-floating btn-sm waves-effect waves-light blue tooltipped"
+                           data-position="bottom" data-delay="50" data-tooltip="Descargar documento">
+                            <i class="material-icons">system_update_alt</i>
+                        </a>
+                    </td>
+                    {% else %}
+                    <td>No hay documento</td>
+                {% endif %}
+                <td colspan="3">
+                    <a href="{% url 'model:detail_law' law.pk %}"><i class="material-icons">description</i></a>
+                    {% if user.is_superuser %}
+                        <a href="{% url 'model:update_law' law.pk %}"><i class="material-icons">edit_mode</i></a>
+                        <a href="{% url 'model:delete_law' law.pk %}"><i class="material-icons">delete</i></a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% empty %}
+            <h5 class="center">No se han subido leyes todavía</h5>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% for law in laws %}
+        <div id="law{{ forloop.counter }}" class="modal modal-fixed-footer">
+            <div class="modal-content">
+                <h4>{{ law.code }} {{ law.law }}</h4>
+                <p><strong>Requerimientos:</strong> {{ law.requirements }}</p>
+                <p><strong>Seccion:</strong> {{ law.section }}</p>
+                <p><strong>Aspectos Ambientales:</strong> {{ law.environmental_aspects }}</p>
+                <p><strong>Creado por:</strong> {{ law.register_by }}</p>
+                <p><strong>Fecha de publicacion:</strong> {{ law.pub_date }}</p>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class="modal-action modal-close waves-effect blue btn-flat">Cerrar</a>
+            </div>
+        </div>
+    {% endfor %}
+
+{% endblock %}

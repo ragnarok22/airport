@@ -1,0 +1,13 @@
+{% extends 'account/dashboard.html' %}
+
+{% block title %}
+Eliminar {{ law.law }}
+{% endblock %}
+
+{% block content-left %}
+    <h3>¿Estas seguro de que deseas borrar esta ley?</h3>
+    <form method="post">
+    {% csrf_token %}
+        <input type="submit" class="btn red" value="Aceptar">
+    </form>
+{% endblock %}

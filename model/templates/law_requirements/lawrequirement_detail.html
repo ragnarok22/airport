@@ -1,0 +1,24 @@
+{% extends 'account/dashboard.html' %}
+
+{% block title %}
+    {{ lawrequirement.law }}
+{% endblock %}
+
+{% block content-left %}
+    <h6><strong>Requerimientos:</strong> {{ lawrequirement.requirements }}</h6>
+    <h6><strong>Ley:</strong> {{ lawrequirement.law }}</h6>
+    <p><strong>Seccion:</strong> {{ lawrequirement.section }}</p>
+    <p><strong>Aspectos ambientales:</strong> {{ lawrequirement.environmental_aspects }}</p>
+    <p><strong>Creado por:</strong> <a href="{% url 'account:detail_user' lawrequirement.register_by.pk %}">{{ lawrequirement.register_by }}</a></p>
+    <p><strong>Fecha de publicacion:</strong> {{ lawrequirement.pub_date }}</p>
+    {% if lawrequirement.file %}
+        <p>
+            <a href="{{ lawrequirement.file.url }}" class="btn blue-grey tooltipped"
+               data-position="right" data-delay="50" data-tooltip="Descargar documento">
+                Documento
+                <i class="material-icons right">system_update_alt</i>
+            </a>
+        </p>
+    {% endif %}
+    <a href="{% url 'model:list_law' %}" class="btn blue">Listado de leyes</a>
+{% endblock %}

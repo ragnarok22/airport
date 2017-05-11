@@ -5,7 +5,7 @@
         <li><a href="{% url 'event:list_event' %}">
             <div class="blue-text">Efemérides</div>
         </a></li>
-        <li><a href="#">
+        <li><a href="{% url 'model:list_law' %}">
             <div class="blue-text">Normas, Decretos y Leyes</div>
         </a></li>
     </ul>
@@ -15,7 +15,7 @@
             <div class="blue-text">R-01 PG.190-01</div>
         </a>
         </li>
-        <li><a href="#">
+        <li><a href="{% url 'model:list_law' %}">
             <div class="blue-text">R-01 PG.190-02</div>
         </a></li>
         <li><a href="#">
@@ -94,6 +94,9 @@
             <li class="divider"></li>
             <li><a href="{% url 'model:list_area' %}">Listado de Areas</a></li>
             <li><a href="{% url 'model:create_area' %}">Crear un Area</a></li>
+            <li class="divider"></li>
+            <li><a href="{% url 'model:list_law' %}">Todas las leyes</a></li>
+            <li><a href="{% url 'model:create_law' %}">Subir una ley</a></li>
             <li class="divider"></li>
         {% endif %}
         <li class="subheader">Im&aacute;genes</li>

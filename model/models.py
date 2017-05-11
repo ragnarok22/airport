@@ -43,7 +43,7 @@ class ModelR01PG01(models.Model):
         return "Modelo R01/PG.190-01 {}".format(self.environmental_aspects)
 
 
-class LawRequirements(models.Model):
+class LawRequirement(models.Model):
     code = "PG190-02"
     requirements = models.TextField(verbose_name='Requerimientos')
     law = models.CharField('Ley', max_length=50)

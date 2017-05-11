@@ -2,9 +2,9 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, DetailView, DeleteView, ListView
 
 from account.models import Profile
-from account.views import ProfileMixin, SuperUserRequiredMixin
+from account.views import SuperUserRequiredMixin, ProfileMixin
 from event.views import EventTodayProfileMixin
-from model.models import ModelR01PG01, Area
+from model.models import ModelR01PG01, Area, LawRequirement
 
 
 class ModelR01PG01CreateView(EventTodayProfileMixin, CreateView):
@@ -83,3 +83,45 @@ class AreaListView(EventTodayProfileMixin, ListView):
 class AreaDeleteView(SuperUserRequiredMixin, DeleteView):
     model = Area
     success_url = reverse_lazy('model:list_area')
+
+
+class LawRequirementCreateView(SuperUserRequiredMixin, CreateView):
+    model = LawRequirement
+    fields = ['requirements', 'law', 'section', 'environmental_aspects', 'file']
+    template_name = 'law_requirements/lawrequirement_form.html'
+
+    def get_success_url(self):
+        return reverse_lazy('model:detail_law', kwargs={'pk': self.object.pk})
+
+    def form_valid(self, form):
+        form.instance.register_by = Profile.objects.get(username=self.request.user.username)
+        form.instance.save()
+        return super(LawRequirementCreateView, self).form_valid(form)
+
+
+class LawRequirementListView(ProfileMixin, ListView):
+    queryset = LawRequirement.objects.all().order_by('pub_date')
+    template_name = 'law_requirements/lawrequirement_list.html'
+    context_object_name = 'laws'
+
+
+class LawRequirementDeleteView(SuperUserRequiredMixin, DeleteView):
+    model = LawRequirement
+    template_name = 'law_requirements/lawrequirement_confirm_delete.html'
+
+    def get_success_url(self):
+        return reverse_lazy('model:list_law')
+
+
+class LawRequirementDetailView(ProfileMixin, DetailView):
+    model = LawRequirement
+    template_name = 'law_requirements/lawrequirement_detail.html'
+
+
+class LawRequirementUpdateView(SuperUserRequiredMixin, UpdateView):
+    model = LawRequirement
+    fields = ['requirements', 'law', 'section', 'environmental_aspects', 'file']
+    template_name = 'law_requirements/lawrequirement_form.html'
+
+    def get_success_url(self):
+        return reverse_lazy('model:detail_law', kwargs={'pk': self.object.pk})
