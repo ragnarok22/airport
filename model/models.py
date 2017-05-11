@@ -98,3 +98,24 @@ class SimulationAnalysis(Analysis):
     is_necessary_check = models.BooleanField(verbose_name='Es necesario revisar', default=False)
     specify = models.TextField(blank=True, verbose_name='Especificaciones')
     participants = models.FileField(verbose_name='Participantes', blank=True, upload_to=url_analysis)
+
+
+COMMUNICATION_CHOICES = (
+    ('i', 'interna'),
+    ('e', 'externa')
+)
+
+
+class Communication(models.Model):
+    airport_name = models.CharField(max_length=100)
+    area = models.ForeignKey(Area)
+    year = models.IntegerField(validators=[validate_year])
+    date = models.DateField(auto_now=True)
+    reception_way = models.CharField(max_length=200)
+    type_communication = models.CharField(max_length=1, choices=COMMUNICATION_CHOICES)
+    contact_data = models.TextField()
+    info_content = models.TextField()
+    adopted_decision = models.CharField(max_length=200)
+    distribution_date = models.DateField()
+    emission_path = models.CharField(max_length=200)
+    register_by = models.ForeignKey(Profile)
