@@ -4,7 +4,7 @@ from django.views.generic import CreateView, UpdateView, DetailView, DeleteView,
 from account.models import Profile
 from account.views import SuperUserRequiredMixin, ProfileMixin
 from event.views import EventTodayProfileMixin
-from model.forms import EmergencyReportCreateForm, SimulationAnalysisCreateForm
+from model.forms import EmergencyReportCreateForm, SimulationAnalysisCreateForm, CommunicationForm
 from model.models import ModelR01PG01, Area, LawRequirement, EmergencyReport, RealAnalysis, SimulationAnalysis, \
     Communication
 
@@ -132,6 +132,7 @@ class LawRequirementUpdateView(SuperUserRequiredMixin, UpdateView):
 class EmergencyReportCreateView(EventTodayProfileMixin, CreateView):
     form_class = EmergencyReportCreateForm
     template_name = 'emergency/emergencyreport_form.html'
+    success_url = reverse_lazy('model:list_emergency')
 
 
 class EmergencyReportUpdateView(EventTodayProfileMixin, UpdateView):
@@ -253,8 +254,7 @@ class SimulationAnalysisDeleteView(SuperUserRequiredMixin, DeleteView):
 
 class CommunicationCreateView(EventTodayProfileMixin, CreateView):
     model = Communication
-    fields = ['airport_name', 'year', 'reception_way', 'type_communication', 'contact_data', 'info_content',
-              'adopted_decision', 'distribution_date', 'emission_path']
+    form_class = CommunicationForm
     template_name = 'communication/communication_form.html'
 
     def get_success_url(self):
