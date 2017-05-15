@@ -1,0 +1,14 @@
+{% extends 'account/dashboard.html' %}
+
+{% block title %}
+    Residuos Toxicos
+{% endblock %}
+
+{% block content-left %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn blue" type="submit">Aceptar</button>
+        <a href="{% url 'waste:list_dangerous_waste' %}" class="btn red">Cancelar</a>
+    </form>
+{% endblock %}

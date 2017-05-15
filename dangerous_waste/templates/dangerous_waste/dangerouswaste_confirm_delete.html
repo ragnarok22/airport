@@ -1,0 +1,13 @@
+{% extends 'account/dashboard.html' %}
+{% block title %}
+    Eliminar Desechos Peligrosos
+{% endblock %}
+
+{% block content-left %}
+    <h5>¿Estas seguro de eliminar estos desechos peligrosos?</h5>
+    <form method="post">
+        {% csrf_token %}
+        <button class="btn red" type="submit">Aceptar</button>
+        <a href="{% url 'waste:detail_dangerous_waste' dangerouswaste.pk %}" class="btn blue">Cancelar</a>
+    </form>
+{% endblock %}

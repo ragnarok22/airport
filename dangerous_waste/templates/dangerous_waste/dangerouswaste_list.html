@@ -1,0 +1,13 @@
+{% extends 'account/dashboard.html' %}
+{% block title %}
+    Listado de residuos toxicos
+{% endblock %}
+
+{% block content-left %}
+    <h4 class="center">Desechos Peligrosos</h4>
+    <h5 class="center">Listado de desechos peligrosos</h5>
+    {% for dangerouswaste in dangerouswaste_list %}
+        <p><a href="{% url 'waste:detail_dangerous_waste' dangerouswaste.pk %}">{{ dangerouswaste }}</a></p>
+    {% endfor %}
+
+{% endblock %}
