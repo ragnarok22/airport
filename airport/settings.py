@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'picture',
     'audit',
     'dangerous_waste',
+    'poll',
 ]
 
 MIDDLEWARE = [
