@@ -4,7 +4,7 @@ from django.views.generic import CreateView, UpdateView, DetailView, DeleteView,
 from account.models import Profile
 from account.views import SuperUserRequiredMixin, ProfileMixin
 from event.views import EventTodayProfileMixin
-from model.forms import EmergencyReportCreateForm
+from model.forms import EmergencyReportCreateForm, SimulationAnalysisCreateForm
 from model.models import ModelR01PG01, Area, LawRequirement, EmergencyReport, RealAnalysis, SimulationAnalysis, \
     Communication
 
@@ -209,15 +209,17 @@ class RealAnalysisDetailView(EventTodayProfileMixin, DetailView):
 
 
 class SimulationAnalysisCreateView(EventTodayProfileMixin, CreateView):
-    model = SimulationAnalysis
-    fields = ['summary', 'evaluation', 'is_necessary_check', 'specify', 'emergency', 'participants']
+    # model = SimulationAnalysis
+    # fields = ['summary', 'evaluation', 'is_necessary_check', 'specify', 'emergency', 'participants']
     template_name = 'emergency/simulation_analysis/simulationanalysis_form.html'
+    form_class = SimulationAnalysisCreateForm
 
     def get_success_url(self):
         return reverse_lazy('model:detail_simulation_analysis', kwargs={'pk': self.object.pk})
 
     def form_valid(self, form):
         form.instance.make_by = Profile.objects.get(username=self.request.user.username)
+        # form.emergency.queryset = EmergencyReport.objects.filter(report__contains='s')
         form.instance.save()
         return super(SimulationAnalysisCreateView, self).form_valid(form)
 
