@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'model',
     'picture',
     'audit',
+    'dangerous_waste',
 ]
 
 MIDDLEWARE = [
