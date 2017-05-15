@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'event',
     'model',
     'picture',
+    'audit',
 ]
 
 MIDDLEWARE = [

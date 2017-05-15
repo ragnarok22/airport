@@ -1,0 +1,13 @@
+{% extends 'account/dashboard.html' %}
+
+{% block title %}
+    Eliminar Programa General
+{% endblock %}
+
+{% block content-left %}
+    <h4>¿Desea eliminar programa general?</h4>
+    <form method="post">
+        <button class="btn red">Aceptar</button>
+        <a href="{% url 'audit:detail_general_program' generalprogramaudit.pk %}" class="btn blue">Cancelar</a>
+    </form>
+{% endblock %}

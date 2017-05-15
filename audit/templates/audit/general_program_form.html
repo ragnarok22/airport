@@ -1,0 +1,13 @@
+{% extends 'account/dashboard.html' %}
+{% block title %}
+    Programa General
+{% endblock %}
+
+{% block content-left %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn blue">Aceptar</button>
+        <a href="{% url 'audit:list_general_program' %}" class="btn blue-grey">Cancelar</a>
+    </form>
+{% endblock %}

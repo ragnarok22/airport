@@ -12,6 +12,7 @@ urlpatterns = [
     url(r'^event/', include('event.urls', namespace='event')),
     url(r'^model/', include('model.urls', namespace='model')),
     url(r'^picture/', include('picture.urls', namespace='picture')),
+    url(r'^audit/', include('audit.urls', namespace='audit')),
     url(r'^$', DashboardView.as_view(), name='dashboard'),
 ]
 urlpatterns += staticfiles_urlpatterns()
