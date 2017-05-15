@@ -4,10 +4,43 @@
 {% endblock %}
 
 {% block content-left %}
-    {% for communication in communication_list %}
-        {{ communication.airport_name }}
-        {% empty %}
-        <h5 class="center">No existen comunicaciones internas y externas</h5>
-    {% endfor %}
-
+    <div class="center">
+        <h5>Procedimiento General</h5>
+        <h5>Planificación, dirección y control del Sistema de Gestión Ambiental</h5>
+        <h4>Control de la Información</h4>
+    </div>
+    <table>
+        <thead>
+        <tr>
+            <th>No.</th>
+            <th>Fecha de recibo</th>
+            <th>Vía de Recepción</th>
+            <th>Tipo de comunicación</th>
+            <th>Remitente/datos de contacto</th>
+            <th>Contenido de la información</th>
+            <th>Decisión adoptada</th>
+            <th>Fecha</th>
+            <th>Vía de emisión</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            {% for communication in communication_list %}
+                <td><a href="{% url 'model:detail_communication' communication.pk %}">{{ forloop.counter }}</a></td>
+                <td>{{ communication.date }}</td>
+                <td>{{ communication.reception_way }}</td>
+                <td>{{ communication.get_type_communication_display }}</td>
+                <td>{{ communication.contact_data }}</td>
+                <td>{{ communication.info_content }}</td>
+                <td>{{ communication.adopted_decision }}</td>
+                <td>{{ communication.distribution_date }}</td>
+                <td>{{ communication.emission_path }}</td>
+            {% empty %}
+                <td>
+                    <h5 class="center">No existen comunicaciones internas y externas</h5>
+                </td>
+            {% endfor %}
+        </tr>
+        </tbody>
+    </table>
 {% endblock %}

@@ -286,6 +286,10 @@ class CommunicationListView(EventTodayProfileMixin, ListView):
     model = Communication
     template_name = 'communication/communication_list.html'
 
+    def get(self, request, *args, **kwargs):
+        self.queryset = Communication.objects.filter(area=Profile.objects.get(username=request.user.username).area)
+        return super(CommunicationListView, self).get(request, *args, **kwargs)
+
 
 class CommunicationDeleteView(SuperUserRequiredMixin, DeleteView):
     model = Communication
