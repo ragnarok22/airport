@@ -7,7 +7,8 @@ from django.views.generic import UpdateView
 
 from account.models import Profile
 from account.views import SuperUserRequiredMixin, ProfileMixin
-from dangerous_waste.models import DangerousWaste
+from dangerous_waste.forms import WasteForm
+from dangerous_waste.models import DangerousWaste, Waste
 
 
 class DangerousWasteCreateView(ProfileMixin, CreateView):
@@ -39,3 +40,13 @@ class DangerousWasteUpdateView(ProfileMixin, UpdateView):
 
     def get_success_url(self):
         return reverse_lazy('waste:detail_dangerous_waste', kwargs={'pk': self.object.pk})
+
+
+class WasteCreateView(ProfileMixin, CreateView):
+    model = Waste
+    form_class = WasteForm
+    success_url = reverse_lazy('waste:list_dangerous_waste')
+
+    def form_valid(self, form):
+        form.instance.dangerous_waste = DangerousWaste.objects.get(pk=self.kwargs['pk'])
+        return super(WasteCreateView, self).form_valid(form)

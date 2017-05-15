@@ -7,7 +7,45 @@
     <h4 class="center">Desechos Peligrosos</h4>
     <h5 class="center">Listado de desechos peligrosos</h5>
     {% for dangerouswaste in dangerouswaste_list %}
-        <p><a href="{% url 'waste:detail_dangerous_waste' dangerouswaste.pk %}">{{ dangerouswaste }}</a></p>
+        <div class="col l8">
+            <p>Areopuerto: {{ dangerouswaste.airport }}</p>
+            <p>Elaborado por: <a href="{% url 'account:detail_user' dangerouswaste.made_by.pk %}">{{ dangerouswaste.made_by }}</a></p>
+        </div>
+        <div class="col l4">
+            <p>Fecha de elaboracion: {{ dangerouswaste.date }}</p>
+        </div>
+        <table>
+            <thead>
+            <tr>
+                <th>Desecho</th>
+                <th>Clasificación</th>
+                <th>Cantidad generada (t)</th>
+                <th>Tipo y condiciones de almacenamiento</th>
+                <th>Acción de manejo (Clasificación)</th>
+                <th>Cantidad almacenada (t)</th>
+                <th>Fecha de última medición</th>
+                <th>Observaciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for waste in dangerouswaste.waste_set.all %}
+                <tr>
+                    <td>{{ waste.waste }}</td>
+                    <td>{{ waste.classification }}</td>
+                    <td>{{ waste.amount_generated }}</td>
+                    <td>{{ waste.type_condition }}</td>
+                    <td>{{ waste.action }}</td>
+                    <td>{{ waste.amount_stored }}</td>
+                    <td>{{ waste.date_last_measure }}</td>
+                    <td>{{ waste.observations }}</td>
+                </tr>
+            {% empty %}
+                <td class="center">No existen desechos</td>
+            {% endfor %}
+            </tbody>
+        </table>
+        <a href="{% url 'waste:delete_dangerous_waste' dangerouswaste.pk %}" class="btn red">Eliminar</a>
+        <a href="{% url 'waste:update_dangerous_waste' dangerouswaste.pk %}" class="btn blue-grey">Editar</a>
+        <a href="{% url 'waste:create_waste' dangerouswaste.pk %}" class="btn blue-grey">Añadir Desecho</a>
     {% endfor %}
-
 {% endblock %}
