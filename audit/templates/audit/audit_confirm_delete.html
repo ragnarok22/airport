@@ -1,0 +1,13 @@
+{% extends 'account/dashboard.html' %}
+{% block title %}
+    Eliminar Auditoria
+{% endblock %}
+
+{% block content-left %}
+    <h4>¿Estas seguro de que desea borrar esta auditoria?</h4>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn red">Aceptar</button>
+        <a href="{% url 'audit:list_general_program' %}" class="btn blue">Cancelar</a>
+    </form>
+{% endblock %}

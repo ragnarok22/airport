@@ -8,6 +8,7 @@ from django.views.generic import UpdateView
 from account.models import Profile
 from account.views import ProfileMixin, SuperUserRequiredMixin
 from audit.models import Audit, GeneralProgramAudit
+from audit.forms import AuditForm
 
 
 class GeneralProgramAuditListView(ProfileMixin, ListView):
@@ -60,8 +61,27 @@ class GeneralProgramAuditDeleteView(SuperUserRequiredMixin, DeleteView):
 
     def get_success_url(self):
         return reverse_lazy('audit:list_general_program')
-#
-#
-# class AuditCreateView(SuperUserRequiredMixin, CreateView):
-#     model = Audit
-#     fields = []
+
+
+class AuditCreateView(SuperUserRequiredMixin, CreateView):
+    model = Audit
+    form_class = AuditForm
+    success_url = reverse_lazy('audit:list_general_program')
+
+    def form_valid(self, form):
+        form.instance.general_program = GeneralProgramAudit.objects.get(pk=self.kwargs['pk'])
+        form.instance.save()
+        return super(AuditCreateView, self).form_valid(form)
+
+
+class AuditUpdateView(SuperUserRequiredMixin, UpdateView):
+    model = Audit
+    form_class = AuditForm
+
+    def get_success_url(self):
+        return reverse_lazy('audit:detail_general_program', kwargs={'pk': self.object.general_program.pk})
+
+
+class AuditDeleteView(SuperUserRequiredMixin, DeleteView):
+    model = Audit
+    success_url = reverse_lazy('audit:list_general_program')

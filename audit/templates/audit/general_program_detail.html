@@ -10,7 +10,7 @@
         <h5 class="center">Programa general de auditorias</h5>
     </div>
     <div class="col l3">
-    <p>Codigo: {{ general_program.code }}</p>
+        <p>Codigo: {{ general_program.code }}</p>
         <p>Fecha: {{ general_program.date }}</p>
     </div>
     <table>
@@ -29,6 +29,7 @@
             <th>o</th>
             <th>n</th>
             <th>d</th>
+            <th>Acciones</th>
         </tr>
         </thead>
         <tbody>
@@ -107,6 +108,10 @@
                 {% else %}
                     <td></td>
                 {% endif %}
+                <td>
+                    <a href="{% url 'audit:update_audit' audit.pk %}"><i class="material-icons">mode_edit</i></a>
+                    <a href="{% url 'audit:delete_audit' audit.pk %}"><i class="material-icons">delete</i></a>
+                </td>
                 {% empty %}
                 <td>No hay auditorias</td>
             </tr>
@@ -117,5 +122,5 @@
     <h6>Elaborado por: <a href="{% url 'account:detail_user' general_program.made_by.pk %}">{{ general_program.made_by }}</a></h6>
     <a href="{% url 'audit:update_general_program' general_program.pk %}" class="btn blue-grey">Editar Programa General</a>
     <a href="{% url 'audit:delete_general_program' general_program.pk %}" class="btn red">Eliminar Programa General</a>
-    <a href="#" class="btn blue">Añadir auditoria</a>
+    <a href="{% url 'audit:create_audit' general_program.pk %}" class="btn blue">Añadir auditoria</a>
 {% endblock %}

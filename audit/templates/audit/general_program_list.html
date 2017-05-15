@@ -25,95 +25,97 @@
                 <th>O</th>
                 <th>N</th>
                 <th>D</th>
+                <th>Acciones</th>
             </tr>
             </thead>
             <tbody>
-            {% for audit in audit_list %}
-                {% ifequal audit.general_program general_program %}
-                    <tr>
-                        <td><a href="{% url 'model:detail_area' audit.area.pk %}">{{ audit.area }}</a></td>
-                        {% if audit.e %}
-                            <td class="tooltipped" data-position="bottom" data-delay="50"
-                                data-tooltip="{{ audit.get_e_display }}">{{ audit.e }}</td>
-                        {% else %}
-                            <td></td>
-                        {% endif %}
-                        {% if audit.f %}
-                            <td class="tooltipped" data-position="bottom" data-delay="50"
-                                data-tooltip="{{ audit.get_f_display }}">{{ audit.f }}</td>
-                        {% else %}
-                            <td></td>
-                        {% endif %}
-                        {% if audit.ma %}
-                            <td class="tooltipped" data-position="bottom" data-delay="50"
-                                data-tooltip="{{ audit.get_ma_display }}">{{ audit.ma }}</td>
-                        {% else %}
-                            <td></td>
-                        {% endif %}
-                        {% if audit.ab %}
-                            <td class="tooltipped" data-position="bottom" data-delay="50"
-                                data-tooltip="{{ audit.get_ab_display }}">{{ audit.ab }}</td>
-                        {% else %}
-                            <td></td>
-                        {% endif %}
-                        {% if audit.m %}
-                            <td class="tooltipped" data-position="bottom" data-delay="50"
-                                data-tooltip="{{ audit.get_m_display }}">{{ audit.m }}</td>
-                        {% else %}
-                            <td></td>
-                        {% endif %}
-                        {% if audit.j %}
-                            <td class="tooltipped" data-position="bottom" data-delay="50"
-                                data-tooltip="{{ audit.get_j_display }}">{{ audit.j }}</td>
-                        {% else %}
-                            <td></td>
-                        {% endif %}
-                        {% if audit.ju %}
-                            <td class="tooltipped" data-position="bottom" data-delay="50"
-                                data-tooltip="{{ audit.get_ju_display }}">{{ audit.ju }}</td>
-                        {% else %}
-                            <td></td>
-                        {% endif %}
-                        {% if audit.a %}
-                            <td class="tooltipped" data-position="bottom" data-delay="50"
-                                data-tooltip="{{ audit.get_a_display }}">{{ audit.a }}</td>
-                        {% else %}
-                            <td></td>
-                        {% endif %}
-                        {% if audit.s %}
-                            <td class="tooltipped" data-position="bottom" data-delay="50"
-                                data-tooltip="{{ audit.get_s_display }}">{{ audit.s }}</td>
-                        {% else %}
-                            <td></td>
-                        {% endif %}
-                        {% if audit.o %}
-                            <td class="tooltipped" data-position="bottom" data-delay="50"
-                                data-tooltip="{{ audit.get_o_display }}">{{ audit.o }}</td>
-                        {% else %}
-                            <td></td>
-                        {% endif %}
-                        {% if audit.n %}
-                            <td class="tooltipped" data-position="bottom" data-delay="50"
-                                data-tooltip="{{ audit.get_n_display }}">{{ audit.n }}</td>
-                        {% else %}
-                            <td></td>
-                        {% endif %}
-                        {% if audit.d %}
-                            <td class="tooltipped" data-position="bottom" data-delay="50"
-                                data-tooltip="{{ audit.get_d_display }}">{{ audit.d }}</td>
-                        {% else %}
-                            <td></td>
-                        {% endif %}
-                    </tr>
-                {% endifequal %}
-            {% empty %}
-                <td class="center">No hay auditorias</td>
+            {% for audit in general_program.audit_set.all %}
+                <tr>
+                    <td><a href="{% url 'model:detail_area' audit.area.pk %}">{{ audit.area }}</a></td>
+                    {% if audit.e %}
+                        <td class="tooltipped" data-position="bottom" data-delay="50"
+                            data-tooltip="{{ audit.get_e_display }}">{{ audit.e }}</td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+                    {% if audit.f %}
+                        <td class="tooltipped" data-position="bottom" data-delay="50"
+                            data-tooltip="{{ audit.get_f_display }}">{{ audit.f }}</td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+                    {% if audit.ma %}
+                        <td class="tooltipped" data-position="bottom" data-delay="50"
+                            data-tooltip="{{ audit.get_ma_display }}">{{ audit.ma }}</td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+                    {% if audit.ab %}
+                        <td class="tooltipped" data-position="bottom" data-delay="50"
+                            data-tooltip="{{ audit.get_ab_display }}">{{ audit.ab }}</td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+                    {% if audit.m %}
+                        <td class="tooltipped" data-position="bottom" data-delay="50"
+                            data-tooltip="{{ audit.get_m_display }}">{{ audit.m }}</td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+                    {% if audit.j %}
+                        <td class="tooltipped" data-position="bottom" data-delay="50"
+                            data-tooltip="{{ audit.get_j_display }}">{{ audit.j }}</td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+                    {% if audit.ju %}
+                        <td class="tooltipped" data-position="bottom" data-delay="50"
+                            data-tooltip="{{ audit.get_ju_display }}">{{ audit.ju }}</td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+                    {% if audit.a %}
+                        <td class="tooltipped" data-position="bottom" data-delay="50"
+                            data-tooltip="{{ audit.get_a_display }}">{{ audit.a }}</td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+                    {% if audit.s %}
+                        <td class="tooltipped" data-position="bottom" data-delay="50"
+                            data-tooltip="{{ audit.get_s_display }}">{{ audit.s }}</td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+                    {% if audit.o %}
+                        <td class="tooltipped" data-position="bottom" data-delay="50"
+                            data-tooltip="{{ audit.get_o_display }}">{{ audit.o }}</td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+                    {% if audit.n %}
+                        <td class="tooltipped" data-position="bottom" data-delay="50"
+                            data-tooltip="{{ audit.get_n_display }}">{{ audit.n }}</td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+                    {% if audit.d %}
+                        <td class="tooltipped" data-position="bottom" data-delay="50"
+                            data-tooltip="{{ audit.get_d_display }}">{{ audit.d }}</td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+                    <td colspan="3">
+                        <a href="{% url 'audit:delete_audit' audit.pk %}"><i class="material-icons">delete</i></a>
+                    </td>
+                    {% empty %}
+                    <td class="center">No hay auditorias</td>
+                </tr>
             {% endfor %}
             </tbody>
         </table>
         <h6>Observaciones: {{ general_program.observations }}</h6>
         <h6>Elaborado por: <a href="{% url 'account:detail_user' general_program.made_by.pk %}">{{ general_program.made_by }}</a></h6>
         <a href="{% url 'audit:detail_general_program' general_program.pk %}" class="btn blue">Ver Programa General</a>
-        <a href="#" class="btn blue-grey">Añadir auditoria</a>
+        <a href="{% url 'audit:create_audit' general_program.pk %}" class="btn blue-grey">Añadir auditoria</a>
     {% endfor %}
 {% endblock %}

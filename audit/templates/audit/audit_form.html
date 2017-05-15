@@ -5,5 +5,43 @@
 {% endblock %}
 
 {% block content-left %}
-    asdf
+    <form method="post">
+        {% csrf_token %}
+        {{ form.area.errors }}
+        {{ form.area.label_tag }}
+        {{ form.area }}
+        <table>
+            <thead>
+                <tr>
+                    <th>E</th>
+                    <th>F</th>
+                    <th>M</th>
+                    <th>A</th>
+                    <th>M</th>
+                    <th>J</th>
+                    <th>J</th>
+                    <th>A</th>
+                    <th>S</th>
+                    <th>O</th>
+                    <th>N</th>
+                    <th>D</th>
+                </tr>
+            </thead>
+            <tbody>
+                <td>{{ form.e }}</td>
+                <td>{{ form.f }}</td>
+                <td>{{ form.ma }}</td>
+                <td>{{ form.ab }}</td>
+                <td>{{ form.m }}</td>
+                <td>{{ form.j }}</td>
+                <td>{{ form.ju }}</td>
+                <td>{{ form.a }}</td>
+                <td>{{ form.s }}</td>
+                <td>{{ form.o }}</td>
+                <td>{{ form.n }}</td>
+                <td>{{ form.d }}</td>
+            </tbody>
+        </table>
+        <button type="submit" class="btn blue">Aceptar</button>
+    </form>
 {% endblock %}
