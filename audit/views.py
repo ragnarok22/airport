@@ -16,11 +16,6 @@ class GeneralProgramAuditListView(ProfileMixin, ListView):
     model = GeneralProgramAudit
     context_object_name = 'general_program_list'
 
-    def get_context_data(self, **kwargs):
-        context = super(GeneralProgramAuditListView, self).get_context_data(**kwargs)
-        context['audit_list'] = Audit.objects.all()
-        return context
-
 
 class GeneralProgramAuditUpdateView(SuperUserRequiredMixin, UpdateView):
     model = GeneralProgramAudit
