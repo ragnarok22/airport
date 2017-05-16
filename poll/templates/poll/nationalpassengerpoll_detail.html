@@ -1,10 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends 'account/dashboard.html' %}
+{% block title %}
+    Detalles de la encuesta para pasajeros nacionales
+{% endblock %}
+
+{% block content-left %}
+    <table>
+        <thead>
+        <tr>
+            <th>No</th>
+            <th>Servicios</th>
+            <th>Evaluacion</th>
+            <th>Causa de la evaluacion</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for service in nationalpassengerpoll.service_set.all %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ service.title }}</td>
+                <td>{{ service.evaluation }}</td>
+                {% if service.why %}
+                    <td>{{ service.why }}</td>
+                {% else %}
+                    <td></td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <p class="center">En su opinión ¿cuáles son los aspectos a mejorar para que usted reciba el servicio deseado?</p>
+    <p>{{ nationalpassengerpoll.opinion }}</p>
+    <a href="{% url 'poll:update_national_passenger' nationalpassengerpoll.pk %}" class="btn blue-grey">Editar</a>
+    <a href="{% url 'poll:delete_national_passenger' nationalpassengerpoll.pk %}" class="btn red">Eliminar</a>
+{% endblock %}

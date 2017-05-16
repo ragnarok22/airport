@@ -15,6 +15,7 @@ class Service(models.Model):
     title = models.CharField('Servicio', max_length=200)
     evaluation = models.IntegerField('Evaluacion', choices=EVALUATION_CHOICES)
     why = models.TextField(blank=True)
+    national_passenger = models.ForeignKey('NationalPassengerPoll', verbose_name='Encuesta a Pasajeros Nacionales')
 
     class Meta:
         verbose_name = 'Servicio'
@@ -25,9 +26,7 @@ class Service(models.Model):
 
 
 class NationalPassengerPoll(models.Model):
-    services = models.ManyToManyField(Service, 'Servicios')
     opinion = models.TextField('Su opinion')
-    number = models.PositiveIntegerField('Cantidad de servicios')
 
     class Meta:
         verbose_name = 'Encuesta a Pasajeros Nacionales'

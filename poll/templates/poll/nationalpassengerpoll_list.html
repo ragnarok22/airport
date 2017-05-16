@@ -1,10 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends 'account/dashboard.html' %}
+
+{% block title %}
+    Encuestas a pasajeros nacionales
+{% endblock %}
+
+{% block content-left %}
+    {% for nationalpassengerpoll in nationalpassengerpoll_list %}
+        <table>
+            <thead>
+            <tr>
+                <th>No</th>
+                <th>Servicios</th>
+                <th>Evaluacion</th>
+                <th>Causa de la evaluacion</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for service in nationalpassengerpoll.service_set.all %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ service.title }}</td>
+                    <td>{{ service.evaluation }}</td>
+                    {% if service.why %}
+                        <td>{{ service.why }}</td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <p class="center">En su opinión ¿cuáles son los aspectos a mejorar para que usted reciba el servicio deseado?</p>
+        <p>{{ nationalpassengerpoll.opinion }}</p>
+    {% endfor %}
+
+{% endblock %}

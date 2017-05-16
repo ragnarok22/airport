@@ -2,7 +2,7 @@ from django.conf.urls import url
 
 from poll.views import NationalPassengerPollCreateView, NationalPassengerPollListView, \
     NationalPassengerPollUpdateView, NationalPassengerPollDetailView, \
-    NationalPassengerPollDeleteView
+    NationalPassengerPollDeleteView, AllPollView
 
 urlpatterns = [
     url(r'national/passenger/create/$', NationalPassengerPollCreateView.as_view(),
@@ -15,4 +15,6 @@ urlpatterns = [
         name='detail_national_passenger'),
     url(r'national/passenger/delete/(?P<pk>[0-9]+)/$', NationalPassengerPollDeleteView.as_view(),
         name='delete_national_passenger'),
+
+    url(r'all/$', AllPollView.as_view(), name='all_poll'),
 ]

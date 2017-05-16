@@ -1,10 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends 'account/dashboard.html' %}
+
+{% block title %}
+    Todas las Encuestas
+{% endblock %}
+
+{% block content-left %}
+    <p><a href="{% url 'poll:list_national_passenger' %}" class="btn blue-grey">Encuestas a Pasajeros Nacionales</a></p>
+    <p><a href="#" class="btn blue-grey">Encuestas a Pasajeros internacionales</a></p>
+{% endblock %}
