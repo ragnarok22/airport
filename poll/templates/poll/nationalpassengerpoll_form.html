@@ -5,9 +5,59 @@
 {% endblock %}
 
 {% block content-left %}
+    <h6>Estimado Pasajero:
+        Conocer su opinión es de gran utilidad para el mejoramiento de nuestros servicios. Le estaríamos muy agradecidos si
+        pudiera dedicar unos minutos a completar este cuestionario.
+        La información que usted aportará es estrictamente confidencial.</h6>
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
+        <table>
+            <thead>
+            <tr>
+                <th>No</th>
+                <th>Servicios</th>
+                <th>Evaluacion</th>
+                <th>Si su puntuación es 2 ó 1 por favor díganos la causa</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>1</td>
+                <td><input type="text"></td>
+                <td>
+                    <select name="evaluate" id="id_evaluate">
+                        <option value="0">Sin usar</option>
+                        <option value="1">Malo</option>
+                        <option value="2">Insatisfactorio</option>
+                        <option value="3">Bueno</option>
+                        <option value="4">Muy Bueno</option>
+                        <option value="5">Excelente</option>
+                    </select>
+                </td>
+                <td><input type="text" id="id_why"></td>
+            </tr>
+            </tbody>
+        </table>
+        {{ form.opinion.errors }}
+        <label for="{{ form.opinion.id_for_label }}">En su opinión ¿cuáles son los aspectos a mejorar para que usted reciba el servicio deseado?:</label>
+        {{ form.opinion }}
         <button type="submit" class="btn blue">Aceptar</button>
+        <a href="{% url 'poll:list_national_passenger' %}" class="btn red">Cancelar</a>
     </form>
+{% endblock %}
+{% block script %}
+    {{ block.super }}
+    <script>
+        $(document).ready(function () {
+            var why = $('#id_why');
+            $('#id_evaluate').on('change', function (event) {
+                if($(this).val() == 1 || $(this).val() == 2){
+                    why.prop('disabled', true);
+                    why.val("");
+                }else{
+                    why.prop('disabled', false);
+                }
+            });
+        });
+    </script>
 {% endblock %}
