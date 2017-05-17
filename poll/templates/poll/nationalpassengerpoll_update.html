@@ -1,0 +1,76 @@
+{% extends 'account/dashboard.html' %}
+
+{% block title %}
+    Formulario para pasajeros nacionales
+{% endblock %}
+
+{% block content-left %}
+    <form method="post">
+        {% csrf_token %}
+        <table>
+            <thead>
+            <tr>
+                <th>No</th>
+                <th>Servicios</th>
+                <th>Evaluacion</th>
+                <th>Si su puntuación es 2 ó 1 por favor díganos la causa</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for service in nationalpassengerpoll.service_set.all %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>
+                        <input type="text" value="{{ service.pk }}" name="pk{{ forloop.counter }}" class="hide">
+                        <label for="id_service{{ forloop.counter }}">{{ service }}</label>
+                        <input type="text" value="{{ service }}" name="service{{ forloop.counter }}" id="id_service{{ forloop.counter }}" class="hide">
+                    </td>
+                    <td>
+                        <label for="id_evaluate{{ forloop.counter }}"></label>
+                        <select name="evaluate{{ forloop.counter }}" id="id_evaluate{{ forloop.counter }}">
+                            <option value="0">Sin usar</option>
+                            <option value="1">Malo</option>
+                            <option value="2">Insatisfactorio</option>
+                            <option value="3">Bueno</option>
+                            <option value="4">Muy Bueno</option>
+                            <option value="5">Excelente</option>
+                        </select>
+                        <script>
+                            $('#id_evaluate{{ forloop.counter }} option:eq({{ service.evaluation }})').prop('selected', true);
+                            $(document).ready(function () {
+                                evaluateSelect($('#id_evaluate{{ forloop.counter }}'));
+                                evaluate($('#id_evaluate{{ forloop.counter }}'), $('#id_why{{ forloop.counter }}'));
+
+                                function evaluateSelect(select) {
+                                    select.on('change', function () {
+                                        var why = $('#id_why{{ forloop.counter }}');
+                                        evaluate(this, why);
+                                    });
+                                }
+
+                                function evaluate(object, why) {
+                                    if($(object).val() == 1 || $(object).val() == 2){
+                                        why.prop('disabled', false);
+                                    }else{
+                                        why.prop('disabled', true);
+                                        why.val("");
+                                    }
+                                }
+                            });
+                        </script>
+                    </td>
+                    <td>
+                        <label for="id_why{{ forloop.counter }}"></label>
+                        <input type="text" id="id_why{{ forloop.counter }}" name="why{{ forloop.counter }}" disabled value="{{ service.why }}">
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {{ form.opinion.errors }}
+        <label for="{{ form.opinion.id_for_label }}">En su opinión ¿cuáles son los aspectos a mejorar para que usted reciba el servicio deseado?:</label>
+        {{ form.opinion }}
+        <button type="submit" class="btn blue">Aceptar</button>
+        <a href="{% url 'poll:list_national_passenger' %}" class="btn red">Cancelar</a>
+    </form>
+{% endblock %}

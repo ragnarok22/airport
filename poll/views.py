@@ -32,10 +32,9 @@ class NationalPassengerPollCreateView(ProfileMixin, CreateView):
             why = self.request.POST.get('why' + str(iterator), None)
             if why:
                 service.why = why
-            service.national_passenger = form.instance
+            service.poll = form.instance
             service.save()
             iterator += 1
-        print(form.instance.pk)
         return super(NationalPassengerPollCreateView, self).form_valid(form)
 
 
@@ -50,9 +49,25 @@ class NationalPassengerPollDetailView(ProfileMixin, DetailView):
 class NationalPassengerPollUpdateView(ProfileMixin, UpdateView):
     model = NationalPassengerPoll
     fields = '__all__'
+    template_name = 'poll/nationalpassengerpoll_update.html'
 
     def get_success_url(self):
         return reverse_lazy('poll:detail_national_passenger', kwargs={'pk': self.object.pk})
+
+    def form_valid(self, form):
+        model = form.instance
+        model.save()
+        iterator = 1
+        for s in services:
+            service = Service.objects.get(pk=self.request.POST.get('pk' + str(iterator)))
+            service.title = s
+            service.evaluation = self.request.POST['evaluate' + str(iterator)]
+            why = self.request.POST.get('why' + str(iterator), '')
+            service.why = why
+            service.poll = form.instance
+            service.save()
+            iterator += 1
+        return super(NationalPassengerPollUpdateView, self).form_valid(form)
 
 
 class NationalPassengerPollDeleteView(ProfileMixin, DeleteView):

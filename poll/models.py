@@ -12,25 +12,25 @@ EVALUATION_CHOICES = (
 
 
 services = [
-            "Profesionalidad en el chequeo de tráfico.",
-            "Profesionalidad del Personal.",
-            "Tratamiento dado a sus equipajes.",
-            "Disponibilidad de carretillas para equipajes.",
-            "Disponibilidad de información.",
-            "Limpieza general de la terminal.",
-            "Profesionalidad de Agentes de Seguridad",
-            "Servicios Gastronómicos.",
-            "Sentimiento de seguridad.",
-            "Satisfacción general con el aeropuerto.",
-            "Transporte desde y hacia la ciudad.",
-        ]
+    "Profesionalidad en el chequeo de tráfico.",
+    "Profesionalidad del Personal.",
+    "Tratamiento dado a sus equipajes.",
+    "Disponibilidad de carretillas para equipajes.",
+    "Disponibilidad de información.",
+    "Limpieza general de la terminal.",
+    "Profesionalidad de Agentes de Seguridad",
+    "Servicios Gastronómicos.",
+    "Sentimiento de seguridad.",
+    "Satisfacción general con el aeropuerto.",
+    "Transporte desde y hacia la ciudad.",
+]
 
 
 class Service(models.Model):
     title = models.CharField('Servicio', max_length=200)
     evaluation = models.IntegerField('Evaluacion', choices=EVALUATION_CHOICES)
     why = models.TextField(blank=True)
-    national_passenger = models.ForeignKey('NationalPassengerPoll', verbose_name='Encuesta a Pasajeros Nacionales')
+    poll = models.ForeignKey('NationalPassengerPoll', verbose_name='Encuesta a Pasajeros Nacionales')
 
     class Meta:
         verbose_name = 'Servicio'
@@ -51,8 +51,15 @@ class NationalPassengerPoll(models.Model):
         return self.opinion
 
 
+class InternationalService(models.Model):
+    title = models.CharField('Servicio', max_length=200)
+    evaluation = models.IntegerField('Evaluacion', choices=EVALUATION_CHOICES)
+    why = models.TextField(blank=True)
+    poll = models.ForeignKey('InternationalPassengerPoll', verbose_name='Encuesta a Pasajeros Internacionales')
+
+
 class InternationalPassengerPoll(models.Model):
-    pass
+    opinion = models.TextField('Su opinion')
 
 
 class AirLineRepresentPoll(models.Model):
