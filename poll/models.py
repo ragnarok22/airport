@@ -81,6 +81,13 @@ class InternationalService(models.Model):
 class InternationalPassengerPoll(models.Model):
     opinion = models.TextField('Su opinion')
 
+    class Meta:
+        verbose_name = 'Encuesta a Pasajeros Internacionales'
+        verbose_name_plural = 'Encuestas a Pasajeros Internacionales'
 
-class AirLineRepresentPoll(models.Model):
-    pass
+    def __str__(self):
+        return self.opinion
+
+
+# class AirLineRepresentPoll(models.Model):
+#     pass
