@@ -1,10 +1,15 @@
 {% extends 'account/dashboard.html' %}
+{#{% load filters %}#}
 
 {% block title %}
     Formulario para pasajeros nacionales
 {% endblock %}
 
 {% block content-left %}
+{#    {% for i in 10|length %}#}
+{#        {{ i }}#}
+{#    {% endfor %}#}
+
     <h6>Estimado Pasajero:
         Conocer su opinión es de gran utilidad para el mejoramiento de nuestros servicios. Le estaríamos muy agradecidos si
         pudiera dedicar unos minutos a completar este cuestionario.
@@ -21,21 +26,43 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>1</td>
-                <td><input type="text"></td>
-                <td>
-                    <select name="evaluate" id="id_evaluate">
-                        <option value="0">Sin usar</option>
-                        <option value="1">Malo</option>
-                        <option value="2">Insatisfactorio</option>
-                        <option value="3">Bueno</option>
-                        <option value="4">Muy Bueno</option>
-                        <option value="5">Excelente</option>
-                    </select>
-                </td>
-                <td><input type="text" id="id_why"></td>
-            </tr>
+            {% for service in services %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>
+                        <label for="id_service{{ forloop.counter }}"></label>
+                        <input type="text" value="{{ service }}" name="service{{ forloop.counter }}" id="id_service{{ forloop.counter }}">
+                    </td>
+                    <td>
+                        <label for="id_evaluate{{ forloop.counter }}"></label>
+                        <select name="evaluate{{ forloop.counter }}" id="id_evaluate{{ forloop.counter }}">
+                            <option value="0">Sin usar</option>
+                            <option value="1">Malo</option>
+                            <option value="2">Insatisfactorio</option>
+                            <option value="3">Bueno</option>
+                            <option value="4">Muy Bueno</option>
+                            <option value="5">Excelente</option>
+                        </select>
+                        <script>
+                            $(document).ready(function () {
+                                var why = $('#id_why{{ forloop.counter }}');
+                                $('#id_evaluate{{ forloop.counter }}').on('change', function (event) {
+                                    if($(this).val() == 1 || $(this).val() == 2){
+                                        why.prop('disabled', false);
+                                    }else{
+                                        why.prop('disabled', true);
+                                        why.val("");
+                                    }
+                                });
+                            });
+                        </script>
+                    </td>
+                    <td>
+                        <label for="id_why{{ forloop.counter }}"></label>
+                        <input type="text" id="id_why{{ forloop.counter }}" name="why{{ forloop.counter }}" disabled>
+                    </td>
+                </tr>
+            {% endfor %}
             </tbody>
         </table>
         {{ form.opinion.errors }}
@@ -47,17 +74,5 @@
 {% endblock %}
 {% block script %}
     {{ block.super }}
-    <script>
-        $(document).ready(function () {
-            var why = $('#id_why');
-            $('#id_evaluate').on('change', function (event) {
-                if($(this).val() == 1 || $(this).val() == 2){
-                    why.prop('disabled', true);
-                    why.val("");
-                }else{
-                    why.prop('disabled', false);
-                }
-            });
-        });
-    </script>
+
 {% endblock %}

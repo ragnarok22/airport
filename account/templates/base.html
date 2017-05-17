@@ -13,6 +13,13 @@
     <link rel="stylesheet" href="{% static 'account/css/ghpages.css' %}">
     <link rel="stylesheet" href="{% static 'account/css/style.css' %}">
     {% block styles %}{% endblock %}
+
+    <script src="{% static 'account/js/jquery-2.0.1.min.js' %}"></script>
+    <script src="{% static 'account/js/jquery.validate.min.js' %}"></script>
+    <script src="{% static 'account/js/materialize.min.js' %}"></script>
+    <script src="{% static 'account/js/toastr.min.js' %}"></script>
+    <script src="{% static 'account/js/main.js' %}"></script>
+    {% block script %}{% endblock %}
 </head>
 <body>
 {% block content %}{% endblock %}
@@ -24,11 +31,5 @@
 <!--fin del pie de la pagina-->
 
 
-<script src="{% static 'account/js/jquery-2.0.1.min.js' %}"></script>
-<script src="{% static 'account/js/jquery.validate.min.js' %}"></script>
-<script src="{% static 'account/js/materialize.min.js' %}"></script>
-<script src="{% static 'account/js/toastr.min.js' %}"></script>
-<script src="{% static 'account/js/main.js' %}"></script>
-{% block script %}{% endblock %}
 </body>
 </html>

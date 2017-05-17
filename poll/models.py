@@ -11,6 +11,21 @@ EVALUATION_CHOICES = (
 )
 
 
+services = [
+            "Profesionalidad en el chequeo de tráfico.",
+            "Profesionalidad del Personal.",
+            "Tratamiento dado a sus equipajes.",
+            "Disponibilidad de carretillas para equipajes.",
+            "Disponibilidad de información.",
+            "Limpieza general de la terminal.",
+            "Profesionalidad de Agentes de Seguridad",
+            "Servicios Gastronómicos.",
+            "Sentimiento de seguridad.",
+            "Satisfacción general con el aeropuerto.",
+            "Transporte desde y hacia la ciudad.",
+        ]
+
+
 class Service(models.Model):
     title = models.CharField('Servicio', max_length=200)
     evaluation = models.IntegerField('Evaluacion', choices=EVALUATION_CHOICES)
