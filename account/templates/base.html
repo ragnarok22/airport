@@ -19,7 +19,6 @@
     <script src="{% static 'account/js/materialize.min.js' %}"></script>
     <script src="{% static 'account/js/toastr.min.js' %}"></script>
     <script src="{% static 'account/js/main.js' %}"></script>
-    {% block script %}{% endblock %}
 </head>
 <body>
 {% block content %}{% endblock %}
@@ -31,5 +30,6 @@
 <!--fin del pie de la pagina-->
 
 
+{% block script %}{% endblock %}
 </body>
 </html>

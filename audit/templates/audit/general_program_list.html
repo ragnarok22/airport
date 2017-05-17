@@ -118,4 +118,5 @@
         <a href="{% url 'audit:detail_general_program' general_program.pk %}" class="btn blue">Ver Programa General</a>
         <a href="{% url 'audit:create_audit' general_program.pk %}" class="btn blue-grey">Añadir auditoria</a>
     {% endfor %}
+    <a href="{% url 'audit:create_general_program' %}" class="btn blue">Añadir</a>
 {% endblock %}

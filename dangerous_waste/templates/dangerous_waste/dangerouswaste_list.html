@@ -48,4 +48,5 @@
         <a href="{% url 'waste:update_dangerous_waste' dangerouswaste.pk %}" class="btn blue-grey">Editar</a>
         <a href="{% url 'waste:create_waste' dangerouswaste.pk %}" class="btn blue-grey">Añadir Desecho</a>
     {% endfor %}
+    <a href="{% url 'waste:create_dangerous_waste' %}" class="btn blue">Añadir</a>
 {% endblock %}
