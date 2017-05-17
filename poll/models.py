@@ -50,6 +50,26 @@ class NationalPassengerPoll(models.Model):
     def __str__(self):
         return self.opinion
 
+INTERNATIONAL_SERVICES = [
+    'Confort en las salas de espera.',
+    'Limpieza general de la terminal.',
+    'Calidad de los servicios de los baños.',
+    'Temperatura en los salones.',
+    'Calidad del servicio en las tiendas.',
+    'Calidad de los servicios en bares y restaurantes',
+    'Facilidad para fumadores.',
+    'Disponibilidad de carretillas para equipajes.',
+    'Rapidez en la entrega de equipajes al arribar.',
+    'Tratamiento dado a sus equipajes.',
+    'Disponibilidad de información.',
+    'Señalización general.',
+    'Profesionalidad en el chequeo de tráfico.',
+    'Profesionalidad del personal de Inmigración',
+    'Profesionalidad del personal de la Aduana.',
+    'Sentimiento de seguridad.',
+    'Satisfacción general con el aeropuerto.',
+]
+
 
 class InternationalService(models.Model):
     title = models.CharField('Servicio', max_length=200)

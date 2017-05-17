@@ -8,7 +8,7 @@ from django.views.generic import UpdateView
 
 from account.views import ProfileMixin
 from poll.forms import NationalPassengerForm
-from poll.models import NationalPassengerPoll, services, Service
+from poll.models import NationalPassengerPoll, services, Service, InternationalPassengerPoll
 
 
 class NationalPassengerPollCreateView(ProfileMixin, CreateView):
@@ -77,3 +77,23 @@ class NationalPassengerPollDeleteView(ProfileMixin, DeleteView):
 
 class AllPollView(ProfileMixin, TemplateView):
     template_name = 'poll/all_polls.html'
+
+
+class InternationalPassengerPollCreateView(ProfileMixin, CreateView):
+    model = InternationalPassengerPoll
+
+
+class InternationalPassengerPollUpdateView(ProfileMixin, UpdateView):
+    model = InternationalPassengerPoll
+
+
+class InternationalPassengerPollListView(ProfileMixin, ListView):
+    model = InternationalPassengerPoll
+
+
+class InternationalPassengerPollDetailView(ProfileMixin, DetailView):
+    model = InternationalPassengerPoll
+
+
+class InternationalPassengerPollDeleteView(ProfileMixin, CreateView):
+    model = InternationalPassengerPoll
