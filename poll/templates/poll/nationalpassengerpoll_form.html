@@ -30,8 +30,8 @@
                 <tr>
                     <td>{{ forloop.counter }}</td>
                     <td>
-                        <label for="id_service{{ forloop.counter }}"></label>
-                        <input type="text" value="{{ service }}" name="service{{ forloop.counter }}" id="id_service{{ forloop.counter }}">
+                        <label for="id_service{{ forloop.counter }}">{{ service }}</label>
+                        <input type="text" value="{{ service }}" class="hide" name="service{{ forloop.counter }}" id="id_service{{ forloop.counter }}">
                     </td>
                     <td>
                         <label for="id_evaluate{{ forloop.counter }}"></label>
