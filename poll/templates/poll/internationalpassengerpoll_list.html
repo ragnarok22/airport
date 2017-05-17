@@ -1,0 +1,40 @@
+{% extends 'account/dashboard.html' %}
+{% block title %}
+    Encuesta a pasajeros internacionales
+{% endblock %}
+
+{% block content-left %}
+    {% for internationalpassengerpoll in internationalpassengerpoll_list %}
+        <table>
+            <thead>
+            <tr>
+                <th>No</th>
+                <th>Servicios</th>
+                <th>Evaluacion</th>
+                <th>Causa de la evaluacion</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for service in internationalpassengerpoll.internationalservice_set.all %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ service.title }}</td>
+                    <td>{{ service.evaluation }}</td>
+                    {% if service.why %}
+                        <td>{{ service.why }}</td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <p class="center">En su opinión ¿cuáles son los aspectos a mejorar para que usted reciba el servicio deseado?</p>
+        <p>{{ internationalpassengerpoll.opinion }}</p>
+        <p>
+            <a href="{% url 'poll:detail_international_passenger' internationalpassengerpoll.pk %}" class="btn btn-sm blue"><i class="material-icons">description</i></a>
+            <a href="{% url 'poll:delete_international_passenger' internationalpassengerpoll.pk %}" class="btn btn-sm red"><i class="material-icons">delete</i></a>
+        </p>
+    {% endfor %}
+    <a href="{% url 'poll:create_international_passenger' %}" class="btn blue-grey">Añadir</a>
+{% endblock %}

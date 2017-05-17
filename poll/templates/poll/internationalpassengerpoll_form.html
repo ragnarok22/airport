@@ -1,0 +1,74 @@
+{% extends 'account/dashboard.html' %}
+
+{% block title %}
+    Formulario para pasajeros nacionales
+{% endblock %}
+
+{% block content-left %}
+
+    <h6>Estimado Pasajero:
+        Conocer su opinión es de gran utilidad para el mejoramiento de nuestros servicios. Le estaríamos muy
+        agradecidos si pudiera dedicar unos minutos a completar este cuestionario. La información que usted aportará es
+        estrictamente confidencial.</h6>
+    <form method="post">
+        {% csrf_token %}
+        <table>
+            <thead>
+            <tr>
+                <th>No</th>
+                <th>Servicios</th>
+                <th>Evaluacion</th>
+                <th>Si su puntuación es 2 ó 1 por favor díganos la causa</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for service in services %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>
+                        <label for="id_service{{ forloop.counter }}">{{ service }}</label>
+                        <input type="text" value="{{ service }}" class="hide" name="service{{ forloop.counter }}" id="id_service{{ forloop.counter }}">
+                    </td>
+                    <td>
+                        <label for="id_evaluate{{ forloop.counter }}"></label>
+                        <select name="evaluate{{ forloop.counter }}" id="id_evaluate{{ forloop.counter }}">
+                            <option value="0">Sin usar</option>
+                            <option value="1">Malo</option>
+                            <option value="2">Insatisfactorio</option>
+                            <option value="3">Bueno</option>
+                            <option value="4">Muy Bueno</option>
+                            <option value="5">Excelente</option>
+                        </select>
+                        <script>
+                            $(document).ready(function () {
+                                var why = $('#id_why{{ forloop.counter }}');
+                                $('#id_evaluate{{ forloop.counter }}').on('change', function (event) {
+                                    if($(this).val() == 1 || $(this).val() == 2){
+                                        why.prop('disabled', false);
+                                    }else{
+                                        why.prop('disabled', true);
+                                        why.val("");
+                                    }
+                                });
+                            });
+                        </script>
+                    </td>
+                    <td>
+                        <label for="id_why{{ forloop.counter }}"></label>
+                        <input type="text" id="id_why{{ forloop.counter }}" name="why{{ forloop.counter }}" disabled>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {{ form.opinion.errors }}
+        <label for="{{ form.opinion.id_for_label }}">Otro aspecto que quiera reflejar:</label>
+        {{ form.opinion }}
+        <button type="submit" class="btn blue">Aceptar</button>
+        <a href="{% url 'poll:list_national_passenger' %}" class="btn red">Cancelar</a>
+    </form>
+{% endblock %}
+{% block script %}
+    {{ block.super }}
+
+{% endblock %}

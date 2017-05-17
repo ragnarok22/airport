@@ -8,7 +8,8 @@ from django.views.generic import UpdateView
 
 from account.views import ProfileMixin
 from poll.forms import NationalPassengerForm
-from poll.models import NationalPassengerPoll, services, Service, InternationalPassengerPoll
+from poll.models import NationalPassengerPoll, services, Service, InternationalPassengerPoll, INTERNATIONAL_SERVICES, \
+    InternationalService
 
 
 class NationalPassengerPollCreateView(ProfileMixin, CreateView):
@@ -81,6 +82,31 @@ class AllPollView(ProfileMixin, TemplateView):
 
 class InternationalPassengerPollCreateView(ProfileMixin, CreateView):
     model = InternationalPassengerPoll
+    fields = '__all__'
+
+    def get_success_url(self):
+        return reverse_lazy('poll:detail_international_passenger', kwargs={'pk': self.object.pk})
+
+    def get_context_data(self, **kwargs):
+        context = super(InternationalPassengerPollCreateView, self).get_context_data(**kwargs)
+        context['services'] = INTERNATIONAL_SERVICES
+        return context
+
+    def form_valid(self, form):
+        model = form.instance
+        model.save()
+        iterator = 1
+        for s in INTERNATIONAL_SERVICES:
+            service = InternationalService()
+            service.title = s
+            service.evaluation = self.request.POST['evaluate'+str(iterator)]
+            why = self.request.POST.get('why' + str(iterator), None)
+            if why:
+                service.why = why
+            service.poll = form.instance
+            service.save()
+            iterator += 1
+        return super(InternationalPassengerPollCreateView, self).form_valid(form)
 
 
 class InternationalPassengerPollUpdateView(ProfileMixin, UpdateView):
@@ -95,5 +121,6 @@ class InternationalPassengerPollDetailView(ProfileMixin, DetailView):
     model = InternationalPassengerPoll
 
 
-class InternationalPassengerPollDeleteView(ProfileMixin, CreateView):
+class InternationalPassengerPollDeleteView(ProfileMixin, DeleteView):
     model = InternationalPassengerPoll
+    success_url = reverse_lazy('poll:list_international_passenger')
