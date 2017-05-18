@@ -111,6 +111,26 @@ class InternationalPassengerPollCreateView(ProfileMixin, CreateView):
 
 class InternationalPassengerPollUpdateView(ProfileMixin, UpdateView):
     model = InternationalPassengerPoll
+    fields = '__all__'
+    template_name = 'poll/internationalpassengerpoll_update.html'
+
+    def form_valid(self, form):
+        model = form.instance
+        model.save()
+        iterator = 1
+        for s in INTERNATIONAL_SERVICES:
+            service = InternationalService.objects.get(pk=self.request.POST.get('pk' + str(iterator)))
+            service.title = s
+            service.evaluation = self.request.POST['evaluate' + str(iterator)]
+            why = self.request.POST.get('why' + str(iterator), '')
+            service.why = why
+            service.poll = form.instance
+            service.save()
+            iterator += 1
+        return super(InternationalPassengerPollUpdateView, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('poll:detail_international_passenger', kwargs={'pk': self.object.pk})
 
 
 class InternationalPassengerPollListView(ProfileMixin, ListView):

@@ -1,26 +1,12 @@
 {% extends 'account/dashboard.html' %}
 
 {% block title %}
-    Formulario para pasajeros nacionales
+    Formulario para pasajeros internacionales
 {% endblock %}
 
 {% block content-left %}
-
-    <h6>Estimado Pasajero:
-        Conocer su opinión es de gran utilidad para el mejoramiento de nuestros servicios. Le estaríamos muy
-        agradecidos si pudiera dedicar unos minutos a completar este cuestionario. La información que usted aportará es
-        estrictamente confidencial.</h6>
     <form method="post">
         {% csrf_token %}
-    {{ form.nationality.errors }}
-    {{ form.nationality.label_tag }}
-    {{ form.nationality }}
-    {{ form.no_flay.errors }}
-    {{ form.no_flay.label_tag }}
-    {{ form.no_flay }}
-    {{ form.date_out.errors }}
-    {{ form.date_out.label_tag }}
-    {{ form.date_out }}
         <table>
             <thead>
             <tr>
@@ -31,12 +17,13 @@
             </tr>
             </thead>
             <tbody>
-            {% for service in services %}
+            {% for service in internationalpassengerpoll.internationalservice_set.all %}
                 <tr>
                     <td>{{ forloop.counter }}</td>
                     <td>
-                        <label for="id_service{{ forloop.counter }}">{{ service }}</label>
-                        <input type="text" value="{{ service }}" class="hide" name="service{{ forloop.counter }}" id="id_service{{ forloop.counter }}">
+                        <input type="text" value="{{ service.pk }}" name="pk{{ forloop.counter }}" class="hide">
+                        <label for="id_service{{ forloop.counter }}">{{ service.title }}</label>
+                        <input type="text" value="{{ service.title }}" name="service{{ forloop.counter }}" id="id_service{{ forloop.counter }}" class="hide">
                     </td>
                     <td>
                         <label for="id_evaluate{{ forloop.counter }}"></label>
@@ -49,35 +36,41 @@
                             <option value="5">Excelente</option>
                         </select>
                         <script>
+                            $('#id_evaluate{{ forloop.counter }} option:eq({{ service.evaluation }})').prop('selected', true);
                             $(document).ready(function () {
-                                var why = $('#id_why{{ forloop.counter }}');
-                                $('#id_evaluate{{ forloop.counter }}').on('change', function (event) {
-                                    if($(this).val() == 1 || $(this).val() == 2){
+                                evaluateSelect($('#id_evaluate{{ forloop.counter }}'));
+                                evaluate($('#id_evaluate{{ forloop.counter }}'), $('#id_why{{ forloop.counter }}'));
+
+                                function evaluateSelect(select) {
+                                    select.on('change', function () {
+                                        var why = $('#id_why{{ forloop.counter }}');
+                                        evaluate(this, why);
+                                    });
+                                }
+
+                                function evaluate(object, why) {
+                                    if($(object).val() == 1 || $(object).val() == 2){
                                         why.prop('disabled', false);
                                     }else{
                                         why.prop('disabled', true);
                                         why.val("");
                                     }
-                                });
+                                }
                             });
                         </script>
                     </td>
                     <td>
                         <label for="id_why{{ forloop.counter }}"></label>
-                        <input type="text" id="id_why{{ forloop.counter }}" name="why{{ forloop.counter }}" disabled>
+                        <input type="text" id="id_why{{ forloop.counter }}" name="why{{ forloop.counter }}" disabled value="{{ service.why }}">
                     </td>
                 </tr>
             {% endfor %}
             </tbody>
         </table>
         {{ form.opinion.errors }}
-        <label for="{{ form.opinion.id_for_label }}">Otro aspecto que quiera reflejar:</label>
+        <label for="{{ form.opinion.id_for_label }}">En su opinión ¿cuáles son los aspectos a mejorar para que usted reciba el servicio deseado?:</label>
         {{ form.opinion }}
         <button type="submit" class="btn blue">Aceptar</button>
         <a href="{% url 'poll:list_national_passenger' %}" class="btn red">Cancelar</a>
     </form>
-{% endblock %}
-{% block script %}
-    {{ block.super }}
-
 {% endblock %}

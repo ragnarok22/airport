@@ -80,13 +80,16 @@ class InternationalService(models.Model):
 
 class InternationalPassengerPoll(models.Model):
     opinion = models.TextField('Su opinion')
+    no_fly = models.PositiveIntegerField('Numero de Vuelo')
+    date_out = models.DateField('Fecha de salida')
+    nationality = models.CharField('Nacionalidad', max_length=100)
 
     class Meta:
         verbose_name = 'Encuesta a Pasajeros Internacionales'
         verbose_name_plural = 'Encuestas a Pasajeros Internacionales'
 
     def __str__(self):
-        return self.opinion
+        return '{} {} {}'.format(self.nationality, self.no_flay, self.date_out)
 
 
 # class AirLineRepresentPoll(models.Model):
