@@ -10,32 +10,26 @@
             <thead>
             <tr>
                 <th>No</th>
-                <th>Servicios</th>
-                <th>Evaluacion</th>
-                <th>Causa de la evaluacion</th>
+                <th>Numero de vuelo</th>
+                <th>Fecha</th>
+                <th>Terminal aerea</th>
+                <th>Acciones</th>
             </tr>
             </thead>
             <tbody>
-            {% for service in nationalpassengerpoll.service_set.all %}
-                <tr>
-                    <td>{{ forloop.counter }}</td>
-                    <td>{{ service.title }}</td>
-                    <td>{{ service.evaluation }}</td>
-                    {% if service.why %}
-                        <td>{{ service.why }}</td>
-                    {% else %}
-                        <td></td>
-                    {% endif %}
-                </tr>
-            {% endfor %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ nationalpassengerpoll.no_fly }}</td>
+                <td>{{ nationalpassengerpoll.date }}</td>
+                <td>{{ nationalpassengerpoll.airline }}</td>
+                <td colspan="3">
+                    <a href="{% url 'poll:detail_national_passenger' nationalpassengerpoll.pk %}"><i class="material-icons">description</i></a>
+                    <a href="{% url 'poll:update_national_passenger' nationalpassengerpoll.pk %}"><i class="material-icons">edit_mode</i></a>
+                    <a href="{% url 'poll:delete_national_passenger' nationalpassengerpoll.pk %}"><i class="material-icons">delete</i></a>
+                </td>
+            </tr>
             </tbody>
         </table>
-        <p class="center">En su opinión ¿cuáles son los aspectos a mejorar para que usted reciba el servicio deseado?</p>
-        <p>{{ nationalpassengerpoll.opinion }}</p>
-        <p>
-            <a href="{% url 'poll:detail_national_passenger' nationalpassengerpoll.pk %}" class="btn btn-sm blue"><i class="material-icons">description</i></a>
-            <a href="{% url 'poll:delete_national_passenger' nationalpassengerpoll.pk %}" class="btn btn-sm red"><i class="material-icons">delete</i></a>
-        </p>
     {% endfor %}
     <a href="{% url 'poll:create_national_passenger' %}" class="btn blue-grey">Añadir</a>
 {% endblock %}

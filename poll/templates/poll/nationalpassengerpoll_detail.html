@@ -4,6 +4,17 @@
 {% endblock %}
 
 {% block content-left %}
+    <div class="center">
+        <div class="col 4">
+            <p>Numero de vuelo: {{ nationalpassengerpoll.no_fly }}</p>
+        </div>
+        <div class="col 4">
+            <p>Fecha: {{ nationalpassengerpoll.date }}</p>
+        </div>
+        <div class="col 4">
+            <p>Terminal aerea: {{ nationalpassengerpoll.airline }}</p>
+        </div>
+    </div>
     <table>
         <thead>
         <tr>
@@ -32,4 +43,5 @@
     <p>{{ nationalpassengerpoll.opinion }}</p>
     <a href="{% url 'poll:update_national_passenger' nationalpassengerpoll.pk %}" class="btn blue-grey">Editar</a>
     <a href="{% url 'poll:delete_national_passenger' nationalpassengerpoll.pk %}" class="btn red">Eliminar</a>
+    <a href="{% url 'poll:list_national_passenger' %}" class="btn blue">Listado de Encuestas</a>
 {% endblock %}

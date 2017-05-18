@@ -42,6 +42,9 @@ class Service(models.Model):
 
 class NationalPassengerPoll(models.Model):
     opinion = models.TextField('Su opinion')
+    no_fly = models.PositiveIntegerField('Numero de Vuelo')
+    date = models.DateField('Fecha')
+    airline = models.CharField('Terminal aerea', max_length=150)
 
     class Meta:
         verbose_name = 'Encuesta a Pasajeros Nacionales'

@@ -7,7 +7,7 @@ from django.views.generic import TemplateView
 from django.views.generic import UpdateView
 
 from account.views import ProfileMixin
-from poll.forms import NationalPassengerForm
+from poll.forms import NationalPassengerForm, InternationalPassengerForm
 from poll.models import NationalPassengerPoll, services, Service, InternationalPassengerPoll, INTERNATIONAL_SERVICES, \
     InternationalService
 
@@ -49,7 +49,7 @@ class NationalPassengerPollDetailView(ProfileMixin, DetailView):
 
 class NationalPassengerPollUpdateView(ProfileMixin, UpdateView):
     model = NationalPassengerPoll
-    fields = '__all__'
+    form_class = NationalPassengerForm
     template_name = 'poll/nationalpassengerpoll_update.html'
 
     def get_success_url(self):
@@ -82,7 +82,7 @@ class AllPollView(ProfileMixin, TemplateView):
 
 class InternationalPassengerPollCreateView(ProfileMixin, CreateView):
     model = InternationalPassengerPoll
-    fields = '__all__'
+    form_class = InternationalPassengerForm
 
     def get_success_url(self):
         return reverse_lazy('poll:detail_international_passenger', kwargs={'pk': self.object.pk})
@@ -111,7 +111,7 @@ class InternationalPassengerPollCreateView(ProfileMixin, CreateView):
 
 class InternationalPassengerPollUpdateView(ProfileMixin, UpdateView):
     model = InternationalPassengerPoll
-    fields = '__all__'
+    form_class = InternationalPassengerForm
     template_name = 'poll/internationalpassengerpoll_update.html'
 
     def form_valid(self, form):

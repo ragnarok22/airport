@@ -35,4 +35,5 @@
     <p>{{ internationalpassengerpoll.opinion }}</p>
     <a href="{% url 'poll:update_international_passenger' internationalpassengerpoll.pk %}" class="btn blue-grey">Editar</a>
     <a href="{% url 'poll:delete_international_passenger' internationalpassengerpoll.pk %}" class="btn red">Eliminar</a>
+    <a href="{% url 'poll:list_international_passenger' %}" class="btn blue">Listado de Encuestas</a>
 {% endblock %}

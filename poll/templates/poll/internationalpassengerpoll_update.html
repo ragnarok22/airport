@@ -7,6 +7,15 @@
 {% block content-left %}
     <form method="post">
         {% csrf_token %}
+        {{ form.nationality.errors }}
+        {{ form.nationality.label_tag }}
+        {{ form.nationality }}
+        {{ form.no_fly.errors }}
+        {{ form.no_fly.label_tag }}
+        {{ form.no_fly }}
+        {{ form.date_out.errors }}
+        {{ form.date_out.label_tag }}
+        {{ form.date_out }}
         <table>
             <thead>
             <tr>

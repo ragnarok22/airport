@@ -12,15 +12,15 @@
         estrictamente confidencial.</h6>
     <form method="post">
         {% csrf_token %}
-    {{ form.nationality.errors }}
-    {{ form.nationality.label_tag }}
-    {{ form.nationality }}
-    {{ form.no_flay.errors }}
-    {{ form.no_flay.label_tag }}
-    {{ form.no_flay }}
-    {{ form.date_out.errors }}
-    {{ form.date_out.label_tag }}
-    {{ form.date_out }}
+        {{ form.nationality.errors }}
+        {{ form.nationality.label_tag }}
+        {{ form.nationality }}
+        {{ form.no_fly.errors }}
+        {{ form.no_fly.label_tag }}
+        {{ form.no_fly }}
+        {{ form.date_out.errors }}
+        {{ form.date_out.label_tag }}
+        {{ form.date_out }}
         <table>
             <thead>
             <tr>
@@ -74,7 +74,7 @@
         <label for="{{ form.opinion.id_for_label }}">Otro aspecto que quiera reflejar:</label>
         {{ form.opinion }}
         <button type="submit" class="btn blue">Aceptar</button>
-        <a href="{% url 'poll:list_national_passenger' %}" class="btn red">Cancelar</a>
+        <a href="{% url 'poll:list_international_passenger' %}" class="btn red">Cancelar</a>
     </form>
 {% endblock %}
 {% block script %}
