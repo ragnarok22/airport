@@ -2,43 +2,73 @@
 {% load staticfiles %}
 {% block content %}
     <ul id="bibliografic" class="dropdown-content">
-        <li><a href="{% url 'event:list_event' %}">
-            <div class="blue-text">Efemérides</div>
-        </a></li>
-        <li><a href="{% url 'model:list_law' %}">
-            <div class="blue-text">Normas, Decretos y Leyes</div>
-        </a></li>
+        <li>
+            <a href="{% url 'event:list_event' %}">
+                <div class="blue-text">Efemérides</div>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'model:list_law' %}">
+                <div class="blue-text">Normas, Decretos y Leyes</div>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <div class="blue-text">CGA</div>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <div class="blue-text">Otros Documentos</div>
+            </a>
+        </li>
     </ul>
 
     <ul id="models" class="dropdown-content">
-        <li><a href="{% url 'model:detail_area' profile.area.pk %}">
-            <div class="blue-text">R-01 PG.190-01</div>
-        </a>
+        <li>
+            <a href="{% url 'model:detail_area' profile.area.pk %}">
+                <div class="blue-text">R-01 PG.190-01</div>
+            </a>
         </li>
-        <li><a href="{% url 'model:list_law' %}">
-            <div class="blue-text">R-01 PG.190-02</div>
-        </a></li>
-        <li><a href="{% url 'model:list_emergency' %}">
-            <div class="blue-text">R-01 PG.190-03</div>
-        </a></li>
-        <li><a href="{% url 'model:list_communication' %}">
-            <div class="blue-text">R-01 PG.190-04</div>
-        </a></li>
-        <li><a href="{% url 'audit:list_general_program' %}">
-            <div class="blue-text">R-01 PG.190-05</div>
-        </a></li>
-        <li><a href="{% url 'waste:list_dangerous_waste' %}">
-            <div class="blue-text">R-01 PG.190-06</div>
-        </a></li>
-        <li><a href="{% url 'poll:all_poll' %}">
-            <div class="blue-text">R-01 PG.190-07</div>
-        </a></li>
-        <li><a href="#">
-            <div class="blue-text">R-01 PG.190-08</div>
-        </a></li>
-        <li><a href="#">
-            <div class="blue-text">R-01 PG.190-09</div>
-        </a>
+        <li>
+            <a href="{% url 'model:list_law' %}">
+                <div class="blue-text">R-01 PG.190-02</div>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'model:list_emergency' %}">
+                <div class="blue-text">R-01 PG.190-03</div>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'model:list_communication' %}">
+                <div class="blue-text">R-01 PG.190-04</div>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'audit:list_general_program' %}">
+                <div class="blue-text">R-01 PG.190-05</div>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'waste:list_dangerous_waste' %}">
+                <div class="blue-text">R-01 PG.190-06</div>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'poll:all_poll' %}">
+                <div class="blue-text">R-01 PG.190-07</div>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <div class="blue-text">R-01 PG.190-08</div>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <div class="blue-text">R-01 PG.190-09</div>
+            </a>
         </li>
     </ul>
 
@@ -50,6 +80,8 @@
             <li><a href="#" class="dropdown-button" data-activates="models">Modelos</a></li>
             <li><a href="#" class="dropdown-button" data-activates="bibliografic">Bibliografía</a></li>
             <li><a href="{% url 'picture:list_picture' %}">Im&aacute;genes</a></li>
+            <li><a href="#">Capacitacion</a></li>
+            <li><a href="#">Boletin</a></li>
             <li class="right">
                 <a href="#" id="test">
                     {#                    <i class="material-icons right">account_circle</i>#}
@@ -116,10 +148,10 @@
         $('#test').click(function () {
             $('#clicking').click();
         });
-{#        $('.datepicker').pickadate({#}
-{#            selectMonths: false, // Creates a dropdown to control month#}
-{#            selectYears: 50, // Creates a dropdown of 50 years to control year#}
-{#            format: "yyyy"#}
-{#        });#}
+        {#        $('.datepicker').pickadate({#}
+        {#            selectMonths: false, // Creates a dropdown to control month#}
+        {#            selectYears: 50, // Creates a dropdown of 50 years to control year#}
+        {#            format: "yyyy"#}
+        {#        });#}
     </script>
 {% endblock %}
