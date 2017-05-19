@@ -5,39 +5,14 @@
 {% endblock %}
 
 {% block content-left %}
-    <h4 class="center">Identificación de aspectos ambientales</h4>
-    <h5 class="center">Relación de aspectos ambientales</h5>
-    <h6 class="left">Area: {{ area.name }}</h6>
-    <table class="table">
-        <tr>
-            <th>No</th>
-            <th>Aspectos ambientales</th>
-            <th>Registrado por</th>
-            <th>Año</th>
-            <th>Fecha de publicación</th>
-            <th>Acciones</th>
-        </tr>
-        {% for model in models %}
-            <tr>
-                <td>{{ forloop.counter }}</td>
-                <td>{{ model }}</td>
-                <td><a href="{% url 'account:detail_user' model.register_by.pk %}">{{ model.register_by }}</a></td>
-                <td>{{ model.year }}</td>
-                <td>{{ model.pub_date }}</td>
-                <td colspan="3">
-                    <a href="{% url 'model:detail_modelr01pg01' model.pk %}"><i class="material-icons">description</i></a>
-                    <a href="{% url 'model:update_modelr01pg01' model.pk %}"><i class="material-icons">edit</i></a>
-                    {% if user.is_superuser %}
-                        <a href="{% url 'model:delete_modelr01pg01' model.pk %}"><i class="material-icons">delete</i></a>
-                    {% endif %}
-                </td>
-            </tr>
+    <h4 class="center">Area {{ area.name }}</h4>
+    <div class="col l6">
+            <h5>Usuarios</h5>
+        {% for profile in area.profile_set.all %}
+            <p><a href="{% url 'account:detail_user' profile.pk %}">{{ profile.get_full_name }}</a></p>
         {% endfor %}
-    </table>
-    {% if user.is_superuser %}
-        <a href="{% url 'model:delete_area' area.pk %}" class="btn red">Eliminar Area</a>
-        <a href="{% url 'model:update_area' area.pk %}" class="btn blue-grey">Editar Area</a>
-    {% endif %}
-    <a href="{% url 'model:create_modelr01pg01' %}" class="btn blue">Añadir modelo</a>
-    <a href="{% url 'model:list_modelr01pg01' %}" class="btn blue">Ver todos los modelos</a>
+    </div>
+    <div class="col l6">
+
+    </div>
 {% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'account/dashboard.html' %}
+{% block title %}
+    Listado de los modelos
+{% endblock %}
+
+{% block content-left %}
+    <h4 class="center">Todos los modelos</h4>
+    <table>
+        <tr>
+            <th>No</th>
+            <th>Area</th>
+            <th>año</th>
+            <th>registrado por</th>
+            <th>fecha publicación</th>
+            <th colspan="3">Acciones</th>
+        </tr>
+
+        {% for model in model_list %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td><a href="{% url 'model:detail_area' model.area.pk %}">{{ model.area }}</a></td>
+                <td>{{ model.year }}</td>
+                <td><a href="{% url 'account:detail_user' model.register_by.pk %}">{{ model.register_by }}</a></td>
+                <td>{{ model.pub_date }}</td>
+                <td colspan="3">
+                    <a href="{% url 'model:detail_modelr01pg01' model.pk %}"><i
+                            class="material-icons">description</i></a>
+                    {% if user.is_superuser %}
+                        <a href="{% url 'model:update_modelr01pg01' model.pk %}"><i class="material-icons">edit</i></a>
+                        <a href="{% url 'model:delete_modelr01pg01' model.pk %}"><i class="material-icons">delete</i></a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    <a href="{% url 'model:create_modelr01pg01' %}" class="btn blue">Añadir</a>
+{% endblock %}

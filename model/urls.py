@@ -7,14 +7,15 @@ from model.views import ModelR01PG01CreateView, ModelR01PG01UpdateView, ModelR01
     EmergencyReportListView, EmergencyReportUpdateView, RealAnalysisCreateView, RealAnalysisDeleteView, \
     RealAnalysisDetailView, RealAnalysisListView, RealAnalysisUpdateView, SimulationAnalysisCreateView, \
     SimulationAnalysisDeleteView, SimulationAnalysisDetailView, SimulationAnalysisListView, SimulationAnalysisUpdateView, \
-    CommunicationCreateView, CommunicationDeleteView, CommunicationDetailView, CommunicationListView, CommunicationUpdateView
-
+    CommunicationCreateView, CommunicationDeleteView, CommunicationDetailView, CommunicationListView, CommunicationUpdateView, \
+    ModelR01PG01ListAllView
 
 urlpatterns = [
     url(r'^create/r01pg01/$', ModelR01PG01CreateView.as_view(), name='create_modelr01pg01'),
     url(r'^update/r01pg01/(?P<pk>[0-9]+)/$', ModelR01PG01UpdateView.as_view(), name='update_modelr01pg01'),
     url(r'^detail/r01pg01/(?P<pk>[0-9]+)/$', ModelR01PG01DetailView.as_view(), name='detail_modelr01pg01'),
     url(r'^list/r01pg01/$', ModelR01PG01ListView.as_view(), name='list_modelr01pg01'),
+    url(r'^list/all/r01pg01/$', ModelR01PG01ListAllView.as_view(), name='list_all_modelr01pg01'),
     url(r'^delete/r01pg01/(?P<pk>[0-9]+)/$', ModelR01PG01DeleteView.as_view(), name='delete_modelr01pg01'),
 
     url(r'^create/area/$', AreaCreateView.as_view(), name='create_area'),

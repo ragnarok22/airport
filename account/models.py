@@ -33,4 +33,4 @@ class Profile(User):
         self.picture = picture
 
     def __str__(self):
-        return self.get_username()
+        return self.get_full_name()

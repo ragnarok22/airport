@@ -1,5 +1,6 @@
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, DetailView, DeleteView, ListView
+from django.views.generic import TemplateView
 
 from account.models import Profile
 from account.views import SuperUserRequiredMixin, ProfileMixin
@@ -47,9 +48,22 @@ class ModelR01PG01DetailView(EventTodayProfileMixin, DetailView):
         return context
 
 
-class ModelR01PG01ListView(EventTodayProfileMixin, ListView):
+class ModelR01PG01ListView(EventTodayProfileMixin, TemplateView):
+    template_name = 'model/modelr01pg01_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(ModelR01PG01ListView, self).get_context_data(**kwargs)
+        profile = Profile.objects.get(username=self.request.user.username)
+        area = Area.objects.get(pk=profile.area.pk)
+        context['area'] = area
+        context['models'] = ModelR01PG01.objects.filter(area__name=area.name)
+        return context
+
+
+class ModelR01PG01ListAllView(EventTodayProfileMixin, ListView):
     context_object_name = 'model_list'
     queryset = ModelR01PG01.objects.all().order_by('year').order_by('area__name')
+    template_name = 'model/modelr01pg01_list_all.html'
 
 
 class ModelR01PG01DeleteView(SuperUserRequiredMixin, DeleteView):
