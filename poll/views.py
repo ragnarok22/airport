@@ -7,9 +7,9 @@ from django.views.generic import TemplateView
 from django.views.generic import UpdateView
 
 from account.views import ProfileMixin
-from poll.forms import NationalPassengerForm, InternationalPassengerForm
+from poll.forms import NationalPassengerForm, InternationalPassengerForm, AirLineRepresentForm
 from poll.models import NationalPassengerPoll, services, Service, InternationalPassengerPoll, INTERNATIONAL_SERVICES, \
-    InternationalService
+    InternationalService, AirLineRepresentPoll, ASPECTS, Aspect
 
 
 class NationalPassengerPollCreateView(ProfileMixin, CreateView):
@@ -144,3 +144,64 @@ class InternationalPassengerPollDetailView(ProfileMixin, DetailView):
 class InternationalPassengerPollDeleteView(ProfileMixin, DeleteView):
     model = InternationalPassengerPoll
     success_url = reverse_lazy('poll:list_international_passenger')
+
+
+class AirLineRepresentPollCreateView(ProfileMixin, CreateView):
+    model = AirLineRepresentPoll
+    form_class = AirLineRepresentForm
+    success_url = reverse_lazy('poll:list_airline_represent')
+
+    def get_context_data(self, **kwargs):
+        context = super(AirLineRepresentPollCreateView, self).get_context_data(**kwargs)
+        context['aspects'] = ASPECTS
+        return context
+
+    def form_valid(self, form):
+        model = form.instance
+        model.save()
+        iterator = 1
+        for a in ASPECTS:
+            aspect = Aspect()
+            aspect.title = a
+            aspect.evaluation = self.request.POST['evaluation'+str(iterator)]
+            aspect.airline_represent = form.instance
+            aspect.save()
+            iterator += 1
+        return super(AirLineRepresentPollCreateView, self).form_valid(form)
+
+
+class AirLineRepresentPollUpdateView(ProfileMixin, UpdateView):
+    model = AirLineRepresentPoll
+    form_class = AirLineRepresentForm
+    template_name = 'poll/airlinerepresentpoll_update.html'
+    success_url = reverse_lazy('poll:list_airline_represent')
+
+    def get_context_data(self, **kwargs):
+        context = super(AirLineRepresentPollUpdateView, self).get_context_data(**kwargs)
+        context['aspects'] = ASPECTS
+        return context
+
+    def form_valid(self, form):
+        model = form.instance
+        model.save()
+        iterator = 1
+        for a in ASPECTS:
+            aspect = Aspect.objects.get(pk=self.request.POST.get('pk' + str(iterator)))
+            aspect.title = a
+            aspect.evaluation = self.request.POST['evaluation'+str(iterator)]
+            aspect.airline_represent = form.instance
+            aspect.save()
+            iterator += 1
+        return super(AirLineRepresentPollUpdateView, self).form_valid(form)
+
+
+class AirLineRepresentPollDetailView(ProfileMixin, DetailView):
+    model = AirLineRepresentPoll
+
+
+class AirLineRepresentPollListView(ProfileMixin, ListView):
+    model = AirLineRepresentPoll
+
+
+class AirLineRepresentPollDeleteView(ProfileMixin, DeleteView):
+    model = AirLineRepresentPoll

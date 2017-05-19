@@ -95,7 +95,7 @@ class InternationalPassengerPoll(models.Model):
         return '{} {} {}'.format(self.nationality, self.no_flay, self.date_out)
 
 
-ASPECT = [
+ASPECTS = [
     'Dirección y organización de la operación.',
     'Rapidez y calidad de la operación.',
     'Puntualidad en la llegada de los organismos a la aeronave y desarrollo de su trabajo.',
@@ -124,13 +124,16 @@ class Aspect(models.Model):
     airline_represent = models.ForeignKey('AirLineRepresentPoll', verbose_name='Encuesta a representantes de Lineas '
                                                                                'Aereas')
 
+    def __str__(self):
+        return self.title
+
 
 class AirLineRepresentPoll(models.Model):
     fly_number = models.PositiveIntegerField('Numero de vuelo')
     date = models.DateField('Fecha')
     team = models.CharField('Equipo', max_length=100)
     no_position = models.PositiveIntegerField('Posicion No')
-    opinion = models.TextField('Opinion')
+    opinion = models.TextField('Opinion', blank=True)
 
     class Meta:
         verbose_name = 'Encuesta a representantes de Lineas Aereas'

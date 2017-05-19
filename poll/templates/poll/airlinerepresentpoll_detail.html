@@ -1,0 +1,49 @@
+{% extends 'account/dashboard.html' %}
+{% block title %}
+    Encuesta a representantes de aereolineas
+{% endblock %}
+
+{% block content-left %}
+    <h4 class="center">Satisfacción del Cliente</h4>
+    <h5 class="center">Encuesta a Representantes de Líneas Aéreas</h5>
+    <div class="col l12">
+        <div class="col l6">
+            Numero de Vuelo: {{ airlinerepresentpoll.fly_number }}
+        </div>
+        <div class="col l6">
+            Fecha: {{ airlinerepresentpoll.date }}
+        </div>
+    </div>
+    <div class="col l12">
+        <div class="col l6">
+            Equipo: {{ airlinerepresentpoll.team }}
+        </div>
+        <div class="col l6">
+            Posicion No: {{ airlinerepresentpoll.no_position }}
+        </div>
+    </div>
+    <table>
+        <thead>
+        <tr>
+            <th>No</th>
+            <th>Aspecto a evaluar</th>
+            <th>Evaluacion</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for aspect in airlinerepresentpoll.aspect_set.all %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ aspect.title }}</td>
+                <td>{{ aspect.evaluation }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% if airlinerepresentpoll.opinion %}
+        <p>Opinion:</p>
+        <p>{{ airlinerepresentpoll.opinion }}</p>
+    {% endif %}
+    <a href="{% url 'poll:update_airline_represent' airlinerepresentpoll.pk %}" class="btn blue-grey">Editar</a>
+    <a href="{% url 'poll:delete_airline_represent' airlinerepresentpoll.pk %}" class="btn red">Eliminar</a>
+{% endblock %}

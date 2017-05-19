@@ -1,0 +1,81 @@
+{% extends 'account/dashboard.html' %}
+
+{% block title %}
+    Formulario para representantes de aereolineas
+{% endblock %}
+
+{% block content-left %}
+    <h6>Sr.:<br>
+        Nuestro aeropuerto necesita conocer su opinión, sobre la calidad del servicio que recibe la Aeronave, de la
+        Aerolínea que Ud. representa, en la plataforma de estacionamiento. Le estaríamos muy agradecidos si pudiera
+        dedicar unos minutos a completar este cuestionario. La información que usted aportará es estrictamente
+        confidencial.</h6>
+
+    <form method="post">
+        {% csrf_token %}
+        <div class="col l12">
+            <div class="col l6">
+                {{ form.fly_number.errors }}
+                {{ form.fly_number.label_tag }}
+                {{ form.fly_number }}
+            </div>
+            <div class="col l6">
+                {{ form.date.errors }}
+                {{ form.date.label_tag }}
+                {{ form.date }}
+            </div>
+        </div>
+        <div class="col l12">
+            <div class="col l6">
+                {{ form.team.errors }}
+                {{ form.team.label_tag }}
+                {{ form.team }}
+            </div>
+            <div class="col l6">
+                {{ form.no_position.errors }}
+                {{ form.no_position.label_tag }}
+                {{ form.no_position }}
+            </div>
+        </div>
+        <table>
+            <thead>
+            <tr>
+                <th>No</th>
+                <th>Aspectos a evaluar</th>
+                <th>Evaluacion</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for aspect in airlinerepresentpoll.aspect_set.all %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>
+                        <input type="text" value="{{ aspect.pk }}" name="pk{{ forloop.counter }}" class="hide">
+                        <label for="id_aspect{{ forloop.counter }}">{{ aspect }}</label>
+                        <input type="text" value="{{ aspect }}" class="hide" name="aspect{{ forloop.counter }}" id="id_aspect{{ forloop.counter }}">
+                    </td>
+                    <td>
+                        <label for="id_evaluation{{ forloop.counter }}"></label>
+                        <select name="evaluation{{ forloop.counter }}" id="id_evaluation{{ forloop.counter }}">
+                            <option value="0">Sin usar</option>
+                            <option value="1">Malo</option>
+                            <option value="2">Insatisfactorio</option>
+                            <option value="3">Bueno</option>
+                            <option value="4">Muy Bueno</option>
+                            <option value="5">Excelente</option>
+                        </select>
+                        <script>
+                            $('#id_evaluation{{ forloop.counter }} option:eq({{ aspect.evaluation }})').prop('selected', true);
+                        </script>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {{ form.opinion.errors }}
+        <label for="{{ form.opinion.id_for_label }}">Por favor, si su puntuación es inferior a 3 puntos, díganos las razones:</label>
+        {{ form.opinion }}
+        <button type="submit" class="btn blue">Aceptar</button>
+        <a href="{% url 'poll:list_airline_represent' %}" class="btn red">Cancelar</a>
+    </form>
+{% endblock %}

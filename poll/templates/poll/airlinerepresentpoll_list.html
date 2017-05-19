@@ -1,0 +1,42 @@
+{% extends 'account/dashboard.html' %}
+{% block title %}
+    Encuesta a representantes de aereolineas
+{% endblock %}
+
+{% block content-left %}
+    <table>
+        <thead>
+        <tr>
+            <th>No</th>
+            <th>Vuelo</th>
+            <th>Fecha</th>
+            <th>Equipo</th>
+            <th>Posicion No</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for airlinerepresent in airlinerepresentpoll_list %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ airlinerepresent.fly_number }}</td>
+                <td>{{ airlinerepresent.date }}</td>
+                <td>{{ airlinerepresent.team }}</td>
+                <td>{{ airlinerepresent.no_position }}</td>
+                <td colspan="3">
+                    <a href="{% url 'poll:detail_airline_represent' airlinerepresent.pk %}">
+                        <i class="material-icons">description</i>
+                    </a>
+                    <a href="{% url 'poll:update_airline_represent' airlinerepresent.pk %}">
+                        <i class="material-icons">edit_mode</i>
+                    </a>
+                    <a href="{% url 'poll:delete_airline_represent' airlinerepresent.pk %}">
+                        <i class="material-icons">delete</i>
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <a href="{% url 'poll:create_airline_represent' %}" class="btn blue-grey">Añadir</a>
+{% endblock %}

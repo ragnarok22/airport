@@ -1,0 +1,14 @@
+{% extends 'account/dashboard.html' %}
+
+{% block title %}
+    Eliminar esta encuesta
+{% endblock %}
+
+{% block content-left %}
+    <h4>¿Estas seguro de que desea eliminar esta encuesta?</h4>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn red">Aceptar</button>
+        <a href="{% url 'poll:detail_airline_represent' airlinerepresentpoll.pk %}" class="btn blue">Cancelar</a>
+    </form>
+{% endblock %}

@@ -1,6 +1,6 @@
 from django import forms
 
-from poll.models import NationalPassengerPoll, InternationalPassengerPoll
+from poll.models import NationalPassengerPoll, InternationalPassengerPoll, AirLineRepresentPoll
 
 
 class NationalPassengerForm(forms.ModelForm):
@@ -18,4 +18,13 @@ class InternationalPassengerForm(forms.ModelForm):
         fields = '__all__'
         widgets = {
             'date_out': forms.DateInput(attrs={'class': 'datepicker'})
+        }
+
+
+class AirLineRepresentForm(forms.ModelForm):
+    class Meta:
+        model = AirLineRepresentPoll
+        fields = '__all__'
+        widgets = {
+            'date': forms.DateInput(attrs={'class': 'datepicker'})
         }

@@ -4,9 +4,18 @@
 {% endblock %}
 
 {% block content-left %}
-    <p>Nacionalidad: {{ internationalpassengerpoll.nationality }}</p>
-    <p>Numero de vuelo: {{ internationalpassengerpoll.no_flay }}</p>
-    <p>Fecha de salida: {{ internationalpassengerpoll.date_out }}</p>
+    <h4 class="center">REGISTRO
+        GRUPO DE GESTIÓN DE LA CALIDAD</h4>
+    <h5 class="center">Encuesta a Pasajeros Internacionales</h5>
+    <div class="col 4">
+        <p>Nacionalidad: {{ internationalpassengerpoll.nationality }}</p>
+    </div>
+    <div class="col 4">
+        <p>Numero de vuelo: {{ internationalpassengerpoll.no_fly }}</p>
+    </div>
+    <div class="col 4">
+        <p>Fecha de salida: {{ internationalpassengerpoll.date_out }}</p>
+    </div>
     <table>
         <thead>
         <tr>
