@@ -95,5 +95,46 @@ class InternationalPassengerPoll(models.Model):
         return '{} {} {}'.format(self.nationality, self.no_flay, self.date_out)
 
 
-# class AirLineRepresentPoll(models.Model):
-#     pass
+ASPECT = [
+    'Dirección y organización de la operación.',
+    'Rapidez y calidad de la operación.',
+    'Puntualidad en la llegada de los organismos a la aeronave y desarrollo de su trabajo.',
+    'Eficiencia y cuidado en la manipulación de la carga y el equipaje',
+    'Organización y calidad de la limpieza de la aeronave',
+    'Comportamiento del gaseo',
+    'Comunicación y atención a la tripulación',
+    'Apariencia personal, disciplina y amabilidad del personal',
+    'Satisfacción general con el aeropuerto',
+]
+
+
+EVALUATION = (
+    (0, 'No utilizado'),
+    (1, 'Malo'),
+    (2, 'Insatisfactorio'),
+    (3, 'Bueno'),
+    (4, 'Muy Bueno'),
+    (5, 'Excelente'),
+)
+
+
+class Aspect(models.Model):
+    title = models.CharField('Aspecto a evaluar', max_length=100)
+    evaluation = models.CharField('Evaluacion', max_length=2, choices=EVALUATION)
+    airline_represent = models.ForeignKey('AirLineRepresentPoll', verbose_name='Encuesta a representantes de Lineas '
+                                                                               'Aereas')
+
+
+class AirLineRepresentPoll(models.Model):
+    fly_number = models.PositiveIntegerField('Numero de vuelo')
+    date = models.DateField('Fecha')
+    team = models.CharField('Equipo', max_length=100)
+    no_position = models.PositiveIntegerField('Posicion No')
+    opinion = models.TextField('Opinion')
+
+    class Meta:
+        verbose_name = 'Encuesta a representantes de Lineas Aereas'
+        verbose_name_plural = 'Encuestas a representantes de Lineas Aereas'
+
+    def __str__(self):
+        return '{} {} {}'.format(self.fly_number, self.date, self.team)
