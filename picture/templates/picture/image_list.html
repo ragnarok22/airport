@@ -1,13 +1,14 @@
 {% extends 'account/dashboard.html' %}
 
 {% block title %}
-Imágenes
+    Imágenes
 {% endblock %}
 
 {% block content-left %}
     <div class="container-fluid">
         <div class="center" id="presentation">
             <a href="{% url 'picture:presentation' %}" class="btn blue" target="_blank">Presentaci&oacute;n</a>
+            <a href="{% url 'picture:create_picture' %}" class="btn blue-grey">Añadir Imagen</a>
         </div>
         {% for image in image_list %}
             <img src="{{ image.image.url }}" alt="subido por {{ image.up_by }}" class="materialboxed view" width="200"
@@ -16,7 +17,6 @@ Imágenes
             <h3 class="red-text center">No hay fotos subidas</h3>
         {% endfor %}
     </div>
-
 {% endblock %}
 
 {% block styles %}

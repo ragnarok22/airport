@@ -24,6 +24,7 @@ class BulletinUpdateView(SuperUserRequiredMixin, UpdateView):
 
 class BulletinListView(ProfileMixin, ListView):
     model = Bulletin
+    queryset = Bulletin.objects.all().order_by('-pub_date')
 
 
 class BulletinDeleteView(SuperUserRequiredMixin, DeleteView):
