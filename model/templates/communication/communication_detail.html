@@ -18,4 +18,5 @@
     <p>Registrado por: {{ communication.register_by }}</p>
     <a href="{% url 'model:update_communication' communication.pk %}" class="btn blue-grey">Editar</a>
     <a href="{% url 'model:delete_communication' communication.pk %}" class="btn red">Eliminar</a>
+    <a href="{% url 'model:list_communication' %}" class="btn blue">Todas las comunicaciones</a>
 {% endblock %}

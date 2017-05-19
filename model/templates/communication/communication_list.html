@@ -24,8 +24,8 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
-            {% for communication in communication_list %}
+        {% for communication in communication_list %}
+            <tr>
                 <td><a href="{% url 'model:detail_communication' communication.pk %}">{{ forloop.counter }}</a></td>
                 <td>{{ communication.date }}</td>
                 <td>{{ communication.reception_way }}</td>
@@ -35,12 +35,12 @@
                 <td>{{ communication.adopted_decision }}</td>
                 <td>{{ communication.distribution_date }}</td>
                 <td>{{ communication.emission_path }}</td>
-            {% empty %}
+                {% empty %}
                 <td>
                     <h5 class="center">No existen comunicaciones internas y externas</h5>
                 </td>
-            {% endfor %}
-        </tr>
+            </tr>
+        {% endfor %}
         </tbody>
     </table>
     <a href="{% url 'model:create_communication' %}" class="btn blue">Añadir comunicacion</a>
