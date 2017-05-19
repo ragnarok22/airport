@@ -63,4 +63,4 @@ def check_extension(file: str):
                 break
     if flag:
         return dictionary[flag]
-    return 'unknow'
+    return 'unknown.png'

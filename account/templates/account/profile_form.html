@@ -2,7 +2,7 @@
 {% load staticfiles %}
 
 {% block title %}
-Usuario
+    Usuario
 {% endblock %}
 
 {% block content-down %}
@@ -11,12 +11,17 @@ Usuario
             {% csrf_token %}
             <div class="row">
                 <div class="errorlist">
-                    {{ form.first_name.errors }}
                     {{ form.username.errors }}
-                    {{ form.born_date.errors }}
+                    {{ form.password.errors }}
+                    {{ form.is_superuser.errors }}
+                    {{ form.first_name.errors }}
                     {{ form.last_name.errors }}
                     {{ form.email.errors }}
-                    {{ form.sex.errors }}
+                    {{ form.is_staff.errors }}
+                    {{ form.picture.errors }}
+                    {{ form.born_date.errors }}
+                    {{ form.gender.errors }}
+                    {{ form.area.errors }}
                 </div>
                 <div class="col l4">
                     <img src="{% static 'account/images/user.png' %}" width="200" height="200" class="circle">
@@ -40,8 +45,14 @@ Usuario
                         {{ form.email }}
                         <label for="repeat">Repita la contraseña</label>
                         <input type="password" id="repeat">
-                        {{ form.sex.label_tag }}
-                        {{ form.sex }}
+                        {{ form.gender.label_tag }}
+                        {{ form.gender }}
+                        {{ form.area.label_tag }}
+                        {{ form.area }}
+                        {{ form.is_superuser }}
+                        {{ form.is_superuser.label_tag }}
+                        {{ form.is_staff }}
+                        {{ form.is_staff.label_tag }}
                     </div>
                     <input type="submit" value="Aceptar" class="btn blue">
                     <a href="{% url 'account:list_user' %}" class="btn red">Cancelar</a>

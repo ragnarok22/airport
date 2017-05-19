@@ -6,7 +6,7 @@ from account.models import Profile
 class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['username', 'first_name', 'last_name', 'email', 'picture', 'born_date', "gender"]
+        fields = ['first_name', 'last_name', 'email', 'picture', 'born_date', 'gender', 'area']
         widgets = {
             'born_date': forms.DateInput(attrs={'class': 'datepicker'})
         }
@@ -25,7 +25,7 @@ class ProfileCreateForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['username', 'password', 'is_superuser', 'first_name', 'last_name', 'email', 'is_staff', 'picture',
-                  'born_date', "gender"]
+                  'born_date', 'gender', 'area']
         widgets = {
             'born_date': forms.DateInput(attrs={'class': 'datepicker'}),
             'password': forms.PasswordInput(),

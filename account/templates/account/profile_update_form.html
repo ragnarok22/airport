@@ -12,10 +12,10 @@ Editar perfil de {{ form.instance.username }}
             <div class="row">
                 <div class="errorlist">
                     {{ form.first_name.errors }}
-                    {{ form.username.errors }}
                     {{ form.born_date.errors }}
                     {{ form.last_name.errors }}
                     {{ form.email.errors }}
+                    {{ form.gender.errors }}
                     {{ form.sex.errors }}
                 </div>
                 <div class="col l4">
@@ -30,8 +30,6 @@ Editar perfil de {{ form.instance.username }}
                     <div class="col l4">
                         {{ form.first_name.label_tag }}
                         {{ form.first_name }}
-                        {{ form.username.label_tag }}
-                        {{ form.username }}
                         {{ form.born_date.label_tag }}
                         {{ form.born_date }}
                     </div>
@@ -42,6 +40,10 @@ Editar perfil de {{ form.instance.username }}
                         {{ form.email }}
                         {{ form.sex.label_tag }}
                         {{ form.sex }}
+                    </div>
+                    <div class="col l12">
+                        {{ form.gender.label_tag }}
+                        {{ form.gender }}
                     </div>
                     <input type="submit" value="Aceptar" class="btn blue-grey">
                     <a href="{% url 'account:detail_user' profile.pk %}" class="btn red">Cancelar</a>
