@@ -1,10 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends 'account/dashboard.html' %}
+{% block title %}
+    Eliminar Boletin
+{% endblock %}
+{% block content-left %}
+    <h4>¿Estas seguro de que deseas borrar este boletin?</h4>
+    <h5>Titulo: {{ bulletin.title }}</h5>
+    <h5>Fecha de publicacion: {{ bulletin.pub_date }}</h5>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn red">Aceptar</button>
+        <a href="{% url 'bulletin:list_bulletin' %}" class="btn blue">Cancelar</a>
+    </form>
+{% endblock %}

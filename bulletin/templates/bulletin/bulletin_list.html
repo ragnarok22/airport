@@ -1,10 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends 'account/dashboard.html' %}
+{% load staticfiles %}
+{% load filters %}
+
+{% block title %}
+    Todos los boletines
+{% endblock %}
+
+{% block content-left %}
+    <table>
+        <thead>
+        <tr>
+            <th>No</th>
+            <th>Titulo</th>
+            <th>Fecha de publicacion</th>
+            <th>Documento</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for bulletin in bulletin_list %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ bulletin.title }}</td>
+                <td>{{ bulletin.pub_date }}</td>
+                <td>
+                    <a href="{{ bulletin.file.url }}" data-position="bottom" data-delay="50" data-tooltip="Descargar documento {{ bulletin.file }}" class="tooltipped">
+                        {% with bulletin.file.url|check_extension as image %}
+                            <img src="/static/bulletin/images/{{ image }}" width="50" height="50">
+                        {% endwith %}
+                    </a>
+                </td>
+                <td colspan="2">
+                    <a href="{% url 'bulletin:delete_bulletin' bulletin.pk %}"><i class="material-icons">delete</i></a>
+                    <a href="{% url 'bulletin:update_bulletin' bulletin.pk %}"><i class="material-icons">edit_mode</i></a>
+                </td>
+                {% empty %}
+            </tr>
+            <h4 class="center red-text">No hay boletines todavia</h4>
+        {% endfor %}
+        </tbody>
+    </table>
+    <a href="{% url 'bulletin:create_bulletin' %}" class="btn blue">Añadir</a>
+{% endblock %}

@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
+
 {% block content %}
     <ul id="bibliografic" class="dropdown-content">
         <li>
@@ -81,7 +82,7 @@
             <li><a href="#" class="dropdown-button" data-activates="bibliografic">Bibliografía</a></li>
             <li><a href="{% url 'picture:list_picture' %}">Im&aacute;genes</a></li>
             <li><a href="#">Capacitacion</a></li>
-            <li><a href="#">Boletin</a></li>
+            <li><a href="{% url 'bulletin:list_bulletin' %}">Boletin</a></li>
             <li class="right">
                 <a href="#" id="test">
                     {#                    <i class="material-icons right">account_circle</i>#}
