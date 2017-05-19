@@ -113,12 +113,6 @@ class ProfileUpdateView(SameUserPermissionViewMixin, UpdateView):
     def get_success_url(self):
         return reverse_lazy('account:detail_user', kwargs={'pk': self.object.pk})
 
-    def post(self, request, *args, **kwargs):
-        form = ProfileUpdateForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-        return super(ProfileUpdateView, self).post(request, *args, **kwargs)
-
 
 class ProfileUpdatePasswordView(SameUserPermissionViewMixin, UpdateView):
     model = Profile

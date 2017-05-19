@@ -12,11 +12,11 @@ Editar perfil de {{ form.instance.username }}
             <div class="row">
                 <div class="errorlist">
                     {{ form.first_name.errors }}
-                    {{ form.born_date.errors }}
                     {{ form.last_name.errors }}
                     {{ form.email.errors }}
+                    {{ form.picture.errors }}
+                    {{ form.born_date.errors }}
                     {{ form.gender.errors }}
-                    {{ form.sex.errors }}
                 </div>
                 <div class="col l4">
                     {% if form.instance.picture %}
@@ -38,8 +38,6 @@ Editar perfil de {{ form.instance.username }}
                         {{ form.last_name }}
                         {{ form.email.label_tag }}
                         {{ form.email }}
-                        {{ form.sex.label_tag }}
-                        {{ form.sex }}
                     </div>
                     <div class="col l12">
                         {{ form.gender.label_tag }}

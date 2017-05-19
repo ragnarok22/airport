@@ -14,13 +14,13 @@
             {% endif %}
         </div>
         <div class="col 8">
-            <h3>Perfil de {{ prof.username }}</h3>
+            <h3>Perfil de {{ prof.first_name }}</h3>
             <p>Nombre de usuario: {{ prof.username }}</p>
             <p>Nombre: {{ prof.first_name }}</p>
             <p>Apellidos: {{ prof.last_name }}</p>
             <p>Email: {{ prof.email }}</p>
             <p>Fecha de nacimiento: {{ prof.born_date }}</p>
-            <p>Sexo: {{ prof.get_sex_display }}</p>
+            <p>Sexo: {{ prof.get_gender_display }}</p>
             {% if can_edit %}
                 <a href="{% url 'account:update_user' prof.pk %}" class="btn blue">Editar</a>
                 <a href="{% url 'account:update_password_user' prof.pk %}" class="btn blue-grey">Cambiar contraseña</a>
