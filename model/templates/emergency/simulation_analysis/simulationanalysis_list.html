@@ -43,7 +43,9 @@
                 <th>Acciones</th>
                 <td colspan="3">
                     <a href="{% url 'model:detail_simulation_analysis' simulationanalysis.pk %}"><i class="material-icons">description</i></a>
-                    <a href="{% url 'model:delete_simulation_analysis' simulationanalysis.pk %}"><i class="material-icons">delete</i></a>
+                    {% if user.is_superuser %}
+                        <a href="{% url 'model:delete_simulation_analysis' simulationanalysis.pk %}"><i class="material-icons">delete</i></a>
+                    {% endif %}
                     <a href="{% url 'model:update_simulation_analysis' simulationanalysis.pk %}"><i class="material-icons">edit_mode</i></a>
                 </td>
             </tr>

@@ -52,5 +52,7 @@
         </tr>
     </table>
     <a href="{% url 'model:update_simulation_analysis' simulationanalysis.pk %}" class="btn blue-grey">Editar</a>
-    <a href="{% url 'model:delete_simulation_analysis' simulationanalysis.pk %}" class="btn red">Eliminar</a>
+    {% if user.is_superuser %}
+        <a href="{% url 'model:delete_simulation_analysis' simulationanalysis.pk %}" class="btn red">Eliminar</a>
+    {% endif %}
 {% endblock %}

@@ -14,7 +14,9 @@
             <th>Titulo</th>
             <th>Fecha de publicacion</th>
             <th>Documento</th>
-            <th>Acciones</th>
+            {% if user.is_superuser %}
+                <th>Acciones</th>
+            {% endif %}
         </tr>
         </thead>
         <tbody>
@@ -30,15 +32,19 @@
                         {% endwith %}
                     </a>
                 </td>
-                <td colspan="2">
-                    <a href="{% url 'bulletin:delete_bulletin' bulletin.pk %}"><i class="material-icons">delete</i></a>
-                    <a href="{% url 'bulletin:update_bulletin' bulletin.pk %}"><i class="material-icons">edit_mode</i></a>
-                </td>
+                {% if user.is_superuser %}
+                    <td colspan="2">
+                        <a href="{% url 'bulletin:delete_bulletin' bulletin.pk %}"><i class="material-icons">delete</i></a>
+                        <a href="{% url 'bulletin:update_bulletin' bulletin.pk %}"><i class="material-icons">edit_mode</i></a>
+                    </td>
+                {% endif %}
                 {% empty %}
             </tr>
             <h4 class="center red-text">No hay boletines todavia</h4>
         {% endfor %}
         </tbody>
     </table>
-    <a href="{% url 'bulletin:create_bulletin' %}" class="btn blue">Añadir</a>
+    {% if user.is_superuser %}
+        <a href="{% url 'bulletin:create_bulletin' %}" class="btn blue">Añadir</a>
+    {% endif %}
 {% endblock %}

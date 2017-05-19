@@ -41,12 +41,14 @@
                 <td>{{ waste.date_last_measure }}</td>
                 <td>{{ waste.observations }}</td>
             </tr>
-            {% empty %}
+        {% empty %}
             <td class="center">No existen desechos</td>
         {% endfor %}
         </tbody>
     </table>
-    <a href="{% url 'waste:delete_dangerous_waste' dangerouswaste.pk %}" class="btn red">Eliminar</a>
+    {% if user.is_superuser %}
+        <a href="{% url 'waste:delete_dangerous_waste' dangerouswaste.pk %}" class="btn red">Eliminar</a>
+    {% endif %}
     <a href="{% url 'waste:update_dangerous_waste' dangerouswaste.pk %}" class="btn blue-grey">Editar</a>
     <a href="{% url 'waste:create_waste' dangerouswaste.pk %}" class="btn blue-grey">Añadir Desecho</a>
 {% endblock %}

@@ -25,7 +25,9 @@
                 <th>O</th>
                 <th>N</th>
                 <th>D</th>
-                <th>Acciones</th>
+                {% if user.is_superuser %}
+                    <th>Acciones</th>
+                {% endif %}
             </tr>
             </thead>
             <tbody>
@@ -104,9 +106,11 @@
                     {% else %}
                         <td></td>
                     {% endif %}
-                    <td colspan="3">
-                        <a href="{% url 'audit:delete_audit' audit.pk %}"><i class="material-icons">delete</i></a>
-                    </td>
+                    {% if user.is_superuser %}
+                        <td colspan="3">
+                            <a href="{% url 'audit:delete_audit' audit.pk %}"><i class="material-icons">delete</i></a>
+                        </td>
+                    {% endif %}
                     {% empty %}
                     <td class="center">No hay auditorias</td>
                 </tr>
@@ -116,7 +120,11 @@
         <h6>Observaciones: {{ general_program.observations }}</h6>
         <h6>Elaborado por: <a href="{% url 'account:detail_user' general_program.made_by.pk %}">{{ general_program.made_by }}</a></h6>
         <a href="{% url 'audit:detail_general_program' general_program.pk %}" class="btn blue">Ver Programa General</a>
-        <a href="{% url 'audit:create_audit' general_program.pk %}" class="btn blue-grey">Añadir auditoria</a>
+        {% if user.is_superuser %}
+            <a href="{% url 'audit:create_audit' general_program.pk %}" class="btn blue-grey">Añadir auditoria</a>
+        {% endif %}
     {% endfor %}
-    <a href="{% url 'audit:create_general_program' %}" class="btn blue">Añadir</a>
+    {% if user.is_superuser %}
+        <a href="{% url 'audit:create_general_program' %}" class="btn blue">Añadir</a>
+    {% endif %}
 {% endblock %}

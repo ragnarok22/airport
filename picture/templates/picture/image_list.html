@@ -8,11 +8,18 @@
     <div class="container-fluid">
         <div class="center" id="presentation">
             <a href="{% url 'picture:presentation' %}" class="btn blue" target="_blank">Presentaci&oacute;n</a>
-            <a href="{% url 'picture:create_picture' %}" class="btn blue-grey">Añadir Imagen</a>
+            {% if user.is_superuser %}
+                <a href="{% url 'picture:create_picture' %}" class="btn blue-grey">Añadir Imagen</a>
+            {% endif %}
         </div>
         {% for image in image_list %}
-            <img src="{{ image.image.url }}" alt="subido por {{ image.up_by }}" class="materialboxed view" width="200"
-                 height="200" data-caption="subido por {{ image.up_by.get_full_name }}">
+            <div class="container-fluid">
+                <img src="{{ image.image.url }}" alt="subido por {{ image.up_by }}" class="materialboxed view" width="200"
+                     height="200" data-caption="subido por {{ image.up_by.get_full_name }}">
+                {#                    <a href="{{ image.image.url }}" download="{{ image.image }}{{ forloop.counter }}" class="btn-floating">#}
+                {#                        <i class="material-icons">system_update_alt</i>#}
+                {#                    </a>#}
+            </div>
         {% empty %}
             <h3 class="red-text center">No hay fotos subidas</h3>
         {% endfor %}

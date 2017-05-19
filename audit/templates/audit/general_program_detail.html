@@ -120,7 +120,9 @@
     </table>
     <h6>Observaciones: {{ general_program.observations }}</h6>
     <h6>Elaborado por: <a href="{% url 'account:detail_user' general_program.made_by.pk %}">{{ general_program.made_by }}</a></h6>
-    <a href="{% url 'audit:update_general_program' general_program.pk %}" class="btn blue-grey">Editar Programa General</a>
-    <a href="{% url 'audit:delete_general_program' general_program.pk %}" class="btn red">Eliminar Programa General</a>
-    <a href="{% url 'audit:create_audit' general_program.pk %}" class="btn blue">Añadir auditoria</a>
+    {% if user.is_superuser %}
+        <a href="{% url 'audit:update_general_program' general_program.pk %}" class="btn blue-grey">Editar Programa General</a>
+        <a href="{% url 'audit:delete_general_program' general_program.pk %}" class="btn red">Eliminar Programa General</a>
+        <a href="{% url 'audit:create_audit' general_program.pk %}" class="btn blue">Añadir auditoria</a>
+    {% endif %}
 {% endblock %}

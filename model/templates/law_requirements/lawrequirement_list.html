@@ -30,7 +30,7 @@
                             <i class="material-icons">system_update_alt</i>
                         </a>
                     </td>
-                    {% else %}
+                {% else %}
                     <td>No hay documento</td>
                 {% endif %}
                 <td colspan="3">
@@ -61,5 +61,7 @@
             </div>
         </div>
     {% endfor %}
-    <a href="{% url 'model:create_law' %}" class="btn blue">Añadir Ley</a>
+    {% if user.is_superuser %}
+        <a href="{% url 'model:create_law' %}" class="btn blue">Añadir Ley</a>
+    {% endif %}
 {% endblock %}

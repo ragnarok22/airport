@@ -14,7 +14,9 @@
         <p>Descripción: {{ emergency.description }}</p>
         <a href="{% url 'model:detail_emergency' emergency.pk %}" class="btn blue">Detalles</a>
         <a href="{% url 'model:update_emergency' emergency.pk %}" class="btn blue-grey">Editar</a>
-        <a href="{% url 'model:delete_emergency' emergency.pk %}" class="btn red">Eliminar</a>
+        {% if user.is_superuser %}
+            <a href="{% url 'model:delete_emergency' emergency.pk %}" class="btn red">Eliminar</a>
+        {% endif %}
         {% if emergency.report == 's' %}
             <a href="{% url 'model:create_simulation_analysis' %}" class="btn blue">Añadir Analisis de simulacro o ejercicio</a>
         {% else %}
