@@ -46,5 +46,7 @@
     {% else %}
         <h4 class="center red-text">No existen bibliografias todavia</h4>
     {% endif %}
-    <a href="{% url 'bibliography:create_bibliography' %}" class="btn blue">Añadir Bibliografia</a>
+    {% if user.is_superuser %}
+        <a href="{% url 'bibliography:create_bibliography' %}" class="btn blue">Añadir Bibliografia</a>
+    {% endif %}
 {% endblock %}
