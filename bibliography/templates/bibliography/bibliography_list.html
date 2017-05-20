@@ -1,0 +1,50 @@
+{% extends 'account/dashboard.html' %}
+{% block title %}
+    Bibliografia Formulario
+{% endblock %}
+
+{% block content-left %}
+    <h4 class="center">{{ header }}</h4>
+    {% if bibliography_list %}
+        <table>
+            <thead>
+            <tr>
+                <th>No</th>
+                <th>Fecha de publicacion</th>
+                <th>Documento</th>
+                {% if user.is_superuser %}
+                    <th>Acciones</th>
+                {% endif %}
+            </tr>
+            </thead>
+            <tbody>
+            {% for bibliography in bibliography_list %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ bibliography.pub_date }}</td>
+                    <td>
+                        <a href="{{ bibliography.file.url }}" data-position="bottom" data-delay="50"
+                           data-tooltip="Descargar documento" class="tooltipped"
+                           download="{{ bibliography.file }}{{ bibliography.pub_date }}">
+                            <i class="material-icons">system_update_alt</i>
+                        </a>
+                    </td>
+                    {% if user.is_superuser %}
+                        <td colspan="2">
+                            <a href="{% url 'bibliography:update_bibliography' bibliography.pk %}">
+                                <i class="material-icons">edit_mode</i>
+                            </a>
+                            <a href="{% url 'bibliography:delete_bibliography' bibliography.pk %}">
+                                <i class="material-icons">delete</i>
+                            </a>
+                        </td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <h4 class="center red-text">No existen bibliografias todavia</h4>
+    {% endif %}
+    <a href="{% url 'bibliography:create_bibliography' %}" class="btn blue">Añadir Bibliografia</a>
+{% endblock %}

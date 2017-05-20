@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'bulletin',
     'training',
     'environmental_council',
+    'bibliography',
 ]
 
 MIDDLEWARE = [

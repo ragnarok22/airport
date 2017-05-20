@@ -18,6 +18,7 @@ urlpatterns = [
     url(r'^bulletin/', include('bulletin.urls', namespace='bulletin')),
     url(r'^training/', include('training.urls', namespace='training')),
     url(r'^environmental/council/', include('environmental_council.urls', namespace='environmental_council')),
+    url(r'^bibliography/', include('bibliography.urls', namespace='bibliography')),
     url(r'^$', DashboardView.as_view(), name='dashboard'),
 ]
 urlpatterns += staticfiles_urlpatterns()
