@@ -1,3 +1,24 @@
-from django.shortcuts import render
+from django.views.generic import CreateView, UpdateView, DetailView, DeleteView, ListView
 
-# Create your views here.
+from account.views import SuperUserRequiredMixin, ProfileMixin
+from .models import Training
+
+
+class TrainingCreateView(SuperUserRequiredMixin, CreateView):
+    model = Training
+
+
+class TrainingUpdateView(SuperUserRequiredMixin, UpdateView):
+    model = Training
+
+
+class TrainingDetailView(ProfileMixin, DetailView):
+    model = Training
+
+
+class TrainingListView(ProfileMixin, ListView):
+    model = Training
+
+
+class TrainingDeleteView(ProfileMixin, DeleteView):
+    model = Training

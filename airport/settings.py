@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'dangerous_waste',
     'poll',
     'bulletin',
+    'training',
 ]
 
 MIDDLEWARE = [
