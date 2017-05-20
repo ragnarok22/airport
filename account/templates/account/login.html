@@ -8,6 +8,11 @@
 {% block title %}Login{% endblock %}
 {% block content %}
     <div class="row">
+        <img src="{% static 'account/images/calidad.png' %}" alt="sistema de gestion de la calidad">
+        <img src="{% static 'account/images/ecasa.png' %}" alt="ECASA">
+        <img src="{% static 'account/images/bureau.png' %}" alt="Bureau Veritas">
+    </div>
+    <div class="row">
         <div class="col s12 l12">
             <form method="post" class="col l12 login">
                 {% csrf_token %}
