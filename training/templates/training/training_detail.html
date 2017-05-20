@@ -1,0 +1,19 @@
+{% extends 'account/dashboard.html' %}
+{% block title %}
+    Detalles de la capacitacion
+{% endblock %}
+
+{% block content-left %}
+    <h4 class="center">{{ training.title }}</h4>
+    <p>Fecha de publicacion: {{ training.pub_date }}</p>
+    <a href="{{ training.file.url }}" class="btn blue-grey" download="documentos de {{ training.title }}">Descargar documentos</a>
+    <a href="{{ training.classes.url }}" class="btn blue-grey" download="clases de {{ training.title }}">Descargar clases</a>
+    <h4 class="center">Usuarios registrados</h4>
+    {% for user_profile in training.register.all %}
+        {{ forloop.counter }}
+        <a href="{% url 'account:detail_user' user_profile.pk %}">{{ user_profile.get_full_name }}</a>
+    {% empty %}
+        <h5 class="center red-text">No hay usuarios registrados</h5>
+    {% endfor %}
+    <a href="{% url 'training:list_training' %}" class="btn blue">Ver todas las capacitaciones</a>
+{% endblock %}

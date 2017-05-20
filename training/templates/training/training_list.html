@@ -1,0 +1,60 @@
+{% extends 'account/dashboard.html' %}
+{% block title %}
+    Capacitaciones
+{% endblock %}
+
+{% block content-left %}
+    <table>
+        <thead>
+        <tr>
+            <th>No</th>
+            <th>Capacitacion</th>
+            <th>Fichero</th>
+            <th>Clases</th>
+            <th>Fecha de publicacion</th>
+            <th>Registrarse</th>
+            {% if user.is_superuser %}
+                <th>Acciones</th>
+            {% endif %}
+        </tr>
+        </thead>
+        <tbody>
+        {% for training in training_list %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ training.title }}</td>
+                <td>
+                    <a href="{{ training.file.url }}" data-position="bottom" data-delay="50" data-tooltip="Descargar documento" class="tooltipped">
+                        <i class="material-icons">system_update_alt</i>
+                    </a>
+                </td>
+                <td>
+                    <a href="{{ training.classes.url }}" data-position="bottom" data-delay="50" data-tooltip="Descargar clases" class="tooltipped">
+                        <i class="material-icons">system_update_alt</i>
+                    </a>
+                </td>
+                <td>{{ training.pub_date }}</td>
+                <td>
+                    <input type="checkbox" id="register_me">
+                    <label for="register_me">Registrarme</label>
+                </td>
+                {% if user.is_superuser %}
+                    <td colspan="3">
+                        <a href="{% url 'training:detail_training' training.pk %}">
+                            <i class="material-icons">description</i>
+                        </a>
+                        <a href="{% url 'training:update_training' training.pk %}">
+                            <i class="material-icons">mode_edit</i>
+                        </a>
+                        <a href="{% url 'training:delete_training' training.pk %}">
+                            <i class="material-icons">delete</i>
+                        </a>
+                    </td>
+                {% endif %}
+            </tr>
+        {% empty %}
+            <h4 class="center red-text">No hay Capacitaciones aun</h4>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

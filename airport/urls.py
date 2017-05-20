@@ -16,6 +16,7 @@ urlpatterns = [
     url(r'^waste/', include('dangerous_waste.urls', namespace='waste')),
     url(r'^poll/', include('poll.urls', namespace='poll')),
     url(r'^bulletin/', include('bulletin.urls', namespace='bulletin')),
+    url(r'^training/', include('training.urls', namespace='training')),
     url(r'^$', DashboardView.as_view(), name='dashboard'),
 ]
 urlpatterns += staticfiles_urlpatterns()

@@ -1,0 +1,13 @@
+{% extends 'account/dashboard.html' %}
+{% block title %}
+    Añadir capacitacion
+{% endblock %}
+
+{% block content-left %}
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn blue">Aceptar</button>
+        <a href="{% url 'training:list_training' %}" class="btn red">Cancelar</a>
+    </form>
+{% endblock %}

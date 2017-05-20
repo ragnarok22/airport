@@ -1,0 +1,12 @@
+{% extends 'account/dashboard.html' %}
+{% block title %}
+Eliminar capacitacion
+{% endblock %}
+
+{% block content-left %}
+    <form method="post">
+        <h4>¿Estas seguro de que deseas eliminar esta capacitacion?</h4>
+        <button type="submit" class="btn red">Aceptar</button>
+        <a href="{% url 'training:list_training' %}" class="btn blue">Cancelar</a>
+    </form>
+{% endblock %}
