@@ -26,7 +26,9 @@
                 <td>{{ bulletin.title }}</td>
                 <td>{{ bulletin.pub_date }}</td>
                 <td>
-                    <a href="{{ bulletin.file.url }}" data-position="bottom" data-delay="50" data-tooltip="Descargar documento {{ bulletin.file }}" class="tooltipped">
+                    <a href="{{ bulletin.file.url }}" data-position="bottom" data-delay="50"
+                       data-tooltip="Descargar documento {{ bulletin.file }}" class="tooltipped"
+                       download="{{ bulletin.title }}">
                         {% with bulletin.file.url|check_extension as image %}
                             <img src="/static/bulletin/images/{{ image }}" width="50" height="50">
                         {% endwith %}
@@ -35,7 +37,8 @@
                 {% if user.is_superuser %}
                     <td colspan="2">
                         <a href="{% url 'bulletin:delete_bulletin' bulletin.pk %}"><i class="material-icons">delete</i></a>
-                        <a href="{% url 'bulletin:update_bulletin' bulletin.pk %}"><i class="material-icons">edit_mode</i></a>
+                        <a href="{% url 'bulletin:update_bulletin' bulletin.pk %}"><i
+                                class="material-icons">edit_mode</i></a>
                     </td>
                 {% endif %}
                 {% empty %}
