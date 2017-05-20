@@ -1,0 +1,13 @@
+{% extends 'account/dashboard.html' %}
+{% block title %}
+Eliminar integrante del consejo ambiental
+{% endblock %}
+
+{% block content-left %}
+    <form method="post">
+        {% csrf_token %}
+        <h4>¿Estas seguro de que deseas dar de baja a este integrante del consejo ambiental?</h4>
+        <button type="submit" class="btn red">Aceptar</button>
+        <a href="{% url 'dashboard' %}" class="btn blue">Cancelar</a>
+    </form>
+{% endblock %}

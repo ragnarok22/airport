@@ -13,6 +13,7 @@ from django.views.generic import FormView, RedirectView, TemplateView, UpdateVie
 
 from account.forms import ProfileUpdateForm, ProfileUpdatePasswordForm, ProfileCreateForm
 from account.models import Profile
+from environmental_council.models import EnvironmentalCouncil
 from event.models import Event
 
 
@@ -36,7 +37,9 @@ class ProfileMixin(LoginRequiredMixin):
     def get_context_data(self, **kwargs):
         context = super(ProfileMixin, self).get_context_data(**kwargs)
         profile = Profile.objects.get(username=self.request.user.username)
+        environmental_council = EnvironmentalCouncil.objects.all()
         context['profile'] = profile
+        context['environmental_council_list'] = environmental_council
         return context
 
 

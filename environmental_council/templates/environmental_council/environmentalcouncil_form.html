@@ -1,0 +1,12 @@
+{% extends 'account/dashboard.html' %}
+{% block title %}
+    Consejo Ambiental
+{% endblock %}
+{% block content-left %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn blue">Aceptar</button>
+        <a href="{% url 'dashboard' %}" class="btn red">Cancelar</a>
+    </form>
+{% endblock %}

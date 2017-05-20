@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'poll',
     'bulletin',
     'training',
+    'environmental_council',
 ]
 
 MIDDLEWARE = [
