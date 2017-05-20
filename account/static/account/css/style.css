@@ -13,3 +13,9 @@
 .go-top:hover {
     background-color: rgba(0, 0, 0, 0.6);
 }
+
+.footer {
+    width: 100%;
+    bottom: 0;
+    position: fixed;
+}
