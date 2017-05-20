@@ -13,6 +13,7 @@ from django.views.generic import FormView, RedirectView, TemplateView, UpdateVie
 
 from account.forms import ProfileUpdateForm, ProfileUpdatePasswordForm, ProfileCreateForm
 from account.models import Profile
+from bulletin.models import Bulletin
 from environmental_council.models import EnvironmentalCouncil
 from event.models import Event
 
@@ -105,6 +106,8 @@ class DashboardView(ProfileMixin, TemplateView):
         context['event_today_list'] = Event.objects.filter(
             Q(date__day=timezone.now().day) & Q(date__month=timezone.now().month)
         )
+        context['events_list'] = Event.objects.all()
+        context['bulletin_list'] = Bulletin.objects.all()
         return context
 
 

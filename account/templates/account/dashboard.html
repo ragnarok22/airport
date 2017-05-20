@@ -1,5 +1,6 @@
 {% extends 'navbar.html' %}
 {% load staticfiles %}
+{% load filters %}
 
 {% block title %}Dashboard{% endblock %}
 
@@ -7,15 +8,120 @@
     <main class="row">
         <section class="col l8">
             {% block content-left %}
-                <h2 class="center">Sistema de gestion ambiental ECASA</h2>
-                <h1>Modelos</h1>
-                <p><a href="{% url 'model:list_modelr01pg01' %}">R-01 PG.190-01</a></p>
-                <p><a href="{% url 'model:list_law' %}">R-01 PG.190-02</a></p>
-                <p><a href="{% url 'model:list_emergency' %}">R-01 PG.190-03</a></p>
-                <p><a href="{% url 'model:list_communication' %}">R-01 PG.190-04</a></p>
-                <p><a href="{% url 'audit:list_general_program' %}">R-01 PG.190-05</a></p>
-                <p><a href="{% url 'waste:list_dangerous_waste' %}">R-01 PG.190-06</a></p>
-                <p><a href="{% url 'poll:all_poll' %}">R-01 PG.190-07</a></p>
+                <ul id="sga">
+                    <li style="transform: translateX(0px); opacity: 0;">
+                        <h2 class="center">Sistema de gestion ambiental ECASA</h2>
+                    </li>
+                </ul>
+                <div class="row">
+                    <div class="col s12">
+                        <ul class="tabs">
+                            <li class="tab col s3"><a class="blue-text" href="#test1">Modelos</a></li>
+                            <li class="tab col s3"><a class="blue-text" href="#test2">Bibliografia</a></li>
+                            <li class="tab col s3"><a class="blue-text" href="#test3">Boletin</a></li>
+                            <li class="tab col s3"><a class="blue-text" href="#test4">Efemerides</a></li>
+                        </ul>
+                    </div>
+                    <div id="test1" class="col s12 l12 m12">
+                        <br>
+                        <a href="#" class="btn waves-effect blue">Modelo R-01/PG.190-01</a>
+                        <a href="#" class="btn waves-effect blue">Modelo R-01/PG.190-02</a>
+                        <a href="#" class="btn waves-effect blue">Modelo R-01/PG.190-03</a>
+                        <a href="#" class="btn waves-effect blue">Modelo R-01/PG.190-04</a>
+                        <a href="#" class="btn waves-effect blue">Modelo R-01/PG.190-05</a>
+                        <a href="#" class="btn waves-effect blue">Modelo R-01/PG.190-06</a>
+                        <a href="#" class="btn waves-effect blue">Modelo R-01/PG.190-07</a>
+                    </div>
+
+                    <div id="test2" class="col s12">
+                        <br>
+                        <div class="col l4">
+                            <a href="{% url 'model:list_law' %}" class="waves-effect waves-teal btn-flat">Normas,
+                                Decretos Leyes</a>
+                        </div>
+                        <div class="col l4">
+                            <a href="{% url 'bibliography:list_cga_bibliography' %}"
+                               class="waves-effect waves-teal btn-flat">Documentos de CGA</a>
+                        </div>
+                        <div class="col l4">
+                            <a href="{% url 'bibliography:list_other_bibliography' %}"
+                               class="waves-effect waves-teal btn-flat">Otros Documentos</a>
+                        </div>
+                    </div>
+                    <div id="test3" class="col s12">
+                        {% if bulletin_list %}
+                            <table>
+                                <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Titulo</th>
+                                    <th>Fecha de publicacion</th>
+                                    <th>Documento</th>
+                                    {% if user.is_superuser %}
+                                        <th>Acciones</th>
+                                    {% endif %}
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for bulletin in bulletin_list %}
+                                    <tr>
+                                        <td>{{ forloop.counter }}</td>
+                                        <td>{{ bulletin.title }}</td>
+                                        <td>{{ bulletin.pub_date }}</td>
+                                        <td>
+                                            <a href="{{ bulletin.file.url }}" data-position="bottom" data-delay="50"
+                                               data-tooltip="Descargar documento {{ bulletin.file }}"
+                                               download="{{ bulletin.title }}"
+                                               class="tooltipped">
+                                                {% with bulletin.file.url|check_extension as image %}
+                                                    <img src="/static/bulletin/images/{{ image }}" width="50"
+                                                         height="50">
+                                                {% endwith %}
+                                            </a>
+                                        </td>
+                                        {% if user.is_superuser %}
+                                            <td colspan="2">
+                                                <a href="{% url 'bulletin:delete_bulletin' bulletin.pk %}"><i
+                                                        class="material-icons">delete</i></a>
+                                                <a href="{% url 'bulletin:update_bulletin' bulletin.pk %}"><i
+                                                        class="material-icons">edit_mode</i></a>
+                                            </td>
+                                        {% endif %}
+                                        {% empty %}
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        {% else %}
+                            <h4 class="center red-text">No hay boletines todavia</h4>
+                        {% endif %}
+                    </div>
+
+                    <div id="test4" class="col s12">
+                        {% if events_list %}
+                            <table>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Fecha</th>
+                                    <th>Titulo</th>
+                                    <th>Descripcion</th>
+                                </tr>
+                                {% for event in events_list %}
+                                    <tr>
+                                        <td>{{ forloop.counter }}</td>
+                                        <td><a href="{% url 'event:detail_event' event.pk %}">{{ event.date }}</a></td>
+                                        <td>{{ event.title }}</td>
+                                        <td>{{ event.description }}</td>
+                                    </tr>
+                                {% empty %}
+
+                                {% endfor %}
+                            </table>
+                        {% else %}
+                            <p class="center">No hay efemérides para mostrar</p>
+                        {% endif %}
+                    </div>
+                </div>
             {% endblock %}
         </section>
 
