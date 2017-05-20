@@ -24,12 +24,14 @@
                 <td>{{ forloop.counter }}</td>
                 <td>{{ training.title }}</td>
                 <td>
-                    <a href="{{ training.file.url }}" data-position="bottom" data-delay="50" data-tooltip="Descargar documento" class="tooltipped">
+                    <a href="{{ training.file.url }}" data-position="bottom" data-delay="50"
+                       data-tooltip="Descargar documento" class="tooltipped">
                         <i class="material-icons">system_update_alt</i>
                     </a>
                 </td>
                 <td>
-                    <a href="{{ training.classes.url }}" data-position="bottom" data-delay="50" data-tooltip="Descargar clases" class="tooltipped">
+                    <a href="{{ training.classes.url }}" data-position="bottom" data-delay="50"
+                       data-tooltip="Descargar clases" class="tooltipped">
                         <i class="material-icons">system_update_alt</i>
                     </a>
                 </td>
@@ -57,4 +59,7 @@
         {% endfor %}
         </tbody>
     </table>
+    {% if user.is_superuser %}
+        <a href="{% url 'training:create_training' %}" class="btn blue">Añadir capacitacion</a>
+    {% endif %}
 {% endblock %}
