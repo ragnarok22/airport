@@ -19,6 +19,10 @@ def validate_year(value):
 class Area(models.Model):
     name = models.CharField('Nombre', max_length=200)
 
+    class Meta:
+        verbose_name = 'Area'
+        verbose_name_plural = 'Areas'
+
     def __str__(self):
         return self.name
 
@@ -41,8 +45,8 @@ class ModelR01PG01(models.Model):
     pub_date = models.DateField('Fecha de publicación', auto_now=True)
 
     class Meta:
-        verbose_name = 'Modelo R01/PG.190-01'
-        verbose_name_plural = 'Modelos R01/PG.190-01'
+        verbose_name = 'Aspecto Ambiental'
+        verbose_name_plural = 'Aspectos Ambientales'
 
     def __str__(self):
         return "Modelo R01/PG.190-01 {}".format(self.environmental_aspects)
@@ -57,6 +61,13 @@ class LawRequirement(models.Model):
     file = models.FileField(upload_to=url, blank=True, verbose_name='Fichero')
     register_by = models.ForeignKey(Profile, verbose_name='Registrado por')
     pub_date = models.DateField('Fecha de publicación', auto_now=True)
+
+    class Meta:
+        verbose_name = 'Requerimiento Legal'
+        verbose_name_plural = 'Requerimientos Legales'
+
+    def __str__(self):
+        return '{} {}'.format(self.requirements, self.law)
 
 
 REPORT_CHOICES = (
@@ -75,6 +86,10 @@ class EmergencyReport(models.Model):
     place = models.CharField(max_length=100, verbose_name='Lugar')
     description = models.TextField(verbose_name='Descripcion')
 
+    class Meta:
+        verbose_name = 'Reporte de Emergencia'
+        verbose_name_plural = 'Reportes de Emergencia'
+
     def __str__(self):
         return '{} en {}'.format(self.get_report_display(), self.place)
 
@@ -86,6 +101,13 @@ class Analysis(models.Model):
     evaluation = models.IntegerField('Evaluacion')
     emergency = models.ForeignKey(EmergencyReport, verbose_name='Reporte de emergencia')
 
+    class Meta:
+        verbose_name = 'Analisis'
+        verbose_name_plural = 'Analisis'
+
+    def __str__(self):
+        return self.summary
+
 
 class RealAnalysis(Analysis):
     affections = models.TextField('Afectaciones')
@@ -93,11 +115,25 @@ class RealAnalysis(Analysis):
     first_time = models.BooleanField(verbose_name='Es la primera vez', default=False)
     cause = models.TextField('Causa')
 
+    class Meta:
+        verbose_name = 'Analisis de Situaciones Reales'
+        verbose_name_plural = 'Analisis de una Situacion Real'
+
+    def __str__(self):
+        return self.affections
+
 
 class SimulationAnalysis(Analysis):
     is_necessary_check = models.BooleanField(verbose_name='Es necesario revisar', default=False)
     specify = models.TextField(blank=True, verbose_name='Especificaciones')
     participants = models.FileField(verbose_name='Participantes', blank=True, upload_to=url_analysis)
+
+    class Meta:
+        verbose_name = 'Analisis de Simulacro o Ejercicio'
+        verbose_name_plural = 'Analisis de Simulacros o Ejercicios'
+
+    def __str__(self):
+        return self.specify
 
 
 COMMUNICATION_CHOICES = (
@@ -119,3 +155,10 @@ class Communication(models.Model):
     distribution_date = models.DateField('Fecha de distribucion')
     emission_path = models.CharField('Via de emision', max_length=200)
     register_by = models.ForeignKey(Profile, verbose_name='Registrado por')
+
+    class Meta:
+        verbose_name = 'Comunicacion'
+        verbose_name_plural = 'Comunicaciones'
+
+    def __str__(self):
+        return '{} {}'.format(self.airport_name, self.type_communication)

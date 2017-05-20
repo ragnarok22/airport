@@ -71,6 +71,13 @@ class Audit(models.Model):
     n = models.CharField('Noviembre', choices=AUDIT_TYPE, blank=True, max_length=3)
     d = models.CharField('Diciembre', choices=AUDIT_TYPE, blank=True, max_length=3)
 
+    class Meta:
+        verbose_name = 'Auditoria'
+        verbose_name_plural = 'Auditorias'
+
+    def __str__(self):
+        return '{} {}'.format(self.area, self.general_program)
+
 
 class AuditPlan(models.Model):
     code = 'R-02/PG.01-05'
