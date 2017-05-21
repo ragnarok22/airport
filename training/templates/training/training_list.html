@@ -24,6 +24,7 @@
                 <td>{{ forloop.counter }}</td>
                 <td>{{ training.title }}</td>
                 <td>
+
                     <a href="{{ training.file.url }}" data-position="bottom" data-delay="50"
                        data-tooltip="Descargar documento" class="tooltipped">
                         <i class="material-icons">system_update_alt</i>
@@ -37,8 +38,33 @@
                 </td>
                 <td>{{ training.pub_date }}</td>
                 <td>
-                    <input type="checkbox" id="register_me">
-                    <label for="register_me">Registrarme</label>
+                    <form method="post" id="form_register{{ forloop.counter }}">
+                        {% csrf_token %}
+                        <label>
+                            {#                            {{ form.training }}#}
+                            <input type="text" id="id_training{{ forloop.counter }}" name="training">
+                        </label>
+                        {#                        {{ form.register }}#}
+                        <input type="checkbox" id="id_register{{ forloop.counter }}" name="register">
+                        <label for="{{ form.register.id_for_label }}{{ forloop.counter }}">Registrarme</label>
+                    </form>
+                    <script>
+                        $(document).ready(function () {
+                            var form = $('#form_register{{ forloop.counter }}');
+                            var register = $('#{{ form.register.id_for_label }}{{ forloop.counter }}');
+                            var training_pk = $('#id_training{{ forloop.counter }}');
+                            training_pk.val('{{ training.pk }}');
+                            training_pk.addClass('hide');
+
+                            {% if profile in training.register.all %}
+                                register.prop('checked', true);
+                            {% endif %}
+
+                            register.click(function () {
+                                form.submit();
+                            });
+                        });
+                    </script>
                 </td>
                 {% if user.is_superuser %}
                     <td colspan="3">

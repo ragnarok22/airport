@@ -10,3 +10,8 @@ class TrainingForm(forms.ModelForm):
         widgets = {
             'pub_date': forms.DateInput(attrs={'class': 'datepicker'})
         }
+
+
+class RegisterForm(forms.Form):
+    register = forms.BooleanField(label='Registrarse', required=False)
+    training = forms.CharField(max_length=10, required=False)
