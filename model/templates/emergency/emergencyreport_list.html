@@ -8,20 +8,32 @@
     <h4 class="center">Preparación y respuesta ante emergencias</h4>
     <h5 class="center">Informe de situación de emergencia</h5>
     {% for emergency in emergency_list %}
-        <h5>Informe de {{ emergency.get_report_display }}</h5>
-        <p>Fecha y hora de ocurrencia: {{ emergency.datetime }}</p>
-        <p>Lugar de ocurrencia: {{ emergency.place }}</p>
-        <p>Descripción: {{ emergency.description }}</p>
-        <a href="{% url 'model:detail_emergency' emergency.pk %}" class="btn blue">Detalles</a>
-        <a href="{% url 'model:update_emergency' emergency.pk %}" class="btn blue-grey">Editar</a>
-        {% if user.is_superuser %}
-            <a href="{% url 'model:delete_emergency' emergency.pk %}" class="btn red">Eliminar</a>
-        {% endif %}
-        {% if emergency.report == 's' %}
-            <a href="{% url 'model:create_simulation_analysis' %}" class="btn blue">Añadir Analisis de simulacro o ejercicio</a>
-        {% else %}
-            <a href="{% url 'model:create_real_analysis' %}" class="btn blue">Añadir Analisis de situaciones reales</a>
-        {% endif %}
+        <div class="container-fluid col l12">
+            <div class="col 6">
+                <h5>Aereopuerto: {{ emergency.airport }}</h5>
+            </div>
+            <div class="col 6 right">
+                <h5>Informe No: {{ emergency.no }}</h5>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <h5>Informe de {{ emergency.get_report_display }}</h5>
+            <p>Fecha y hora de ocurrencia: {{ emergency.datetime }}</p>
+            <p>Lugar de ocurrencia: {{ emergency.place }}</p>
+            <p>Descripción: {{ emergency.description }}</p>
+            <a href="{% url 'model:detail_emergency' emergency.pk %}" class="btn blue">Detalles</a>
+            <a href="{% url 'model:update_emergency' emergency.pk %}" class="btn blue-grey">Editar</a>
+            {% if user.is_superuser %}
+                <a href="{% url 'model:delete_emergency' emergency.pk %}" class="btn red">Eliminar</a>
+            {% endif %}
+            {% if emergency.report == 's' %}
+                <a href="{% url 'model:create_simulation_analysis' %}" class="btn blue">Añadir Analisis de simulacro o
+                    ejercicio</a>
+            {% else %}
+                <a href="{% url 'model:create_real_analysis' %}" class="btn blue">Añadir Analisis de situaciones
+                    reales</a>
+            {% endif %}
+        </div>
     {% endfor %}
     <a href="{% url 'model:create_emergency' %}" class="btn blue">Añadir Emergencia</a>
 {% endblock %}

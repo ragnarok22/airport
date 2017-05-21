@@ -7,7 +7,15 @@
 {% block content-left %}
     <h4 class="center">Preparación y respuesta ante emergencias</h4>
     <h5 class="center">Informe de situación de emergencia</h5>
-    <h5>Informe de {{ emergency.get_report_display }}</h5>
+    <h6 class="center">Informe de {{ emergency.get_report_display }}</h6>
+    <div class="container-fluid">
+        <div class="col l6">
+            <h5 class="center">Aereopuerto {{ emergency.airport }}</h5>
+        </div>
+        <div class="col l6">
+            <h5 class="center">Informe No: {{ emergency.no }}</h5>
+        </div>
+    </div>
     <p>Fecha y hora de ocurrencia: {{ emergency.datetime }}</p>
     <p>Lugar de ocurrencia: {{ emergency.place }}</p>
     <p>Descripción: {{ emergency.description }}</p>

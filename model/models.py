@@ -80,6 +80,7 @@ REPORT_CHOICES = (
 
 class EmergencyReport(models.Model):
     code = "PG190-03"
+    airport = models.CharField('Aereopuerto', max_length=150)
     no = models.IntegerField('Numero', unique=True)
     report = models.CharField('Reporte', max_length=1, choices=REPORT_CHOICES, default="s")
     datetime = models.DateTimeField(verbose_name='Fecha y hora')
