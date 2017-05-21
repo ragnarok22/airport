@@ -1,5 +1,9 @@
 $(document).ready(function () {
 
+    console.log('This web application was develop by Ragnarok');
+    console.log('Emal: sasuke.reinier@gmail.com');
+    console.log('Emal: rhernandeza@uho.edu.cu');
+
     $('select').material_select();
     $('.button-collapse').sideNav();
     $('.parallax').parallax();
