@@ -7,7 +7,7 @@ from account.views import SuperUserRequiredMixin, ProfileMixin
 from event.views import EventTodayProfileMixin
 from model.forms import EmergencyReportCreateForm, SimulationAnalysisCreateForm, CommunicationForm
 from model.models import ModelR01PG01, Area, LawRequirement, EmergencyReport, RealAnalysis, SimulationAnalysis, \
-    Communication
+    Communication, EnvironmentalAspectMatrix
 
 
 class ModelR01PG01CreateView(EventTodayProfileMixin, CreateView):
@@ -311,3 +311,32 @@ class CommunicationDeleteView(SuperUserRequiredMixin, DeleteView):
 
     def get_success_url(self):
         return reverse_lazy('model:list_communication')
+
+
+class EnvironmentalMatrixCreateView(ProfileMixin, CreateView):
+    model = EnvironmentalAspectMatrix
+    fields = '__all__'
+    success_url = reverse_lazy('model:list_environmental_matrix')
+    template_name = 'environmental_matrix/environmental_matrix_form.html'
+
+
+class EnvironmentalMatrixListView(ProfileMixin, ListView):
+    model = EnvironmentalAspectMatrix
+    template_name = 'environmental_matrix/environmental_matrix_list.html'
+    context_object_name = 'environmental_matrix_list'
+
+    def get_context_data(self, **kwargs):
+        context = super(EnvironmentalMatrixListView, self).get_context_data(**kwargs)
+        return context
+
+
+class EnvironmentalMatrixUpdateView(ProfileMixin, UpdateView):
+    model = EnvironmentalAspectMatrix
+
+
+class EnvironmentalMatrixDetailView(ProfileMixin, DetailView):
+    model = EnvironmentalAspectMatrix
+
+
+class EnvironmentalMatrixDeleteView(ProfileMixin, DeleteView):
+    model = EnvironmentalAspectMatrix

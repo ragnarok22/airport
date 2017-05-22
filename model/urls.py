@@ -6,9 +6,11 @@ from model.views import ModelR01PG01CreateView, ModelR01PG01UpdateView, ModelR01
     LawRequirementUpdateView, EmergencyReportCreateView, EmergencyReportDeleteView, EmergencyReportDetailView, \
     EmergencyReportListView, EmergencyReportUpdateView, RealAnalysisCreateView, RealAnalysisDeleteView, \
     RealAnalysisDetailView, RealAnalysisListView, RealAnalysisUpdateView, SimulationAnalysisCreateView, \
-    SimulationAnalysisDeleteView, SimulationAnalysisDetailView, SimulationAnalysisListView, SimulationAnalysisUpdateView, \
-    CommunicationCreateView, CommunicationDeleteView, CommunicationDetailView, CommunicationListView, CommunicationUpdateView, \
-    ModelR01PG01ListAllView
+    SimulationAnalysisDeleteView, SimulationAnalysisDetailView, SimulationAnalysisListView, \
+    SimulationAnalysisUpdateView, CommunicationCreateView, CommunicationDeleteView, CommunicationDetailView, \
+    CommunicationListView, CommunicationUpdateView, ModelR01PG01ListAllView, EnvironmentalMatrixCreateView, \
+    EnvironmentalMatrixUpdateView, EnvironmentalMatrixDetailView, EnvironmentalMatrixDeleteView, \
+    EnvironmentalMatrixListView
 
 urlpatterns = [
     url(r'^create/r01pg01/$', ModelR01PG01CreateView.as_view(), name='create_modelr01pg01'),
@@ -43,15 +45,29 @@ urlpatterns = [
     url(r'^delete/real/analysis/(?P<pk>[0-9]+)/$', RealAnalysisDeleteView.as_view(), name='delete_real_analysis'),
 
     url(r'^create/simulation/analysis/$', SimulationAnalysisCreateView.as_view(), name='create_simulation_analysis'),
-    url(r'^update/simulation/analysis/(?P<pk>[0-9]+)/$', SimulationAnalysisUpdateView.as_view(), name='update_simulation_analysis'),
-    url(r'^detail/simulation/analysis/(?P<pk>[0-9]+)/$', SimulationAnalysisDetailView.as_view(), name='detail_simulation_analysis'),
+    url(r'^update/simulation/analysis/(?P<pk>[0-9]+)/$', SimulationAnalysisUpdateView.as_view(),
+        name='update_simulation_analysis'),
+    url(r'^detail/simulation/analysis/(?P<pk>[0-9]+)/$', SimulationAnalysisDetailView.as_view(),
+        name='detail_simulation_analysis'),
     url(r'^list/simulation/analysis/$', SimulationAnalysisListView.as_view(), name='list_simulation_analysis'),
-    url(r'^delete/simulation/analysis/(?P<pk>[0-9]+)/$', SimulationAnalysisDeleteView.as_view(), name='delete_simulation_analysis'),
+    url(r'^delete/simulation/analysis/(?P<pk>[0-9]+)/$', SimulationAnalysisDeleteView.as_view(),
+        name='delete_simulation_analysis'),
 
     url(r'^create/communication/$', CommunicationCreateView.as_view(), name='create_communication'),
     url(r'^update/communication/(?P<pk>[0-9]+)/$', CommunicationUpdateView.as_view(), name='update_communication'),
     url(r'^detail/communication/(?P<pk>[0-9]+)/$', CommunicationDetailView.as_view(), name='detail_communication'),
     url(r'^list/communication/$', CommunicationListView.as_view(), name='list_communication'),
     url(r'^delete/communication/(?P<pk>[0-9]+)/$', CommunicationDeleteView.as_view(), name='delete_communication'),
+
+    url(r'^create/environmental/matrix/$', EnvironmentalMatrixCreateView.as_view(),
+        name='create_environmental_matrix'),
+    url(r'^list/environmental/matrix/$', EnvironmentalMatrixListView.as_view(),
+        name='list_environmental_matrix'),
+    url(r'^update/environmental/matrix/(?P<pk>[0-9]+)/$', EnvironmentalMatrixUpdateView.as_view(),
+        name='update_environmental_matrix'),
+    url(r'^detail/environmental/matrix/(?P<pk>[0-9]+)/$', EnvironmentalMatrixDetailView.as_view(),
+        name='detail_environmental_matrix'),
+    url(r'^delete/environmental/matrix/(?P<pk>[0-9]+)/$', EnvironmentalMatrixDeleteView.as_view(),
+        name='delete_environmental_matrix'),
 
 ]

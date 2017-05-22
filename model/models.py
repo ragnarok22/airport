@@ -38,6 +38,7 @@ def url_analysis(self, filename):
 
 
 class ModelR01PG01(models.Model):
+    code = 'R01/PG.190-01'
     area = models.ForeignKey(Area)
     year = models.IntegerField('Año', validators=[validate_year])
     environmental_aspects = models.TextField('Aspectos Ambientales')
@@ -50,6 +51,31 @@ class ModelR01PG01(models.Model):
 
     def __str__(self):
         return "Modelo R01/PG.190-01 {}".format(self.environmental_aspects)
+
+
+CHARACTER_CHOICES = (
+    ('-', 'Negativo'),
+    ('+', 'Positivo'),
+)
+
+
+class EnvironmentalAspectMatrix(models.Model):
+    code = 'R02/PG.190-01'
+    environmental_impact = models.CharField('Impacto Ambiental Asociado', max_length=150)
+    activity = models.CharField('Actividad, Producto o servicio', max_length=200)
+    consume = models.CharField('Consumo', max_length=100, blank=True)
+    frequency = models.PositiveIntegerField('Frecuencia')
+    probability = models.PositiveIntegerField('Probabilidad')
+    severity = models.PositiveIntegerField('Gravedad')
+    character = models.CharField('Caracter', max_length=1, choices=CHARACTER_CHOICES)
+    environment_aspect = models.OneToOneField(ModelR01PG01, verbose_name='Aspecto Ambiental')
+
+    class Meta:
+        verbose_name = 'Matriz de Aspecto Ambiental'
+        verbose_name_plural = 'Matrices de Aspectos Ambientales'
+
+    def __str__(self):
+        return self.environmental_impact
 
 
 class LawRequirement(models.Model):

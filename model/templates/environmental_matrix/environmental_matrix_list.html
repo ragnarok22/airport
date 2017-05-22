@@ -1,0 +1,83 @@
+{% extends 'account/dashboard.html' %}
+{% block title %}
+    Matrices de Aspectos Ambientales
+{% endblock %}
+
+{% block content-left %}
+    <h4 class="center">Matriz de Aspectos Ambientales </h4><h6 class="right">R-02/PG.190-01</h6>
+    <table>
+        <thead>
+        <tr>
+            <td>No</td>
+            <td>Area</td>
+            <td>Actividad, Producto o Servicio</td>
+            <td>Aspecto Ambiental</td>
+            <td>Impacto Ambiental asociado</td>
+            <td>Consumo</td>
+            <td class="tooltipped" data-position="top" data-delay="50" data-tooltip="Frecuencia">F</td>
+            <td class="tooltipped" data-position="top" data-delay="50" data-tooltip="Probabilidad">P</td>
+            <td class="tooltipped" data-position="top" data-delay="50" data-tooltip="Gravedad">G</td>
+            <td class="tooltipped" data-position="top" data-delay="50" data-tooltip="Significancia">S</td>
+            <td>Caracter</td>
+            <td>Asignacion de prioridad</td>
+        </tr>
+        </thead>
+        <tbody>
+        {% for environmental_matrix in environmental_matrix_list %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ environmental_matrix.environment_aspect.area }}</td>
+                <td>{{ environmental_matrix.activity }}</td>
+                <td>{{ environmental_matrix.environment_aspect.environmental_aspects }}</td>
+                <td>{{ environmental_matrix.environmental_impact }}</td>
+                <td>{{ environmental_matrix.consume }}</td>
+                <td id="f">{{ environmental_matrix.frequency }}</td>
+                <td id="p">{{ environmental_matrix.probability }}</td>
+                <td id="s">{{ environmental_matrix.severity }}</td>
+                <td colspan="2" class="aligned">
+                    <span id="significant"></span>
+                    <span id="significant_choice"></span>
+                </td>
+                <td id="character" class="center-align">{{ environmental_matrix.character }}</td>
+                <td id="priority_id"></td>
+            </tr>
+            <script>
+                $(document).ready(function () {
+                    var f = $('#f');
+                    var p = $('#p');
+                    var s = $('#s');
+                    var sig = parseInt(f.text()) * parseInt(p.text()) * parseInt(s.text());
+                    $('#significant').text(sig);
+                    sig_choice = $('#significant_choice');
+                    if (sig < 50) {
+                        sig_choice.text('Bajo');
+                    } else if (sig > 100) {
+                        sig_choice.text('Significativo');
+                    } else {
+                        sig_choice.text('Moderado');
+                    }
+                    var character = $('#character');
+                    var priority_id = $('#priority_id');
+                    if (character.text() == '-') {//negativo
+                        if (sig < 50) {//bajo
+                            priority_id.text('2');
+                        }else if(sig > 100){//significativo
+                            priority_id.text('1');
+                        }else{//moderado
+                            priority_id.text('1');
+                        }
+                    } else {
+                        if (sig < 50) {//bajo
+                            priority_id.text('3');
+                        }else if(sig > 100){//significativo
+                            priority_id.text('5');
+                        }else{//moderado
+                            priority_id.text('4');
+                        }
+                    }
+                });
+            </script>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
