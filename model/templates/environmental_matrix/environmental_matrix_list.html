@@ -8,18 +8,18 @@
     <table>
         <thead>
         <tr>
-            <td>No</td>
-            <td>Area</td>
-            <td>Actividad, Producto o Servicio</td>
-            <td>Aspecto Ambiental</td>
-            <td>Impacto Ambiental asociado</td>
-            <td>Consumo</td>
-            <td class="tooltipped" data-position="top" data-delay="50" data-tooltip="Frecuencia">F</td>
-            <td class="tooltipped" data-position="top" data-delay="50" data-tooltip="Probabilidad">P</td>
-            <td class="tooltipped" data-position="top" data-delay="50" data-tooltip="Gravedad">G</td>
-            <td class="tooltipped" data-position="top" data-delay="50" data-tooltip="Significancia">S</td>
-            <td>Caracter</td>
-            <td>Asignacion de prioridad</td>
+            <th>No</th>
+            <th>Area</th>
+            <th>Actividad, Producto o Servicio</th>
+            <th>Aspecto Ambiental</th>
+            <th>Impacto Ambiental asociado</th>
+            <th>Consumo</th>
+            <th class="tooltipped" data-position="top" data-delay="50" data-tooltip="Frecuencia">F</th>
+            <th class="tooltipped" data-position="top" data-delay="50" data-tooltip="Probabilidad">P</th>
+            <th class="tooltipped" data-position="top" data-delay="50" data-tooltip="Gravedad">G</th>
+            <th class="tooltipped" data-position="top" data-delay="50" data-tooltip="Significancia">S</th>
+            <th>Caracter</th>
+            <th>Asignacion de prioridad</th>
         </tr>
         </thead>
         <tbody>
@@ -31,53 +31,64 @@
                 <td>{{ environmental_matrix.environment_aspect.environmental_aspects }}</td>
                 <td>{{ environmental_matrix.environmental_impact }}</td>
                 <td>{{ environmental_matrix.consume }}</td>
-                <td id="f">{{ environmental_matrix.frequency }}</td>
-                <td id="p">{{ environmental_matrix.probability }}</td>
-                <td id="s">{{ environmental_matrix.severity }}</td>
+                <td id="f{{ forloop.counter }}">{{ environmental_matrix.frequency }}</td>
+                <td id="p{{ forloop.counter }}">{{ environmental_matrix.probability }}</td>
+                <td id="s{{ forloop.counter }}">{{ environmental_matrix.severity }}</td>
                 <td colspan="2" class="aligned">
-                    <span id="significant"></span>
-                    <span id="significant_choice"></span>
+                    <span id="significant{{ forloop.counter }}"></span>
+                    <span id="significant_choice{{ forloop.counter }}"></span>
                 </td>
-                <td id="character" class="center-align">{{ environmental_matrix.character }}</td>
-                <td id="priority_id"></td>
+                <td id="character{{ forloop.counter }}" class="center-align">{{ environmental_matrix.character }}</td>
+                <td id="priority_id{{ forloop.counter }}"></td>
+                <td><a href="{% url 'model:update_environmental_matrix' environmental_matrix.pk %}">
+                    <i class="material-icons">mode_edit</i>
+                </a></td>
+                <td><a href="{% url 'model:delete_environmental_matrix' environmental_matrix.pk %}">
+                    <i class="material-icons">delete</i>
+                </a></td>
             </tr>
             <script>
                 $(document).ready(function () {
-                    var f = $('#f');
-                    var p = $('#p');
-                    var s = $('#s');
+                    var f = $('#f{{ forloop.counter }}');
+                    var p = $('#p{{ forloop.counter }}');
+                    var s = $('#s{{ forloop.counter }}');
                     var sig = parseInt(f.text()) * parseInt(p.text()) * parseInt(s.text());
-                    $('#significant').text(sig);
-                    sig_choice = $('#significant_choice');
+                    $('#significant{{ forloop.counter }}').text(sig);
+                    var sig_choice = $('#significant_choice{{ forloop.counter }}');
                     if (sig < 50) {
                         sig_choice.text('Bajo');
+                        sig_choice.addClass('green');
                     } else if (sig > 100) {
                         sig_choice.text('Significativo');
+                        sig_choice.addClass('red');
                     } else {
                         sig_choice.text('Moderado');
+                        sig_choice.addClass('yellow');
                     }
-                    var character = $('#character');
-                    var priority_id = $('#priority_id');
+                    var character = $('#character{{ forloop.counter }}');
+                    var priority_id = $('#priority_id{{ forloop.counter }}');
                     if (character.text() == '-') {//negativo
                         if (sig < 50) {//bajo
                             priority_id.text('2');
-                        }else if(sig > 100){//significativo
+                        } else if (sig > 100) {//significativo
                             priority_id.text('1');
-                        }else{//moderado
+                        } else {//moderado
                             priority_id.text('1');
                         }
                     } else {
                         if (sig < 50) {//bajo
                             priority_id.text('3');
-                        }else if(sig > 100){//significativo
+                        } else if (sig > 100) {//significativo
                             priority_id.text('5');
-                        }else{//moderado
+                        } else {//moderado
                             priority_id.text('4');
                         }
                     }
                 });
             </script>
+
         {% endfor %}
         </tbody>
     </table>
+    <a href="{% url 'model:create_environmental_matrix' %}" class="btn blue">Añadir</a>
 {% endblock %}

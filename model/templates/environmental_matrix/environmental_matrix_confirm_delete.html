@@ -1,0 +1,13 @@
+{% extends 'account/dashboard.html' %}
+{% block title %}
+    Eliminar matriz de aspecto ambiental
+{% endblock %}
+
+{% block content-left %}
+    <form method="post">
+        {% csrf_token %}
+        <h4>¿Estas seguro que deseas borrar esto?</h4>
+        <button type="submit" class="btn red">Aceptar</button>
+        <a href="{% url 'model:list_environmental_matrix' %}" class="btn blue">Cancelar</a>
+    </form>
+{% endblock %}

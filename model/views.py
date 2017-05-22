@@ -332,6 +332,9 @@ class EnvironmentalMatrixListView(ProfileMixin, ListView):
 
 class EnvironmentalMatrixUpdateView(ProfileMixin, UpdateView):
     model = EnvironmentalAspectMatrix
+    fields = '__all__'
+    success_url = reverse_lazy('model:list_environmental_matrix')
+    template_name = 'environmental_matrix/environmental_matrix_form.html'
 
 
 class EnvironmentalMatrixDetailView(ProfileMixin, DetailView):
@@ -340,3 +343,5 @@ class EnvironmentalMatrixDetailView(ProfileMixin, DetailView):
 
 class EnvironmentalMatrixDeleteView(ProfileMixin, DeleteView):
     model = EnvironmentalAspectMatrix
+    success_url = reverse_lazy('model:list_environmental_matrix')
+    template_name = 'environmental_matrix/environmental_matrix_confirm_delete.html'
